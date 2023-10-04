@@ -1,0 +1,11 @@
+#Message{
+	align-self: center; 
+	color: rgb(255, 255, 255); 
+	-unity-font-style: bold-and-italic; 
+	width: 100%; 
+	margin-top: auto; 
+	background-color: rgba(0, 0, 0, 0.6); 
+	justify-content: center; 
+	-unity-text-align: middle-center; 
+	font-size: 250%;
+}

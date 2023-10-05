@@ -23,6 +23,13 @@ public class TapReceiver : MonoBehaviour
 
     public void OnTap(object sender, TapEventArgs args)
     {
-        Debug.Log(this.gameObject.name + " heard Tap");
+        string _msg = this.gameObject.name + " heard Tap";
+        
+        if(args.ObjHit != null) {
+            _msg += "of " + args.ObjHit.name;
+        }
+
+
+        Debug.Log(_msg);
     }
 }

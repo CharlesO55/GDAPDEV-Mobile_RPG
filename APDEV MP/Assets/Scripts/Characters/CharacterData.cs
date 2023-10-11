@@ -9,7 +9,7 @@ public class CharacterData
     [SerializeField] private string _playerName = "Unset";
     [SerializeField] private EnumUnitClass _class = EnumUnitClass.NONE;
 
-    [SerializeField] private GameObject _playerModel;
+    [SerializeField] private GameObject _characterModel;
 
 
     [Range(0, 20)][SerializeField] private int _strength;
@@ -21,4 +21,8 @@ public class CharacterData
 
     [Range(0, 20)][SerializeField] private int _maxHealth;
     [SerializeField] private int _currHealth;
+
+
+    public GameObject CharacterModel { get { return _characterModel; } }
+    public string PlayerName { get { return _playerName; } }
 }

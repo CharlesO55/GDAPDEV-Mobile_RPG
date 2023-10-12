@@ -6,6 +6,10 @@ using System.Linq;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
+
+/*
+ * TEMPLATE FROM Unity Tutorial on Saving/Loading JSONs https://youtu.be/KZft1p8t2lQ?si=XyqY6l-ksHb53wgx
+ */
 public static class SaveSystem
 {
     private static readonly string SAVE_FOLDER = Application.dataPath + "/Saves/";
@@ -13,7 +17,7 @@ public static class SaveSystem
     public enum SAVE_FILE_ID
     {
         PARTY_DATA,
-        QUEST_DATA
+        QUESTS_DATA
     }
 
 
@@ -30,7 +34,7 @@ public static class SaveSystem
         fileNamesDictionary = new Dictionary<SAVE_FILE_ID, string>()
         {
             { SAVE_FILE_ID.PARTY_DATA, "PartyData.json" },
-            { SAVE_FILE_ID.QUEST_DATA, "QuestData.json" }
+            { SAVE_FILE_ID.QUESTS_DATA, "QuestData.json" }
         };
 
     }
@@ -113,7 +117,7 @@ public static class SaveSystem
 
         if (!File.Exists(fileLoc))
         {
-            Debug.LogWarning("FAILED TO LOAD" + jsonFileID);
+            Debug.LogWarning("Does not exist: " + jsonFileID);
             return null;
         }
 

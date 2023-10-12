@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class PartyManager : MonoBehaviour
 {
     public PartyManager Instance { get; private set; }
 
+    [Header("Spawning")]
     [SerializeField] private List<BoxTool> _spawnAreas;
+    
+    private List<GameObject> _partyEntities;
+    private GameObject _activePlayer;
 
-    [SerializeField] private List<CharacterData> _partyMembers;
 
-    private CharacterData activePlayer;
+    [Header("Creating new party data")]
+    [Tooltip("Enable to create party data from fields, otherwise from save data")]
+    [SerializeField] private bool isCreateDataFromField;
+    [SerializeField] private List<CharacterData> _newPartyMembers;
 
 
+    
 
     void Awake()
     {
@@ -27,35 +37,106 @@ public class PartyManager : MonoBehaviour
 
     void Start()
     {
+        if (isCreateDataFromField)
+        {
+            this.FirstTimeCreateCharacterData();
+        }
+        
+        this._partyEntities = new List<GameObject>();
         SpawnCharacters();
+
+        GestureManager.Instance.OnTapDelegate += GAp;
     }
 
-    void SpawnCharacters()
+    private void Update()
     {
-        SaveSystem.Save<CharacterData>(_partyMembers[1], SaveSystem.SAVE_FILE_ID.PARTY_DATA);
-        //SaveSystem.Save<CharacterData>(_partyMembers[0], SaveSystem.SAVE_FILE_ID.PARTY_DATA);
+        this._activePlayer.GetComponent<Rigidbody>().velocity = Vector3.one * Time.deltaTime;
+    }
 
-        //SaveSystem.Save(_partyMembers);
-        //SaveSystem.SaveCharacterData(_partyMembers);
 
-        foreach (CharacterData _character in _partyMembers) {
-            if(activePlayer == null)
-            {
-                activePlayer = _character;
-            }
+    void FirstTimeCreateCharacterData()
+    {
+        Debug.Log("Saving party data from fields");
 
-            if(_character.CharacterModel == null || _spawnAreas.Count <= 0)
-            {
-                Debug.LogError("Party Spawn Failed");
-            }
+        SaveSystem.Save<CharacterData>(_newPartyMembers, SaveSystem.SAVE_FILE_ID.PARTY_DATA);
+    }
 
-            Instantiate(_character.CharacterModel, _spawnAreas[0].getRandomSpawnPos(), Quaternion.identity, this.transform);
+    private void SpawnCharacters()
+    {
+        this._partyEntities.Clear();
+
+        foreach (CharacterData _saveData in SaveSystem.LoadList<CharacterData>(SaveSystem.SAVE_FILE_ID.PARTY_DATA))
+        {
+            this._partyEntities.Add(CreateCharacter(_saveData));
         }
 
-        //List<CharacterData> duahsdu = SaveSystem.LoadList<CharacterData>(SaveSystem.SAVE_FILE_ID.PARTY_DATA);
-        //Debug.Log(duahsdu[0].CharacterModel.gameObject.name);
+        this._activePlayer = this._partyEntities[0];
+    }
 
-        CharacterData lom = SaveSystem.LoadSingle<CharacterData>(SaveSystem.SAVE_FILE_ID.PARTY_DATA);
-        Debug.Log(lom.PlayerName);
+
+    void GAp(object sender, TapEventArgs args)
+    {
+        this.SwitchActiveCharacter();
+    }
+
+    private bool SwitchActiveCharacter(int nIndex = -1)
+    {
+        bool bSuccess = false;
+
+        //LOOP THROUGH EACH UNTIL FINDING A VALID ONE
+        if (nIndex == -1)
+        {
+            foreach(GameObject _partyMember in this._partyEntities)
+            {
+                if (_partyMember.TryGetComponent<CharacterScript>(out CharacterScript charScript)) 
+                {
+                    if (charScript.CanCharacterAct())
+                    {
+                        this._activePlayer = _partyMember;
+                        bSuccess = true;
+                        Debug.Log("[Switched] " + charScript.GetDetails());
+                        break;
+                    }
+                }
+            }
+        }
+
+        //FOR SWITCHING TO A SPECIFIED INDEX
+        else
+        {
+            nIndex = Mathf.Clamp(nIndex, 0, this._partyEntities.Count);
+            if (this._partyEntities[nIndex].TryGetComponent<CharacterScript>(out CharacterScript charScript)) {
+                if (charScript.CanCharacterAct())
+                {
+                    this._activePlayer = this._partyEntities[nIndex];
+                    Debug.Log("[Switched] " + charScript.GetDetails());
+                    bSuccess = true;
+                }
+            }
+            else
+            {
+                bSuccess = SwitchActiveCharacter(-1);
+            }
+        }
+        return bSuccess;
+    }
+
+    private GameObject CreateCharacter(CharacterData _saveData)
+    {
+        if(_spawnAreas.Count <= 0)
+        {
+            Debug.LogError("CreateCharacter failed : No spawn area set");
+        }
+
+
+        int rngSpawn = Random.Range(0, _spawnAreas.Count);
+
+        GameObject characterObject = Instantiate(_saveData.CharacterModel, _spawnAreas[rngSpawn].getRandomSpawnPos(), Quaternion.identity, this.transform);
+
+        characterObject.AddComponent<CharacterScript>().Init(_saveData);
+
+        Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());
+
+        return characterObject;
     }
 }

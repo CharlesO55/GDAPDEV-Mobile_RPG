@@ -18,7 +18,7 @@ public class TapEventArgs
         set { _objHit = value; }
     }
 
-    public TapEventArgs(Vector2 position, GameObject objHit)
+    public TapEventArgs(Vector2 position, GameObject objHit = null)
     {
         this._position = position;
         this._objHit = objHit;

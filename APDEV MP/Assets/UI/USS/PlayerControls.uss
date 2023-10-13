@@ -1,0 +1,18 @@
+VisualElement {}
+
+.unity-image{
+	--unity-image-size: scale-to-fit;
+}
+
+#ButtonHandle{
+	position: absolute;
+
+	--unity-image: url("/Assets/Textures/UI/JoystickHandle.png")
+}
+
+#ButtonBackground{
+	position: absolute;
+	bottom: 8%; left: 3%;
+
+	--unity-image: url("/Assets/Textures/UI/JoystickBorder.png")
+}

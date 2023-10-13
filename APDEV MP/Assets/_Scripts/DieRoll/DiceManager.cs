@@ -32,7 +32,7 @@ public class DiceManager : MonoBehaviour
     {
         if (_dieObject.activeSelf)
         {
-            Debug.LogWarning("Tried to roll dice twice. To roll multiple dice simultaneously, modify DiceManager.DoRoll()");
+            //Debug.LogWarning("Tried to roll dice twice. To roll multiple dice simultaneously, modify DiceManager.DoRoll()");
             return;
         }
 

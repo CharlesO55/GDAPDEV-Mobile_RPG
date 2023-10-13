@@ -45,7 +45,7 @@ public class PartyManager : MonoBehaviour
         this._partyEntities = new List<GameObject>();
         SpawnCharacters();
 
-        GestureManager.Instance.OnTapDelegate += GAp;
+        //GestureManager.Instance.OnTapDelegate += GAp;
     }
 
     private void Update()
@@ -74,10 +74,10 @@ public class PartyManager : MonoBehaviour
     }
 
 
-    void GAp(object sender, TapEventArgs args)
+    /*void GAp(object sender, TapEventArgs args)
     {
         this.SwitchActiveCharacter();
-    }
+    }*/
 
     private bool SwitchActiveCharacter(int nIndex = -1)
     {

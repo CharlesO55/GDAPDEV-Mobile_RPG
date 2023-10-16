@@ -781,7 +781,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1807213739}
   - {fileID: 1299202197}
   m_Father: {fileID: 1816201880}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1243,12 +1242,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1807213739}
   m_Father: {fileID: 939664606}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 100, y: 100.000015}
+  m_AnchoredPosition: {x: 134, y: 116}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1299202198
@@ -1301,6 +1301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f72da50e2bd904cb1c3a766ca495b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _joystickHandle: {fileID: 1807213738}
+  _recenterSpeed: 75
 --- !u!1 &1403395823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1668,7 +1670,7 @@ MonoBehaviour:
     _maxTapTime: 2
     _minDragDistance: 0.7
   _dragPropertyFields:
-    _minPressTime: 0.8
+    _minPressTime: 0.2
 --- !u!1 &1807213738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,14 +1698,14 @@ RectTransform:
   m_GameObject: {fileID: 1807213738}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 939664606}
+  m_Father: {fileID: 1299202197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 100, y: 100.000015}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1807213740

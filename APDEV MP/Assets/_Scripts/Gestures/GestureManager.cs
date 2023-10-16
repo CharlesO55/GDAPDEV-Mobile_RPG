@@ -34,7 +34,8 @@ public class GestureManager : MonoBehaviour
     public EventHandler<SwipeEventArgs> OnSwipeDelegate;
     public EventHandler<DragEventArgs> OnDragDelegate;
 
-
+    //FOR TRACKING THE LAST OBJHIT. PREVENTS OVERRIDING WHEN RAYCAST HITS A DIFFERENT OBJECT
+    private GameObject _targetObject;
 
     void Awake()
     {
@@ -85,6 +86,9 @@ public class GestureManager : MonoBehaviour
     {
         GameObject clone = Instantiate(this._fingerMarkerPrefab, finger.screenPosition, Quaternion.identity, this._fingerMarkerHolder);
         this._fingerMarkers[finger.index] = clone;
+
+        //WIPE THE PREVIOUS TARGET OBJECT WHEREABOUT
+        this._targetObject = null;
     }
 
     void FingerUpDelegate(ETouch.Finger finger)
@@ -103,8 +107,14 @@ public class GestureManager : MonoBehaviour
     void FingerMoveDelegate(ETouch.Finger finger)
     {
         //SINGLE FINGER
-        this.CheckDrag();
-
+        switch (ETouch.Touch.activeTouches.Count)
+        {
+            case 1:
+                this.CheckDrag();
+                break;
+            case 2:
+                break;
+        }
         //DUAL FINGER
     }
 
@@ -214,16 +224,29 @@ public class GestureManager : MonoBehaviour
     {
         DragEventArgs args = new DragEventArgs(activeTouch);
 
-        if(this.TryGetObjHitByRaycast(activeTouch.screenPosition, out GameObject hitObj))
+        //IF NO TARGET WAS SELECTED, TRY FIND A VALID ONE. 
+        if(this._targetObject == null)
         {
-            args.ObjHit = hitObj;
-
-            if (hitObj.TryGetComponent<IDraggable>(out IDraggable interfaceScript))
+            if (this.TryGetObjHitByRaycast(activeTouch.screenPosition, out GameObject hitObj))
             {
-                interfaceScript.OnDragInterface(args);
+                args.ObjHit = hitObj;
+                //STORE A COPY FOR USE IN NEXT UPDATES
+                this._targetObject = hitObj;
             }
         }
+        //USE THE STORED COPY. ALLOWS DRAG TO PERSIST WHEN OBJECTS BLOCK THE RAYCAST DURING UPDATE
+        else
+        {
+            args.ObjHit = this._targetObject;
+        }
 
+        //CALL THE INTERFACE
+        if (args.ObjHit.TryGetComponent<IDraggable>(out IDraggable interfaceScript))
+        {
+            interfaceScript.OnDragInterface(args);
+        }
+
+        //BROADCAST
         this.OnDragDelegate?.Invoke(this, args);
     }
 

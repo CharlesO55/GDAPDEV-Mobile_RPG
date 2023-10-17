@@ -5,10 +5,14 @@ using UnityEngine;
 public class JoystickScript : MonoBehaviour, ITappable, IDraggable
 {
     [SerializeField] private GameObject _joystickHandle;
-    [SerializeField] private float _recenterSpeed = 75;
+
+    //For recentering the stick
+    [SerializeField] private float _recenterSpeed = 250;
+    [SerializeField] private float _timeToRecenter = 0.2f; 
+    private float _timeSinceLastTouch = 0;
 
     private RectTransform _rectTransform;
-
+    
 
     void Start()
     {
@@ -25,12 +29,16 @@ public class JoystickScript : MonoBehaviour, ITappable, IDraggable
 
     public void OnDragInterface(DragEventArgs args)
     {
-        this.SetJoystickPos(args.TrackedFinger.screenPosition);
+        this.SetJoystickPos(args.TouchPosition);
+
+        this._timeSinceLastTouch = this._timeToRecenter;
     }
 
     private void Update()
     {
-        if(this._joystickHandle.transform.localPosition != Vector3.zero)
+        this._timeSinceLastTouch -= Time.deltaTime;
+
+        if(_timeSinceLastTouch < 0 && _joystickHandle.transform.localPosition != Vector3.zero)
         {
             this._joystickHandle.transform.localPosition = Vector2.MoveTowards(
                 this._joystickHandle.transform.localPosition,
@@ -52,12 +60,17 @@ public class JoystickScript : MonoBehaviour, ITappable, IDraggable
 
         _joystickHandle.transform.position = position;
     }
-    public Vector2 GetJoystickAxis()
+    public Vector2 GetJoystickAxis(bool bNormalized = false)
     {
         Vector2 axis = new Vector2(
             _joystickHandle.transform.localPosition.x / (this._rectTransform.rect.width / 2),
             _joystickHandle.transform.localPosition.y / (this._rectTransform.rect.height / 2)
         );
+
+        if( bNormalized )
+        {
+            return axis.normalized;
+        }
 
         return axis;
     }

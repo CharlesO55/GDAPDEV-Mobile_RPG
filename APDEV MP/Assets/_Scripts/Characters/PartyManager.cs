@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
@@ -7,13 +8,17 @@ using UnityEngine.TextCore.Text;
 
 public class PartyManager : MonoBehaviour
 {
-    public PartyManager Instance { get; private set; }
+    public static PartyManager Instance;
 
     [Header("Spawning")]
     [SerializeField] private List<BoxTool> _spawnAreas;
     
     private List<GameObject> _partyEntities;
     private GameObject _activePlayer;
+    public GameObject ActivePlayer
+    {
+        get { return _activePlayer; }
+    }
 
 
     [Header("Creating new party data")]
@@ -21,7 +26,7 @@ public class PartyManager : MonoBehaviour
     [SerializeField] private bool isCreateDataFromField;
     [SerializeField] private List<CharacterData> _newPartyMembers;
 
-
+    public EventHandler<GameObject> OnSwitchPlayerEvent;
     
 
     void Awake()
@@ -44,14 +49,9 @@ public class PartyManager : MonoBehaviour
         
         this._partyEntities = new List<GameObject>();
         SpawnCharacters();
-
-        //GestureManager.Instance.OnTapDelegate += GAp;
+        SwitchActiveCharacter(-1);
     }
 
-    private void Update()
-    {
-        this._activePlayer.GetComponent<Rigidbody>().velocity = Vector3.one * Time.deltaTime;
-    }
 
 
     void FirstTimeCreateCharacterData()
@@ -74,14 +74,14 @@ public class PartyManager : MonoBehaviour
     }
 
 
-    /*void GAp(object sender, TapEventArgs args)
-    {
-        this.SwitchActiveCharacter();
-    }*/
-
-    private bool SwitchActiveCharacter(int nIndex = -1)
+    public bool SwitchActiveCharacter(int nIndex = -1, bool bRandom = false)
     {
         bool bSuccess = false;
+
+        if (bRandom)
+        {
+            nIndex = UnityEngine.Random.Range(0, this._partyEntities.Count);
+        }
 
         //LOOP THROUGH EACH UNTIL FINDING A VALID ONE
         if (nIndex == -1)
@@ -118,6 +118,8 @@ public class PartyManager : MonoBehaviour
                 bSuccess = SwitchActiveCharacter(-1);
             }
         }
+
+        this.OnSwitchPlayerEvent?.Invoke(this, this._activePlayer);
         return bSuccess;
     }
 
@@ -129,7 +131,7 @@ public class PartyManager : MonoBehaviour
         }
 
 
-        int rngSpawn = Random.Range(0, _spawnAreas.Count);
+        int rngSpawn = UnityEngine.Random.Range(0, _spawnAreas.Count);
 
         GameObject characterObject = Instantiate(_saveData.CharacterModel, _spawnAreas[rngSpawn].getRandomSpawnPos(), Quaternion.identity, this.transform);
 

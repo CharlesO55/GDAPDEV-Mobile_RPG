@@ -18,7 +18,7 @@ public class SampleDragMoveScript : MonoBehaviour , IDraggable
 
         if (args.ObjHit == this.gameObject)
         {
-            Vector2 fingerPos = args.TrackedFinger.screenPosition;
+            Vector2 fingerPos = args.TouchPosition;//args.TrackedFinger.screenPosition;
 
             
             

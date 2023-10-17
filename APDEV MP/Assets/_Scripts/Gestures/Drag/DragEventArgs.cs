@@ -2,12 +2,13 @@ using UnityEngine;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 public class DragEventArgs
 {
-    private ETouch.Touch _trackedFinger;
+    private Vector2 _touchPosition;
     private GameObject _objHit;
 
-    public ETouch.Touch TrackedFinger
+
+    public Vector2 TouchPosition
     {
-        get { return _trackedFinger; }
+        get { return _touchPosition; }
     }
     public GameObject ObjHit
     {
@@ -15,9 +16,9 @@ public class DragEventArgs
         set { _objHit = value; }
     }
 
-    public DragEventArgs(ETouch.Touch trackedFinger, GameObject objHit = null)
+    public DragEventArgs(Vector2 touchPosition, GameObject objHit = null)
     {
-        _trackedFinger = trackedFinger;
+        _touchPosition = touchPosition;
         _objHit = objHit;
     }
 }

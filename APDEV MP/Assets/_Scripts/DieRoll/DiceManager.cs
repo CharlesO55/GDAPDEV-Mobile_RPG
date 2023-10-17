@@ -83,20 +83,4 @@ public class DiceManager : MonoBehaviour
         //Disable the dice once done
         _dieObject.SetActive(false);
     }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            DoRoll(false);
-        }
-        
-        //MOBILE DOESN'T REGISTER KEY INPUTS
-        /*
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("space");
-            DoRoll(true);
-        }*/
-    }
 }

@@ -217,17 +217,17 @@ public class GestureManager : MonoBehaviour
         if(tracked.time - tracked.startTime > this._dragPropertyFields.MinPressTime)
         {
             this.bGestureDetermined = true;
-            this.FireDragEvent(tracked);
+            this.FireDragEvent(tracked.screenPosition);
         }
     }
-    private void FireDragEvent(ETouch.Touch activeTouch)
+    private void FireDragEvent(Vector2 touchPosition)
     {
-        DragEventArgs args = new DragEventArgs(activeTouch);
+        DragEventArgs args = new DragEventArgs(touchPosition);
 
         //IF NO TARGET WAS SELECTED, TRY FIND A VALID ONE. 
         if(this._targetObject == null)
         {
-            if (this.TryGetObjHitByRaycast(activeTouch.screenPosition, out GameObject hitObj))
+            if (this.TryGetObjHitByRaycast(touchPosition, out GameObject hitObj))
             {
                 args.ObjHit = hitObj;
                 //STORE A COPY FOR USE IN NEXT UPDATES
@@ -241,7 +241,7 @@ public class GestureManager : MonoBehaviour
         }
 
         //CALL THE INTERFACE
-        if (args.ObjHit.TryGetComponent<IDraggable>(out IDraggable interfaceScript))
+        if (args.ObjHit != null && args.ObjHit.TryGetComponent<IDraggable>(out IDraggable interfaceScript))
         {
             interfaceScript.OnDragInterface(args);
         }

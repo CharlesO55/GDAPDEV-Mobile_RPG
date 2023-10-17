@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.TextCore.Text;
 
 public class PartyManager : MonoBehaviour
@@ -135,9 +136,14 @@ public class PartyManager : MonoBehaviour
 
         GameObject characterObject = Instantiate(_saveData.CharacterModel, _spawnAreas[rngSpawn].getRandomSpawnPos(), Quaternion.identity, this.transform);
 
+
+        //ADD COMPONENTS TO OUR CHARACTERS or DIRECTLY USE A PREFAB
         characterObject.AddComponent<CharacterScript>().Init(_saveData);
+        characterObject.AddComponent<NavMeshAgent>();
 
         Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());
+
+
 
         return characterObject;
     }

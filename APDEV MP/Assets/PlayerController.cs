@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -9,35 +10,50 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _movementSpeed = 5;
 
 
-    private GameObject _activePlayerRef;
 
-    // Start is called before the first frame update
-    void Start()
+    private GameObject _activePlayerRef;
+    private NavMeshAgent _navMeshAgent;
+
+
+
+    void OnEnable()
     {
         GameObject moveJoystick = GameObject.Find("Joystick");
 
         this._movementJoystick = moveJoystick.GetComponent<JoystickScript>();
 
-        //_activePlayerRef = PartyManager.Instance.ActivePlayer;
+        //Helps to keep track of when player switch happens
         PartyManager.Instance.OnSwitchPlayerEvent += UpdatePlayerRef;
     }
 
-    // Update is called once per frame
+    private void OnDisable()
+    {
+        PartyManager.Instance.OnSwitchPlayerEvent -= UpdatePlayerRef;
+    }
+
+
     void FixedUpdate()
     {
         //Move player
         Vector2 inputs = _movementJoystick.GetJoystickAxis(true);
-        Vector3 move = new Vector3(inputs.x, 0, inputs.y) * Time.deltaTime * _movementSpeed;
+        Vector3 move = (inputs.x * Camera.main.transform.right) + (inputs.y * Camera.main.transform.forward);
+        move *= Time.deltaTime * _movementSpeed;
+
+        //Orient
+        _activePlayerRef.transform.LookAt(move + _activePlayerRef.transform.position);
 
 
-        Debug.Log(move);
-        _activePlayerRef.transform.position += move/*move * Time.deltaTime * _movementSpeed*/;
+        this._navMeshAgent.Move(move);
+
     }
 
     void UpdatePlayerRef(object sender, GameObject activePlayer)
     {
+        Debug.Log("Updated active player");
+
         this._activePlayerRef = activePlayer;
 
-        //get move componnet
+        //get move componnet //navmesh for this case
+        this._navMeshAgent = activePlayer.GetComponent<NavMeshAgent>();
     }
 }

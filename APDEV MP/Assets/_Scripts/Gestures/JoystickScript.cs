@@ -7,8 +7,8 @@ public class JoystickScript : MonoBehaviour, ITappable, IDraggable
     [SerializeField] private GameObject _joystickHandle;
 
     //For recentering the stick
-    [SerializeField] private float _recenterSpeed = 250;
-    [SerializeField] private float _timeToRecenter = 0.2f; 
+    [SerializeField] private float _recenterSpeed = 500;
+    [SerializeField] private float _timeToRecenter = 0.1f; 
     private float _timeSinceLastTouch = 0;
 
     private RectTransform _rectTransform;

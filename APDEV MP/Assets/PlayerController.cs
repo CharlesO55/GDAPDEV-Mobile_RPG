@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] JoystickScript _movementJoystick;
-    [SerializeField] private float _movementSpeed = 5;
+    [SerializeField] private float _movementSpeed = 1000;
 
 
 
@@ -42,9 +42,7 @@ public class PlayerController : MonoBehaviour
         //Orient
         _activePlayerRef.transform.LookAt(move + _activePlayerRef.transform.position);
 
-
-        this._navMeshAgent.Move(move);
-
+        this._navMeshAgent.velocity = move;
     }
 
     void UpdatePlayerRef(object sender, GameObject activePlayer)

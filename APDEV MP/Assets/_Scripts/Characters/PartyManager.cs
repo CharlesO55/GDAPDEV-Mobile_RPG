@@ -140,10 +140,15 @@ public class PartyManager : MonoBehaviour
         //ADD COMPONENTS TO OUR CHARACTERS or DIRECTLY USE A PREFAB
         characterObject.AddComponent<CharacterScript>().Init(_saveData);
         characterObject.AddComponent<NavMeshAgent>();
-
+        
         Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());
 
 
+        //_rb is automatically for imports... Set to kinematic instead to disable interference with navmesh agent
+        Rigidbody _rb = characterObject.GetComponent<Rigidbody>();
+        _rb.isKinematic = true;
+        //_rb.interpolation = RigidbodyInterpolation.Interpolate;
+        
 
         return characterObject;
     }

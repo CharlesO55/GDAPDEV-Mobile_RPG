@@ -25,6 +25,8 @@ public class GestureManager : MonoBehaviour
     [SerializeField] private TapProperty _tapPropertyFields;
     [SerializeField] private SwipeProperty _swipePropertyFields;
     [SerializeField] private DragProperty _dragPropertyFields;
+    [SerializeField] private SpreadProperty _spreadPropertyFields;
+
 
     //FINGER TRACK COMPUTE
     private bool bGestureDetermined;    //PREVENTS GESTURES FROM OVERLAPPING (Tap vs Drag)
@@ -33,6 +35,7 @@ public class GestureManager : MonoBehaviour
     public EventHandler<TapEventArgs> OnTapDelegate;
     public EventHandler<SwipeEventArgs> OnSwipeDelegate;
     public EventHandler<DragEventArgs> OnDragDelegate;
+    public EventHandler<SpreadEventArgs> OnSpreadDelegate;
 
     //FOR TRACKING THE LAST OBJHIT. PREVENTS OVERRIDING WHEN RAYCAST HITS A DIFFERENT OBJECT
     private GameObject _targetObject;
@@ -74,10 +77,10 @@ public class GestureManager : MonoBehaviour
 
     /******************************************
      *      WHEN CHECKS ARE CONDUCTED:          
-     *          | START  | MOVED | END |
-     * TAP                          x
-     * SWIPE                        x
-     * DRAG                  x
+     *          | START  | MOVED | END | CAUSES FALLOUT (bGestureDetermined)
+     * TAP                          x          x
+     * SWIPE                        x          x
+     * DRAG                  x                 x
      * PINCH                 x
      * SPREAD                x
      * ****************************************/
@@ -102,6 +105,7 @@ public class GestureManager : MonoBehaviour
             this.CheckTap();
             this.CheckSwipe();
         }
+
     }
 
     void FingerMoveDelegate(ETouch.Finger finger)
@@ -113,6 +117,7 @@ public class GestureManager : MonoBehaviour
                 this.CheckDrag();
                 break;
             case 2:
+                this.CheckSpread();
                 break;
         }
         //DUAL FINGER
@@ -251,6 +256,52 @@ public class GestureManager : MonoBehaviour
     }
 
 
+    private void CheckSpread()
+    {
+        /*if (this.bGestureDetermined)
+        {
+            return;
+        }*/
+
+        //Get the distance apart
+        float currDistanceApart = Vector2.Distance(ETouch.Touch.activeTouches[0].screenPosition, ETouch.Touch.activeTouches[1].screenPosition);
+        float prevDistanceApart = Vector2.Distance(
+            ETouch.Touch.activeTouches[0].screenPosition - ETouch.Touch.activeTouches[0].delta, 
+            ETouch.Touch.activeTouches[1].screenPosition - ETouch.Touch.activeTouches[1].delta);
+
+        float distanceDelta = currDistanceApart - prevDistanceApart;
+        if (Mathf.Abs(distanceDelta) > this._spreadPropertyFields.MinDistanceChange * Screen.dpi)
+        {
+            this.bGestureDetermined = true;
+
+            this.FireSpreadEvent(distanceDelta);
+        }
+    }
+
+    private void FireSpreadEvent(float distanceDelta)
+    {
+        Debug.Log("spread event");
+        SpreadEventArgs args = new SpreadEventArgs(distanceDelta);
+
+        //Avoids overwriding/spreading wrong objects when midpoint moves
+        if (_targetObject == null)
+        {
+            Vector2 midpoint = GetMidpoint();
+            if (this.TryGetObjHitByRaycast(midpoint, out GameObject objHit))
+            {
+                _targetObject = objHit;
+                args.HitObject = objHit;
+            }
+        }
+
+        if (_targetObject != null && _targetObject.TryGetComponent<ISpreadable>(out ISpreadable interfaceScript))
+        {
+            interfaceScript.OnSpreadInterface(args);
+        }
+
+        this.OnSpreadDelegate?.Invoke(this, args);
+    }
+
     private EnumDirection CalculateDirection(Vector2 rawDir)
     {
         EnumDirection _resultDir;
@@ -266,6 +317,20 @@ public class GestureManager : MonoBehaviour
         return _resultDir;
     }
 
+    private Vector2 GetMidpoint()
+    {
+        Vector2 midpoint = Vector2.zero;
+        int activeFingies = ETouch.Touch.activeTouches.Count;
+
+
+        for (int i = 0; i < activeFingies; i++)
+        {
+            midpoint += ETouch.Touch.activeTouches[0].screenPosition;
+        }
+        midpoint /= activeFingies;
+
+        return midpoint;
+    }
     private bool TryGetObjHitByRaycast(Vector2 position, out GameObject objHit)
     {
         /* [1] RAYCAST FIRST CHECKS INTERACTABLE UI ELEMENTS */

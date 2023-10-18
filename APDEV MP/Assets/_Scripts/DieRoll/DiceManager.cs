@@ -38,10 +38,15 @@ public class DiceManager : MonoBehaviour
 
         this._nMinRollValue = nMin;
 
+        //Create the dice
         this._dieObject.SetActive(true);
 
         this._dieObject.transform.position = _diceRollStartPos;
         this.RandomizeDieRotation();
+
+        //Set the camera
+        CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.DICE_CAM, this._dieObject);
+
 
         if (!isInstantaneousRoll)
         {
@@ -78,9 +83,12 @@ public class DiceManager : MonoBehaviour
         Debug.Log("[Rolled] : " + nResult);
 
         this.OnDiceResultObservsers?.Invoke(this, new DieArgs(this._nMinRollValue, nResult, nResult >= _nMinRollValue));
-        
+
 
         //Disable the dice once done
         _dieObject.SetActive(false);
+
+        //Reset the camera
+        CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.PLAYER_CAM);
     }
 }

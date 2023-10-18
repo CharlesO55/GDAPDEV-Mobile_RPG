@@ -17,7 +17,21 @@ public class DebugginButton : MonoBehaviour , ITappable
 
 
         //[2] Player switching test
-        PartyManager.Instance.SwitchActiveCharacter(0, true);
+        //PartyManager.Instance.SwitchActiveCharacter(0, true);
+
+        //[3] Debug the dice roll for Interactables
+        if (InteractableDetector.Instance.TryGetClosestInteractableObject(out GameObject interactableObj))
+        {
+            if (interactableObj.TryGetComponent<IInteractable>(out IInteractable interactableInterface))
+            {
+                Debug.Log("Interacted with " + interactableObj.name);
+                interactableInterface.OnInteractInterface();
+            }
+        }
+
+
+
+
 
         Debug.Log("Debug ended");
     }

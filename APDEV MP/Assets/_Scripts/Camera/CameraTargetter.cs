@@ -62,11 +62,11 @@ public class CameraTargetter : MonoBehaviour
 
     private void SwipeRotate(object sender, SwipeEventArgs args)
     {
-        //Only swipe when not interacting with anything
-        if (args.ObjHit != null)
+        //Change swipe only when not hitting other obj or when
+        /*if (args.ObjHit != null)
         {
             return;
-        }
+        }*/
 
         
         this._rotateAmount = 90;

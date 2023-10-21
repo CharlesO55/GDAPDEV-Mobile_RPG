@@ -776,6 +776,7 @@ GameObject:
   m_Component:
   - component: {fileID: 524844592}
   - component: {fileID: 524844593}
+  - component: {fileID: 524844594}
   m_Layer: 0
   m_Name: GameHUD
   m_TagString: Untagged
@@ -815,6 +816,18 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 07e920091bbc2a249a069cb52b924c22,
     type: 3}
   m_SortingOrder: 0
+--- !u!114 &524844594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524844591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1456786611621d34ea902acef45101d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &530822807
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,7 +959,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568949596}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000011838885, y: 0.7882055, z: -0.6154122, w: 0.000000015162964}
+  m_LocalRotation: {x: -0.000000011838881, y: 0.7882055, z: -0.6154122, w: -0.000000015162959}
   m_LocalPosition: {x: 0, y: 4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

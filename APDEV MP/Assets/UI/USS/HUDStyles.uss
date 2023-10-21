@@ -1,49 +1,43 @@
-.unity-image
-{
+.unity-image {
 	--unity-image-size: scale-to-fit;
 }
-#HUDHolder
-{
+
+#HUDHolder {
 	height: 100%;
+	width: 100%;
 }
-#Health
-{
+
+#Screen {
+	flex-grow: 1;
+}
+
+#Health {
 	top: 5%;
 	left: 5%;
 	width: 30%;
 }
-#ButtonHolder
-{
-	position: absolute;
+
+#ButtonHolder {
 	flex-direction: row;
 	align-items: end;
-	bottom: 5%;
-	right: 0%;
 
+	top: 65%;
+	left: 55%;
 }
-#InteractButton
-{
-	
-	--unity-image: url("/Assets/Textures/UI/Talk.png");
-	height: 40%;
-	width: 40%;
-	margin-top: 1%;
-	margin-bottom: 1%;
-	margin-left: 1%;
-	margin-right: 1%;
-	right: 5%;
-	bottom: 5%
+
+#InteractButton {
+	--unity-image: url("/Assets/Textures/UI/Interact.png");
+
+	width: 70%; 
+	height: 70%;	
 }
-#AttackButton
-{
-	
-	--unity-image: url("/Assets/Textures/UI/AttackButton.png");
-	height: 40%;
-	width: 40%;
-	margin-top: 1%;
-	margin-bottom: 1%;
-	margin-left: 1%;
-	margin-right: 1%;
-	left: 5%;
-	bottom: 5%
+
+#AttackButton {
+	--unity-image: url("/Assets/Textures/UI/Attack.png");
+	position: absolute;
+
+	width: 50%; 
+	height: 50%;
+
+	left: 2%;
 }

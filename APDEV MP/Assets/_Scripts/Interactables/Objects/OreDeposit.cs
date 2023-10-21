@@ -26,4 +26,19 @@ public class OreDeposit : MonoBehaviour , IInteractable
             Destroy(this.gameObject);
         }
     }
+
+    public void HighlightInteractable(bool bEnable)
+    {
+        Material _mat = this.GetComponent<Renderer>().material;
+        
+        if(bEnable)
+        {
+            _mat.EnableKeyword("_EMISSION");
+            _mat.SetColor("_EmissionColor", Color.yellow);
+        }
+        else
+        {
+            _mat.DisableKeyword("_EMISSION");
+        }
+    }
 }

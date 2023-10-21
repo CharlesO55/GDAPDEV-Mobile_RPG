@@ -896,7 +896,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568949596}
   serializedVersion: 2
-  m_LocalRotation: {x: -9.659324e-11, y: 0.7882055, z: -0.6154122, w: -1.2386563e-10}
+  m_LocalRotation: {x: -0.000000011838881, y: 0.7882055, z: -0.6154122, w: -0.000000015162959}
   m_LocalPosition: {x: 0, y: 4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -953,8 +953,6 @@ MonoBehaviour:
     camID: 0
   - virtualCam: {fileID: 568949597}
     camID: 1
-  _playerCam: {fileID: 24670761}
-  _diceCam: {fileID: 568949597}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,7 +1223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ebb7395525f8e4da20714b837349ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _strengthStatCheck: 10
+  _strengthStatReq: 10
 --- !u!54 &826060322
 Rigidbody:
   m_ObjectHideFlags: 0

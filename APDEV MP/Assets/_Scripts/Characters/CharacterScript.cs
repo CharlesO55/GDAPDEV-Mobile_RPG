@@ -16,6 +16,7 @@ public class CharacterScript : MonoBehaviour
     {
         this._characterData = characterData;
         this.name = characterData.PlayerName;
+        this._characterData.InitializeClass(EnumUnitClass.PALADIN); //For testing. REMOVE WHEN UI FOR CLASS SELECTION IS DONE
 
         //RIGIDBODY INITIALIZATION
         if(this._rb == null)

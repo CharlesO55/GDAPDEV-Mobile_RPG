@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/USS/HUDStyles.uss?fileID=7433441132597879392&amp;guid=af88421f569de5f4cac5237f8cd1edff&amp;type=3#HUDStyles" />
+    <ui:VisualElement name="HUDHolder">
+        <ui:ProgressBar name="Health" value="100" title="Health" />
+        <ui:Image name="ButtonHolder">
+            <ui:Image name="AttackButton" class="actionButtons" />
+            <ui:Image name="InteractButton" class="actionButtons" />
+        </ui:Image>
+    </ui:VisualElement>
+</ui:UXML>

@@ -36,9 +36,6 @@ public class GameHUD : MonoBehaviour, ITappable
     private void Update()
     {
         this.m_ProgressBar.value = this.m_Character.CharacterData.CurrHealth;
-
-        //FOR TESTING PURPOSES ONLY
-        this.m_Character.CharacterData.CurrHealth = 1; 
     }
 
     public void OnTapInterface(TapEventArgs args)

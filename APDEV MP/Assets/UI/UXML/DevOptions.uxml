@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/USS/DevOptionStyles.uss?fileID=7433441132597879392&amp;guid=62803d66d0b024045b867f4e2803ad60&amp;type=3#DevOptionStyles" />
+    <ui:VisualElement name="DevOptionsContainer">
+        <ui:VisualElement name="DevOptions">
+            <ui:Button name="AutoWinButton" class="button-class" text="Dice Roll Win" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+            <ui:Button name="AutoLoseButton" class="button-class" text="Dice Roll Fail" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+        <ui:Button name="ReturnButton" class="button-class" text="Return" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+    </ui:VisualElement>
+</ui:UXML>

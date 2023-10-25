@@ -1,0 +1,31 @@
+.button-class
+{
+	width: 50%;
+	font-size: 70px;	
+	
+}
+#DevOptionsContainer
+{
+	flex-grow: 1;
+
+
+}
+#DevOptions
+{
+	top: 30%;
+	left: 25%;
+}
+#AutoWinButton
+{
+	background-color: rgb(255,0,0);
+}
+#AutoLoseButton
+{
+	background-color: rgb(255,0,0);
+}
+#ReturnButton
+{
+	height: 5%;
+	top : 40%;
+	left: 25%;
+}

@@ -29,6 +29,7 @@ public class JoystickScript : MonoBehaviour, ITappable, IDraggable
 
     public void OnDragInterface(DragEventArgs args)
     {
+        
         this.SetJoystickPos(args.TouchPosition);
 
         this._timeSinceLastTouch = this._timeToRecenter;
@@ -36,29 +37,38 @@ public class JoystickScript : MonoBehaviour, ITappable, IDraggable
 
     private void Update()
     {
-        this._timeSinceLastTouch -= Time.deltaTime;
-
-        if(_timeSinceLastTouch < 0 && _joystickHandle.transform.localPosition != Vector3.zero)
+        if (!DebugginButton.isPaused)
         {
-            this._joystickHandle.transform.localPosition = Vector2.MoveTowards(
-                this._joystickHandle.transform.localPosition,
-                Vector2.zero,
-                this._recenterSpeed * Time.deltaTime);
+            this._timeSinceLastTouch -= Time.deltaTime;
+
+            if (_timeSinceLastTouch < 0 && _joystickHandle.transform.localPosition != Vector3.zero)
+            {
+                this._joystickHandle.transform.localPosition = Vector2.MoveTowards(
+                    this._joystickHandle.transform.localPosition,
+                    Vector2.zero,
+                    this._recenterSpeed * Time.deltaTime);
+            }
         }
+        
 
     }
 
 
     private void SetJoystickPos(Vector2 position)
     {
-        Vector3[] cr = new Vector3[4]; 
-        this._rectTransform.GetWorldCorners(cr);
+
+        if (!DebugginButton.isPaused)
+        {
+            Vector3[] cr = new Vector3[4];
+            this._rectTransform.GetWorldCorners(cr);
 
 
-        position.x = Mathf.Clamp(position.x, cr[0].x, cr[2].x);
-        position.y = Mathf.Clamp(position.y, cr[0].y, cr[2].y);
+            position.x = Mathf.Clamp(position.x, cr[0].x, cr[2].x);
+            position.y = Mathf.Clamp(position.y, cr[0].y, cr[2].y);
 
-        _joystickHandle.transform.position = position;
+            _joystickHandle.transform.position = position;
+        }
+       
     }
     public Vector2 GetJoystickAxis(bool bNormalized = false)
     {

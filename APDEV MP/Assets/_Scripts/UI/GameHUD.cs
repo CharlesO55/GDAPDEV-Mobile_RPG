@@ -45,21 +45,25 @@ public class GameHUD : MonoBehaviour, ITappable
 
     private void ClickedImage(Image img, string eventname)
     {
-        img.AddManipulator(new Clickable(evt =>
+        if(!DebugginButton.isPaused)
         {
-            switch (eventname)
+            img.AddManipulator(new Clickable(evt =>
             {
-                case "Interact":
-                    Debug.Log("Interact Button Pressed");
-                    break;
+                switch (eventname)
+                {
+                    case "Interact":
+                        Debug.Log("Interact Button Pressed");
+                        break;
 
-                case "Attack":
-                    Debug.Log("Attack Button Pressed");
-                    break;
+                    case "Attack":
+                        Debug.Log("Attack Button Pressed");
+                        break;
 
-                default:
-                    break;
-            }
-        }));
+                    default:
+                        break;
+                }
+            }));
+        }
+   
     }
 }

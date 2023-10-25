@@ -11,8 +11,8 @@ public class DeveloperMenu : MonoBehaviour
     private Button autoWinButton;
     private Button autoLoseButton;
     private Button returnButton;
-    private bool isAutoWin = false;
-    private bool isAutoLose = false;
+    public static bool isAutoWin = false;
+    public static bool isAutoLose = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,29 +31,29 @@ public class DeveloperMenu : MonoBehaviour
 
     private void ToggleAutoWin()
     {
-        if (!this.isAutoWin)
+        if (!isAutoWin)
         {
-            this.isAutoWin = !this.isAutoWin;
+            isAutoWin = !isAutoWin;
             this.autoWinButton.style.backgroundColor = Color.green;
         }
             
         else
         {
-            this.isAutoWin = !this.isAutoWin;
+            isAutoWin = !isAutoWin;
             this.autoWinButton.style.backgroundColor = Color.red;
         }
     }
     private void ToggleAutoLose()
     {
-        if(!this.isAutoLose)
+        if(!isAutoLose)
         {
-            this.isAutoLose = !this.isAutoLose;
-            this.autoLoseButton.style.backgroundColor = Color.green;
+            isAutoLose = !isAutoLose;
+           autoLoseButton.style.backgroundColor = Color.green;
         }
         else
         {
-            this.isAutoLose= !this.isAutoLose;
-            this.autoLoseButton.style.backgroundColor = Color.red;
+            isAutoLose = !isAutoLose;
+            autoLoseButton.style.backgroundColor = Color.red;
         }
     }
     private void ReturnToGame()

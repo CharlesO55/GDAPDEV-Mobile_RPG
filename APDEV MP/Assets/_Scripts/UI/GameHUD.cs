@@ -53,11 +53,19 @@ public class GameHUD : MonoBehaviour, ITappable
                 {
                     case "Interact":
                         Debug.Log("Interact Button Pressed");
-                        break;
+                        if (InteractableDetector.Instance.TryGetClosestInteractableObject(out GameObject interactableObj))
+                            {
+                                if (interactableObj.TryGetComponent<IInteractable>(out IInteractable interactableInterface))
+                                {
+                                    Debug.Log("Interacted with " + interactableObj.name);
+                                    interactableInterface.OnInteractInterface();
+                                }
+                            }
+                            break;
 
                     case "Attack":
                         Debug.Log("Attack Button Pressed");
-                        DiceManager.Instance.DoRoll();
+                        //DiceManager.Instance.DoRoll();
                         break;
 
                     default:

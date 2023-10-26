@@ -74,12 +74,69 @@ public class DialogueManager : MonoBehaviour
         {
             QuestManager.Instance.SetNextStep(nNextStep);
         });
+        this._currStory.BindExternalFunction("DoDialogueRoll", (int nStatRequired, string strStatType) =>
+        {
+            this.DoDialogueRoll(nStatRequired, strStatType);
+        });
 
 
         this._dialogueUI.enabled = true;
         this.RelinkUIDocumment();   //Necessary whenver a UIDoc is enabled/disabled
 
         this.ContinueDialogue(null, null);
+    }
+
+
+    private void DoDialogueRoll(int nStatRequired, string strStatType)
+    {
+        int nPlayerStat = 0;
+
+        if(PartyManager.Instance.ActivePlayer.TryGetComponent<CharacterScript>(out CharacterScript charData)){
+            switch (strStatType)
+            {
+                case "INT":
+                    nPlayerStat = charData.CharacterData.INTMod;
+                    break;
+                case "STR":
+                    nPlayerStat = charData.CharacterData.STRMod;
+                    break;
+                case "CON":
+                    nPlayerStat = charData.CharacterData.CONMod;
+                    break;
+                case "CHA":
+                    nPlayerStat = charData.CharacterData.CHAMod;
+                    break;
+                case "DEX":
+                    nPlayerStat = charData.CharacterData.DEXMod;
+                    break;
+                case "WIS":
+                    nPlayerStat = charData.CharacterData.WISMod;
+                    break;
+                default:
+                    Debug.LogWarning("DoDialogueRoll Error. Failed to find matching stats string from Ink");
+                    break;
+            }
+        }
+
+        Debug.Log("Dialogue Roll " + strStatType + "Base: " + nStatRequired + " - Player: " + nPlayerStat);
+
+        //Disable story taps until dice manager finishes
+        GestureManager.Instance.OnTapDelegate -= ContinueDialogue;
+
+        //Link to the dice manager
+        DiceManager.Instance.OnDiceResultObservsers += WaitForDieResult;
+        DiceManager.Instance.DoRoll(false, nStatRequired - nPlayerStat);
+        
+    }
+
+    private void WaitForDieResult(object sender, DieArgs args)
+    {
+        _currStory.variablesState["_rollSuccess"] = args.RollPass;
+
+        DiceManager.Instance.OnDiceResultObservsers -= WaitForDieResult;
+
+        //Reneable the tap to continue story
+        GestureManager.Instance.OnTapDelegate += ContinueDialogue;
     }
 
     private void ContinueDialogue(object sender, TapEventArgs args)
@@ -116,6 +173,7 @@ public class DialogueManager : MonoBehaviour
         this._dialogueUI.enabled = false;
 
         this._currStory.UnbindExternalFunction("SetNextStep");
+        this._currStory.UnbindExternalFunction("DoDialogueRoll");
     }
 
     private void MakeChoice(ClickEvent args)

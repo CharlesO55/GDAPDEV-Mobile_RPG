@@ -1,6 +1,8 @@
 EXTERNAL SetNextStep(nNextStep)
+EXTERNAL DoDialogueRoll(nStatRequired, strStatType)
 
 VAR _questStep = 0
+VAR _rollSuccess = false
 
 {_questStep :
 - 0: -> Step0
@@ -28,13 +30,41 @@ Oh, how heartless.
 
 ===Step1===
 Wait, did granny want iron or gold?
-*[Gold]
-*[Gold]
-*[Gold]
+*[Iron (5 INT)]
+~ DoDialogueRoll(5, "INT")
+You think you recall it being iron. //Pass the result in
+{ _rollSuccess :
+    [{_rollSuccess}] Your memory is sharp as ever. 
+    ~ SetNextStep(3)
+    We can go back now.
+    ->END
+    -else:
+    [{_rollSuccess}] No. You might be misremembering.
+    ->Step1
+}
++[Gold]
 - Hmm...
 Better safe than sorry I guess.
+But mining is hard.
+Why don't we try a little alchemy to make some gold?
++[Give it a try (10 WIS)]
+~ DoDialogueRoll(10, "WIS")
+You bring out a bottle of mountain dew and begin chanting.
+{ _rollSuccess :
+    [{_rollSuccess}] Huzzah!
+    Alchemy has provided you plenty of gold.
+    ~ SetNextStep(3)
+    Let's head back to granny now.
+    ->END
+    -else:
+    [{_rollSuccess}] Boom!
+    Perhaps, alchemy requires an equivalent exchange.
+    Save it as a disccusion for another day.
+}
++[NO. Magic is sacred]
+- Anyhows... Let's get digging. 
 ~ SetNextStep(2)
-C'mon. We yearn for the mines.
+We yearn for the mines.
 ->END
 
 

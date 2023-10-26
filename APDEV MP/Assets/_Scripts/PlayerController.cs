@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] JoystickScript _movementJoystick;
+    private JoystickScript _movementJoystick;
     [SerializeField] private float _movementSpeed = 1000;
 
 

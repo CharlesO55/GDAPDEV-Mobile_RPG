@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void UpdatePlayerRef(object sender, GameObject activePlayer)
+    public void UpdatePlayerRef(object sender, GameObject activePlayer)
     {
         Debug.Log("Updated active player");
 

@@ -13,7 +13,9 @@ public class PartyManager : MonoBehaviour
 
     [Header("Spawning")]
     [SerializeField] private List<BoxTool> _spawnAreas;
-    
+
+    private PlayerController m_PlayerController;
+
     private List<GameObject> _partyEntities;
     private GameObject _activePlayer;
     public GameObject ActivePlayer
@@ -43,6 +45,11 @@ public class PartyManager : MonoBehaviour
 
     void Start()
     {
+        this.m_PlayerController = this.GetComponent<PlayerController>();
+
+        if (this.m_PlayerController == null)
+            Debug.Log("PlayerController is Null");
+
         if (isCreateDataFromField)
         {
             this.FirstTimeCreateCharacterData();
@@ -120,7 +127,8 @@ public class PartyManager : MonoBehaviour
             }
         }
 
-        this.OnSwitchPlayerEvent?.Invoke(this, this._activePlayer);
+        this.m_PlayerController.UpdatePlayerRef(this, this._activePlayer);
+        //this.OnSwitchPlayerEvent?.Invoke(this, this._activePlayer);
         return bSuccess;
     }
 

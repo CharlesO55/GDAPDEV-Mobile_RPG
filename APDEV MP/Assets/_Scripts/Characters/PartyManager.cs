@@ -15,6 +15,7 @@ public class PartyManager : MonoBehaviour
     [SerializeField] private List<BoxTool> _spawnAreas;
 
     private PlayerController m_PlayerController;
+    [SerializeField] CameraTargetter m_CameraTargetter;
 
     private List<GameObject> _partyEntities;
     private GameObject _activePlayer;
@@ -128,6 +129,7 @@ public class PartyManager : MonoBehaviour
         }
 
         this.m_PlayerController.UpdatePlayerRef(this, this._activePlayer);
+        this.m_CameraTargetter.SetTarget(this, this._activePlayer);
         //this.OnSwitchPlayerEvent?.Invoke(this, this._activePlayer);
         return bSuccess;
     }

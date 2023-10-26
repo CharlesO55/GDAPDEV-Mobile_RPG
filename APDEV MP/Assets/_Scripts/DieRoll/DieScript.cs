@@ -8,14 +8,18 @@ public class DieScript : MonoBehaviour
 
     public int GetDieRollValue()
     {
+        //Checks developer options if the status is set to always win/lose
+        if (DiceManager.Instance.isAlwaysWin)
+            return 20;
+
+        if (DiceManager.Instance.isAlwaysLoss)
+            return 1;
+
         //PREPARE TO STORE THE FACE WITH THE HIGHEST VALUE
         DieValues _rolledFace = null;
         float _greatestAngleMatch = 0.5f;
 
-
-
         Vector3 dieRot = this.transform.rotation.eulerAngles;
-
 
 
         //LIST ALL VALID VECTORS POITING CLOSE TO THE SAME DIRECTION

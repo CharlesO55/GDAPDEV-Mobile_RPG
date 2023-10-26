@@ -8,6 +8,7 @@ public class DeveloperMenu : MonoBehaviour
 {
     private UIDocument DevMenu;
     private VisualElement root;
+    private VisualElement DevOptions;
     private Button autoWinButton;
     private Button autoLoseButton;
     private Button returnButton;
@@ -18,6 +19,9 @@ public class DeveloperMenu : MonoBehaviour
     {
         this.DevMenu = this.gameObject.GetComponent<UIDocument>();
         this.root = this.DevMenu.rootVisualElement;
+
+        this.DevOptions = this.root.Q<VisualElement>("DevOptionsContainer");
+
         this.autoWinButton = this.root.Q<Button>("AutoWinButton");
         this.autoLoseButton = this.root.Q<Button>("AutoLoseButton");
         this.returnButton = this.root.Q<Button>("ReturnButton");
@@ -29,31 +33,49 @@ public class DeveloperMenu : MonoBehaviour
 
     }
 
+    public void ToggleVisibility(bool isVisible)
+    {
+        if (isVisible)
+            this.DevOptions.style.display = DisplayStyle.Flex;
+
+        else
+            this.DevOptions.style.display = DisplayStyle.None;
+    }
+
     private void ToggleAutoWin()
     {
+        Debug.Log("[DEVELOPER OPTIONS] : Auto Win Toggled!");
+
         if (!isAutoWin)
         {
-            isAutoWin = !isAutoWin;
+            isAutoWin = true;
+            DiceManager.Instance.isAlwaysWin = true;
             this.autoWinButton.style.backgroundColor = Color.green;
         }
-            
+ 
         else
         {
-            isAutoWin = !isAutoWin;
+            isAutoWin = false;
+            DiceManager.Instance.isAlwaysWin = false;
             this.autoWinButton.style.backgroundColor = Color.red;
         }
     }
     private void ToggleAutoLose()
     {
-        if(!isAutoLose)
+        Debug.Log("[DEVELOPER OPTIONS] : Auto Lose Toggled!");
+
+        if (!isAutoLose)
         {
-            isAutoLose = !isAutoLose;
-           autoLoseButton.style.backgroundColor = Color.green;
+            isAutoLose = true;
+            DiceManager.Instance.isAlwaysLoss = true;
+            this.autoLoseButton.style.backgroundColor = Color.green;
         }
+
         else
         {
-            isAutoLose = !isAutoLose;
-            autoLoseButton.style.backgroundColor = Color.red;
+            isAutoLose = false;
+            DiceManager.Instance.isAlwaysLoss = false;
+            this.autoLoseButton.style.backgroundColor = Color.red;
         }
     }
     private void ReturnToGame()
@@ -61,7 +83,7 @@ public class DeveloperMenu : MonoBehaviour
         DebugginButton.isPaused = false;
         Debug.Log(DebugginButton.isPaused);
         Time.timeScale = 1;
-        this.DevMenu.enabled = false;
+        this.ToggleVisibility(false);
     }
 
 }

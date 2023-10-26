@@ -57,6 +57,7 @@ public class GameHUD : MonoBehaviour, ITappable
 
                     case "Attack":
                         Debug.Log("Attack Button Pressed");
+                        DiceManager.Instance.DoRoll();
                         break;
 
                     default:

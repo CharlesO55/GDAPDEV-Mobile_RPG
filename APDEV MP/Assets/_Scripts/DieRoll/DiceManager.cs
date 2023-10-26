@@ -12,6 +12,8 @@ public class DiceManager : MonoBehaviour
     [SerializeField] private float _diceRollWaitTime = 3f;
     [SerializeField] private Vector3 _diceRollStartPos;
 
+    private bool m_DebugAlwaysWin = false;
+    private bool m_DebugAlwaysLose = false;
 
     private int _nMinRollValue;
     public EventHandler<DieArgs> OnDiceResultObservsers;
@@ -91,4 +93,7 @@ public class DiceManager : MonoBehaviour
         //Reset the camera
         CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.PLAYER_CAM);
     }
+
+    public bool isAlwaysWin { get { return this.m_DebugAlwaysWin; } set { this.m_DebugAlwaysWin = value; } }
+    public bool isAlwaysLoss { get { return this.m_DebugAlwaysLose; } set { this.m_DebugAlwaysLose = value; } }
 }

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf02474f3624e14b9c81eb6f11a9ea9, type: 3}
+  m_Name: OreCollecting
+  m_EditorClassIdentifier: 
+  _questID: 0
+  _questName: Ore Mining Quest Name
+  _questStory: {fileID: 4900000, guid: 96cf921bbc23b034a865004a58b457b5, type: 3}
+  _prerequesiteQuests: 
+  _questSteps:
+  - _instructions: Collect some ore
+    _action: 0
+    _goalAmount: 1
+    _goalObject: {fileID: 4793776726921382327, guid: 395ded8c1f0027449835882ed85848e4,
+      type: 3}
+  - _instructions: Get gold ore
+    _action: 0
+    _goalAmount: 3
+    _goalObject: {fileID: 4793776726921382327, guid: 395ded8c1f0027449835882ed85848e4,
+      type: 3}
+  - _instructions: Return
+    _action: 2
+    _goalAmount: 1
+    _goalObject: {fileID: 6152109370259088347, guid: 7e492dfab913cd64597e9341f0bb33e4,
+      type: 3}
+  - _instructions: END
+    _action: 4
+    _goalAmount: 0
+    _goalObject: {fileID: 0}

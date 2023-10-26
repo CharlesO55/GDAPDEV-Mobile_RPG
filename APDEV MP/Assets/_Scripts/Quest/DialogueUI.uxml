@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1;">
+        <ui:VisualElement name="Buttons" style="flex-grow: 1; align-items: center; justify-content: center; height: auto; margin-bottom: 0; padding-bottom: 12%;">
+            <ui:Button text="Choice1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Choice1" style="-unity-font-style: bold; font-size: 50%; width: 30%; align-self: center; align-items: center; text-overflow: ellipsis; margin-top: 1%; margin-bottom: 1%; background-color: rgba(188, 188, 188, 0.65);" />
+            <ui:Button text="Choice2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Choice2" style="-unity-font-style: bold; font-size: 50%; width: 30%; align-self: center; align-items: center; text-overflow: ellipsis; margin-top: 1%; margin-bottom: 1%; background-color: rgba(188, 188, 188, 0.65);" />
+            <ui:Button text="Choice3" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Choice3" style="-unity-font-style: bold; font-size: 50%; width: 30%; align-self: center; align-items: center; text-overflow: ellipsis; margin-top: 1%; margin-bottom: 1%; background-color: rgba(188, 188, 188, 0.65);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Dialogue" style="flex-grow: 1; background-color: rgba(82, 82, 82, 0.8); width: 100%; height: 25%; opacity: 1; position: absolute; left: 0; right: 0; bottom: 0;">
+            <ui:Label tabindex="-1" text="Dialogue goes here&#10;..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="DialogueText" style="font-size: 60%; -unity-font-style: bold; background-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255); max-height: none; padding-left: 2%; align-items: center; justify-content: center; white-space: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 1%; padding-right: 2%; padding-bottom: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

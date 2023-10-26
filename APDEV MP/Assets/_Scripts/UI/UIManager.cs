@@ -54,4 +54,5 @@ public class UIManager : MonoBehaviour
         this.ChangeText(message);
     }
 
+    
 }

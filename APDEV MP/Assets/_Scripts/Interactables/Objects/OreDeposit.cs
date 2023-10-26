@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OreDeposit : MonoBehaviour , IInteractable
+public class OreDeposit : MonoBehaviour , IInteractable , IQuestNotifier
 {
     [SerializeField] private int _strengthStatReq = 10;
 
     public void OnInteractInterface()
     {
         DiceManager.Instance.OnDiceResultObservsers += CheckDiceRoll;
-        DiceManager.Instance.DoRoll(false, _strengthStatReq);   
+        DiceManager.Instance.DoRoll(true, _strengthStatReq);   
     }
 
     private void CheckDiceRoll(object sender, DieArgs args)
@@ -20,7 +20,7 @@ public class OreDeposit : MonoBehaviour , IInteractable
         if (args.RollPass)
         {
             Debug.Log("Mined ore");
-
+            this.NotifyQuestManager(this.gameObject, EnumQuestAction.COLLECT);
 
             InteractableDetector.Instance.RemoveFromDetectedList(this.gameObject);
             Destroy(this.gameObject);
@@ -40,5 +40,10 @@ public class OreDeposit : MonoBehaviour , IInteractable
         {
             _mat.DisableKeyword("_EMISSION");
         }
+    }
+
+    public void NotifyQuestManager(GameObject sender, EnumQuestAction actionOccured)
+    {
+        QuestManager.Instance.CheckQuestEventOnObject(sender, actionOccured);
     }
 }

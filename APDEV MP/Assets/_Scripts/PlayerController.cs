@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
         this._movementJoystick = moveJoystick.GetComponent<JoystickScript>();
 
+
         //Helps to keep track of when player switch happens
         PartyManager.Instance.OnSwitchPlayerEvent += UpdatePlayerRef;
     }
@@ -38,7 +39,11 @@ public class PlayerController : MonoBehaviour
         Vector2 inputs = _movementJoystick.GetJoystickAxis(true);
         Vector3 move = (inputs.x * Camera.main.transform.right) + (inputs.y * Camera.main.transform.forward);
         move *= Time.deltaTime * _movementSpeed;
-      
+        if(move != Vector3.zero)
+        {
+            this._walkSoundEffect.Play();
+        }
+        
 
 
 
@@ -46,10 +51,12 @@ public class PlayerController : MonoBehaviour
         _activePlayerRef.transform.LookAt(move + _activePlayerRef.transform.position); 
 
         this._navMeshAgent.velocity = move;
-        if (this._navMeshAgent.velocity != Vector3.zero)
+        if (this._navMeshAgent.velocity == Vector3.zero)
         {
-            this._walkSoundEffect.Play();
+            this._walkSoundEffect.Stop();
         }
+
+
     }
 
     public void UpdatePlayerRef(object sender, GameObject activePlayer)

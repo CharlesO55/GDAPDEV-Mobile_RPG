@@ -6,13 +6,16 @@ using UnityEngine.UIElements;
 public class DebugginButton : MonoBehaviour , ITappable
 {
     //THIS BUTTON IS PURELY FOR DEBUGGING. EXCLUDE FROM FINAL BUILD
-    [SerializeField] UIDocument devOptions;
+    [SerializeField] DeveloperMenu devOptions;
     // so that when dev menu is opened everything else doesnt update
     public static bool isPaused = false;
 
     public void OnTapInterface(TapEventArgs args)
     {
         Debug.Log("Debug start");
+        isPaused = true;
+        Time.timeScale = 0;
+        this.devOptions.ToggleVisibility(true);
 
         //Stuff to test here...
 
@@ -33,17 +36,7 @@ public class DebugginButton : MonoBehaviour , ITappable
         //    }
         //}
         // checks if dev options is not on screen the if not pauses the game and throws out the isPaused
-        // bool that will be read by other update scripts and tells them not to update anything
-        if(!devOptions.enabled)
-        {
-            isPaused = true;
-            Time.timeScale = 0;
-            devOptions.enabled = true;
-        }
-        
-
-
-
+        // bool that will be read by other update scripts and tells them not to update anything    
 
         Debug.Log("Debug ended");
     }

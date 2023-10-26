@@ -6,6 +6,7 @@
 }
 #DevOptionsContainer
 {
+	display: none;
 	flex-grow: 1;
 
 

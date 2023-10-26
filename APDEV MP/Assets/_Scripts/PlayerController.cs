@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _movementSpeed = 1000;
 
 
-
+    [SerializeField] private AudioSource _walkSoundEffect;
     private GameObject _activePlayerRef;
     private NavMeshAgent _navMeshAgent;
 
@@ -38,11 +38,18 @@ public class PlayerController : MonoBehaviour
         Vector2 inputs = _movementJoystick.GetJoystickAxis(true);
         Vector3 move = (inputs.x * Camera.main.transform.right) + (inputs.y * Camera.main.transform.forward);
         move *= Time.deltaTime * _movementSpeed;
+      
+
+
 
         //Orient
-        _activePlayerRef.transform.LookAt(move + _activePlayerRef.transform.position);
+        _activePlayerRef.transform.LookAt(move + _activePlayerRef.transform.position); 
 
         this._navMeshAgent.velocity = move;
+        if (this._navMeshAgent.velocity != Vector3.zero)
+        {
+            this._walkSoundEffect.Play();
+        }
     }
 
     void UpdatePlayerRef(object sender, GameObject activePlayer)

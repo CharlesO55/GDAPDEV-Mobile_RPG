@@ -31,7 +31,6 @@ public class JoystickScript : MonoBehaviour, ITappable, IDraggable
     {
         
         this.SetJoystickPos(args.TouchPosition);
-
         this._timeSinceLastTouch = this._timeToRecenter;
     }
 
@@ -39,6 +38,8 @@ public class JoystickScript : MonoBehaviour, ITappable, IDraggable
     {
         if (!DebugginButton.isPaused)
         {
+                
+           
             this._timeSinceLastTouch -= Time.deltaTime;
 
             if (_timeSinceLastTouch < 0 && _joystickHandle.transform.localPosition != Vector3.zero)
@@ -47,6 +48,7 @@ public class JoystickScript : MonoBehaviour, ITappable, IDraggable
                     this._joystickHandle.transform.localPosition,
                     Vector2.zero,
                     this._recenterSpeed * Time.deltaTime);
+
             }
         }
         
@@ -59,6 +61,7 @@ public class JoystickScript : MonoBehaviour, ITappable, IDraggable
 
         if (!DebugginButton.isPaused)
         {
+            
             Vector3[] cr = new Vector3[4];
             this._rectTransform.GetWorldCorners(cr);
 
@@ -67,6 +70,7 @@ public class JoystickScript : MonoBehaviour, ITappable, IDraggable
             position.y = Mathf.Clamp(position.y, cr[0].y, cr[2].y);
 
             _joystickHandle.transform.position = position;
+            
         }
        
     }

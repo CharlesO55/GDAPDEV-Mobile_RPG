@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3879869333299407798}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_wood_door_open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 8035636601237283136}
   - component: {fileID: 5552544873113486764}
   - component: {fileID: 8365033259485447310}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_wood_door_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,7 +950,7 @@ GameObject:
   - component: {fileID: 6093501437343340959}
   - component: {fileID: 4423551983062511690}
   - component: {fileID: 2600559598054317137}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: frame_door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3006,7 +3006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1077012484702201021}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3045,7 +3045,7 @@ GameObject:
   - component: {fileID: 6395885161753906692}
   - component: {fileID: 3056889878373306771}
   - component: {fileID: 4044055905955811010}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_window_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3398,7 +3398,7 @@ GameObject:
   - component: {fileID: 7495147371094018277}
   - component: {fileID: 6442557001372057642}
   - component: {fileID: 3411092487928513444}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_window_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3751,7 +3751,7 @@ GameObject:
   - component: {fileID: 3967046542236552191}
   - component: {fileID: 8488160920415952730}
   - component: {fileID: 5788324113822062491}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_wood_door_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4650,7 +4650,7 @@ GameObject:
   - component: {fileID: 1503524768861473065}
   - component: {fileID: 2216330117241048877}
   - component: {fileID: 5133141405955012902}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: door_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5366,6 +5366,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: door_knob_2
       objectReference: {fileID: 0}
+    - target: {fileID: 3473774083900730575, guid: 64fc751891fd98347b1d17badc5eb5f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105678817055870660, guid: 64fc751891fd98347b1d17badc5eb5f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8454830146492376120, guid: 64fc751891fd98347b1d17badc5eb5f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9038701670788015613, guid: 64fc751891fd98347b1d17badc5eb5f1,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -5444,6 +5459,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: door_knob_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473774083900730575, guid: 64fc751891fd98347b1d17badc5eb5f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105678817055870660, guid: 64fc751891fd98347b1d17badc5eb5f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8454830146492376120, guid: 64fc751891fd98347b1d17badc5eb5f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9038701670788015613, guid: 64fc751891fd98347b1d17badc5eb5f1,
         type: 3}

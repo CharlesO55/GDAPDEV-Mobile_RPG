@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5247745832297561018}
   - component: {fileID: 4334325061200184110}
   - component: {fileID: 1767561772931866768}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_window_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 315533890678572653}
   - component: {fileID: 5251038279969672397}
   - component: {fileID: 2304801675897945173}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_window_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -720,7 +720,7 @@ GameObject:
   - component: {fileID: 1484992410846932462}
   - component: {fileID: 1539867562149510298}
   - component: {fileID: 7621751185508656985}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: frame_big
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1619,7 +1619,7 @@ GameObject:
   - component: {fileID: 2793987328338100556}
   - component: {fileID: 2905901515531259088}
   - component: {fileID: 6212428784742237179}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: window_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2336,7 +2336,7 @@ GameObject:
   - component: {fileID: 194475726859381333}
   - component: {fileID: 5779482784687449798}
   - component: {fileID: 3113637091497572929}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: window_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3053,7 +3053,7 @@ GameObject:
   - component: {fileID: 4734870632684351270}
   - component: {fileID: 1495532963641506213}
   - component: {fileID: 7744547831023830574}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: frame_window_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3736,7 +3736,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2317576049242435823}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_window_close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3779,7 +3779,7 @@ GameObject:
   - component: {fileID: 5352295125958947855}
   - component: {fileID: 7950964008082357712}
   - component: {fileID: 6412664067378920162}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: frame_window_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

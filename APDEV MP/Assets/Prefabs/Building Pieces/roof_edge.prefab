@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3922076187566560090}
   - component: {fileID: 7261725641767345664}
   - component: {fileID: 8347194465663240839}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: beam_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 9119760772078651271}
   - component: {fileID: 3526067749741479464}
   - component: {fileID: 4356063506011772635}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plank_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -720,7 +720,7 @@ GameObject:
   - component: {fileID: 449254902357044067}
   - component: {fileID: 175035621279905753}
   - component: {fileID: 4260586883508486662}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plywood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1073,7 +1073,7 @@ GameObject:
   - component: {fileID: 557720545830501220}
   - component: {fileID: 1662726968935293843}
   - component: {fileID: 673057980958115391}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: tiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1426,7 +1426,7 @@ GameObject:
   - component: {fileID: 7320101213618122826}
   - component: {fileID: 1822077075466012119}
   - component: {fileID: 1189091119986375976}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plank_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1774,7 +1774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5293405726433080131}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: roof_edge
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3567343093042652633}
   - component: {fileID: 2232968849249505089}
   - component: {fileID: 5964843685908871382}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_window_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 1093352284054283789}
   - component: {fileID: 5295607347333763228}
   - component: {fileID: 6554554703667182363}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_window_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -720,7 +720,7 @@ GameObject:
   - component: {fileID: 742674160348054703}
   - component: {fileID: 643967413950432818}
   - component: {fileID: 418874725722768753}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: frame_big
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1619,7 +1619,7 @@ GameObject:
   - component: {fileID: 890642992453974171}
   - component: {fileID: 5527135055515900867}
   - component: {fileID: 7208879240409908547}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: window_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2336,7 +2336,7 @@ GameObject:
   - component: {fileID: 8644386081655434724}
   - component: {fileID: 5270281235127984791}
   - component: {fileID: 8734615726345981046}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: frame_window_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3019,7 +3019,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3857932475628093509}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wall_window_open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3062,7 +3062,7 @@ GameObject:
   - component: {fileID: 453463776673177071}
   - component: {fileID: 4859011928629981282}
   - component: {fileID: 234856914614904700}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: frame_window_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3750,7 +3750,7 @@ GameObject:
   - component: {fileID: 1264964235982532307}
   - component: {fileID: 1331665394153185522}
   - component: {fileID: 4301960003251009799}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: window_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8829329901161739860}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 5021214761590778045}
   - component: {fileID: 2314966265919775779}
   - component: {fileID: 699232557064779973}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plank_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 3691599541522115167}
   - component: {fileID: 5987501843301606543}
   - component: {fileID: 7439231847751750169}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: beam_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 5924396320536255991}
   - component: {fileID: 5433266519045553465}
   - component: {fileID: 3034236138884266848}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: beam_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1110,7 +1110,7 @@ GameObject:
   - component: {fileID: 6136579376563941713}
   - component: {fileID: 7721398606779935201}
   - component: {fileID: 2302379236953838945}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: tiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1463,7 +1463,7 @@ GameObject:
   - component: {fileID: 3880506048410229881}
   - component: {fileID: 2086186263087545175}
   - component: {fileID: 973167158967233405}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plank_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1816,7 +1816,7 @@ GameObject:
   - component: {fileID: 6699733355346866047}
   - component: {fileID: 5542576411680245629}
   - component: {fileID: 7170289735373755742}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5995463285479684589}
   - component: {fileID: 5142464207057966620}
   - component: {fileID: 4129565434882476535}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 8548083395890981892}
   - component: {fileID: 3488642243518574449}
   - component: {fileID: 8695806882643290708}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: tiles_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -720,7 +720,7 @@ GameObject:
   - component: {fileID: 619937583120041901}
   - component: {fileID: 3603622165749743496}
   - component: {fileID: 995969897506877152}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plank_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1073,7 +1073,7 @@ GameObject:
   - component: {fileID: 2413953874256328973}
   - component: {fileID: 6312246089573898246}
   - component: {fileID: 5653620340224481516}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plywood_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1421,7 +1421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1141645877882783123}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: roof_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1466,7 +1466,7 @@ GameObject:
   - component: {fileID: 1995625131640199114}
   - component: {fileID: 71528642410982398}
   - component: {fileID: 5627996478834055476}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plywood_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1819,7 +1819,7 @@ GameObject:
   - component: {fileID: 7180702324647831232}
   - component: {fileID: 6170455462886363829}
   - component: {fileID: 6598506561467282901}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plank_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2172,7 +2172,7 @@ GameObject:
   - component: {fileID: 401988080976548922}
   - component: {fileID: 1391310206685895961}
   - component: {fileID: 6153035552373230126}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plank_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2525,7 +2525,7 @@ GameObject:
   - component: {fileID: 7696432933821855766}
   - component: {fileID: 7581545312359421343}
   - component: {fileID: 7254722171545794283}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plank_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2878,7 +2878,7 @@ GameObject:
   - component: {fileID: 504222266623377532}
   - component: {fileID: 5562924731360434658}
   - component: {fileID: 3504345370714978244}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: tiles_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

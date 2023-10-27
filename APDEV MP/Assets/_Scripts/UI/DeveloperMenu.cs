@@ -59,14 +59,19 @@ public class DeveloperMenu : MonoBehaviour
         if (!isAutoWin)
         {
             isAutoWin = true;
-            DiceManager.Instance.isAlwaysWin = true;
+            DiceManager.Instance.IsAlwaysWin = true;
             this.autoWinButton.style.backgroundColor = Color.green;
+
+            if (isAutoLose)
+            {
+                this.ToggleAutoLose();
+            }
         }
  
         else
         {
             isAutoWin = false;
-            DiceManager.Instance.isAlwaysWin = false;
+            DiceManager.Instance.IsAlwaysWin = false;
             this.autoWinButton.style.backgroundColor = Color.red;
         }
     }
@@ -77,14 +82,19 @@ public class DeveloperMenu : MonoBehaviour
         if (!isAutoLose)
         {
             isAutoLose = true;
-            DiceManager.Instance.isAlwaysLoss = true;
+            DiceManager.Instance.IsAlwaysLoss = true;
             this.autoLoseButton.style.backgroundColor = Color.green;
+
+            if (isAutoWin)
+            {
+                this.ToggleAutoWin();
+            }
         }
 
         else
         {
             isAutoLose = false;
-            DiceManager.Instance.isAlwaysLoss = false;
+            DiceManager.Instance.IsAlwaysLoss = false;
             this.autoLoseButton.style.backgroundColor = Color.red;
         }
     }

@@ -30,7 +30,7 @@ public class DiceManager : MonoBehaviour
         Instance = this;
     }
 
-    public void DoRoll(bool isInstantaneousRoll = false, int nMin = 1)
+    public void DoRoll(bool isInstantaneousRoll = false, int nMin = 1, Vector3 rollPos = default)
     {
         if (_dieObject.activeSelf)
         {
@@ -43,7 +43,7 @@ public class DiceManager : MonoBehaviour
         //Create the dice
         this._dieObject.SetActive(true);
 
-        this._dieObject.transform.position = _diceRollStartPos;
+        this._dieObject.transform.position = rollPos;
         this.RandomizeDieRotation();
 
         //Set the camera
@@ -94,6 +94,6 @@ public class DiceManager : MonoBehaviour
         CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.PLAYER_CAM);
     }
 
-    public bool isAlwaysWin { get { return this.m_DebugAlwaysWin; } set { this.m_DebugAlwaysWin = value; } }
-    public bool isAlwaysLoss { get { return this.m_DebugAlwaysLose; } set { this.m_DebugAlwaysLose = value; } }
+    public bool IsAlwaysWin { get { return this.m_DebugAlwaysWin; } set { this.m_DebugAlwaysWin = value; } }
+    public bool IsAlwaysLoss { get { return this.m_DebugAlwaysLose; } set { this.m_DebugAlwaysLose = value; } }
 }

@@ -55,8 +55,6 @@ public class GameHUD : MonoBehaviour
     {
         if(!DebugginButton.isPaused)
         {
-            Debug.Log(" sddddddddddddddddd"  + eventname);
-
             img.AddManipulator(new Clickable(evt =>
             {
                 switch (eventname)

@@ -7,13 +7,12 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private JoystickScript _movementJoystick;
-    [SerializeField] private float _movementSpeed = 1000;
+    [SerializeField] private float _movementSpeed = 8;
 
 
     [SerializeField] private AudioSource _walkSoundEffect;
     private GameObject _activePlayerRef;
     private NavMeshAgent _navMeshAgent;
-
 
 
     void OnEnable()
@@ -24,10 +23,18 @@ public class PlayerController : MonoBehaviour
 
 
         //Helps to keep track of when player switch happens
+
+
+        //PartyManager.Instance.OnSwitchPlayerEvent += UpdatePlayerRef;
+    }
+
+    private void Start()
+    {
+        //_navMesh.bake
         PartyManager.Instance.OnSwitchPlayerEvent += UpdatePlayerRef;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         PartyManager.Instance.OnSwitchPlayerEvent -= UpdatePlayerRef;
     }
@@ -37,25 +44,39 @@ public class PlayerController : MonoBehaviour
     {
         //Move player
         Vector2 inputs = _movementJoystick.GetJoystickAxis(true);
+        
+        if(inputs.magnitude == 0)
+        {
+            return;
+        }
+        
+        
         Vector3 move = (inputs.x * Camera.main.transform.right) + (inputs.y * Camera.main.transform.forward);
         move *= Time.deltaTime * _movementSpeed;
-        if(move != Vector3.zero)
+        
+        //Causes lag
+        /*if(move != Vector3.zero)
         {
-            this._walkSoundEffect.Play();
-        }
+            ///this._walkSoundEffect.Play();
+        }*/
         
 
 
 
-        //Orient
-        _activePlayerRef.transform.LookAt(move + _activePlayerRef.transform.position); 
+        //Orient & Move
+        _activePlayerRef.transform.LookAt(move + _activePlayerRef.transform.position);
+        _navMeshAgent.Move(move);   
+        
 
-        this._navMeshAgent.velocity = move;
-        if (this._navMeshAgent.velocity == Vector3.zero)
+        //move *= _velDamp;
+
+        //this._navMeshAgent.velocity = move;
+
+        //Causes lag
+        /*if (this._navMeshAgent.velocity == Vector3.zero)
         {
             this._walkSoundEffect.Stop();
-        }
-
+        }*/
 
     }
 

@@ -3,7 +3,7 @@ using Cinemachine.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CameraTargetter : MonoBehaviour
@@ -39,6 +39,13 @@ public class CameraTargetter : MonoBehaviour
         }
         _zoomOffset = _virtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
         
+    }
+
+    private void OnDestroy()
+    {
+        PartyManager.Instance.OnSwitchPlayerEvent -= SetTarget;
+        GestureManager.Instance.OnSwipeDelegate -= SwipeRotate;
+        GestureManager.Instance.OnSpreadDelegate -= SpreadZoom;
     }
 
     private void Update()

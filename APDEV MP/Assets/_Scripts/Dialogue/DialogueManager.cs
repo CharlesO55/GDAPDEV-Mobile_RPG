@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     private List<Button> _choiceButtons;
 
 
+    private bool _isTextPrinting = false;
     private Story _currStory;
     private bool _isStoryPlaying;
     public bool IsStoryPlaying
@@ -158,15 +159,18 @@ public class DialogueManager : MonoBehaviour
         _dialogueCurrWaitTimer = 0; //Reset
         
 
-        this.StopCoroutine(PrintText(null));
+        //this.StopCoroutine(PrintText(null));
 
-        if (_currStory.canContinue)
+        if (_currStory.canContinue )
         {
-            string textToPrint = _currStory.Continue();
+            if (!_isTextPrinting)
+            {
+                string textToPrint = _currStory.Continue();
 
-            StartCoroutine(PrintText(textToPrint));
+                StartCoroutine(PrintText(textToPrint));
 
-            this.PrintChoices();
+                this.PrintChoices();
+            }
         }
         else
         {
@@ -213,13 +217,24 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator PrintText(string TextToPrint)
     {
+        this._isTextPrinting = true;
         this._dialogueTextLabel.text = "";
 
-        for (int i = 0; i < TextToPrint.Length; i++)
+        /*for (int i = 0; i < TextToPrint.Length; i++)
         {
             this._dialogueTextLabel.text += TextToPrint[i];
             yield return null;
+        }*/
+
+        int i = 0;
+        while (i < TextToPrint.Length)
+        {
+            this._dialogueTextLabel.text += TextToPrint[i];
+            i++;
+            yield return null;
         }
+
+        _isTextPrinting = false;
     }
 
     private void PrintChoices()

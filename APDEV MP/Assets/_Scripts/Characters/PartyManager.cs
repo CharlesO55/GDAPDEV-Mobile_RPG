@@ -31,7 +31,10 @@ public class PartyManager : MonoBehaviour
     [SerializeField] private List<CharacterData> _newPartyMembers;
 
     public EventHandler<GameObject> OnSwitchPlayerEvent;
-    
+
+    [Header("Alternate Solution")]
+    public CharacterData MainPlayerData;
+
 
     void Awake()
     {
@@ -51,18 +54,21 @@ public class PartyManager : MonoBehaviour
         if (this.m_PlayerController == null)
             Debug.Log("PlayerController is Null");
 
-        if (isCreateDataFromField)
+        this.CreateSingleCharacter();
+        
+        //Subvert for now
+        /*if (isCreateDataFromField)
         {
             this.FirstTimeCreateCharacterData();
         }
         
         this._partyEntities = new List<GameObject>();
         SpawnCharacters();
-        SwitchActiveCharacter(-1);
+        SwitchActiveCharacter(-1);*/
     }
 
-
-
+    //Subvert until save system works
+/*
     void FirstTimeCreateCharacterData()
     {
         Debug.Log("Saving party data from fields");
@@ -74,9 +80,16 @@ public class PartyManager : MonoBehaviour
     {
         this._partyEntities.Clear();
 
-        foreach (CharacterData _saveData in SaveSystem.LoadList<CharacterData>(SaveSystem.SAVE_FILE_ID.PARTY_DATA))
+
+        //Subvert save system for now
+        //foreach (CharacterData _saveData in SaveSystem.LoadList<CharacterData>(SaveSystem.SAVE_FILE_ID.PARTY_DATA))
+        //{
+        //    this._partyEntities.Add(CreateCharacter(_saveData));
+        //}
+
+        foreach (CharacterData newCharData in  _newPartyMembers)
         {
-            this._partyEntities.Add(CreateCharacter(_saveData));
+            this._partyEntities.Add(CreateCharacter(newCharData));
         }
 
         this._activePlayer = this._partyEntities[0];
@@ -130,11 +143,11 @@ public class PartyManager : MonoBehaviour
 
         this.m_PlayerController.UpdatePlayerRef(this, this._activePlayer);
         this.m_CameraTargetter.SetTarget(this, this._activePlayer);
-        //this.OnSwitchPlayerEvent?.Invoke(this, this._activePlayer);
+        this.OnSwitchPlayerEvent?.Invoke(this, this._activePlayer);
         return bSuccess;
-    }
+    }*/
 
-    private GameObject CreateCharacter(CharacterData _saveData)
+    /*private GameObject CreateCharacter(CharacterData _saveData)
     {
         if(_spawnAreas.Count <= 0)
         {
@@ -161,5 +174,28 @@ public class PartyManager : MonoBehaviour
         
 
         return characterObject;
+    }*/
+
+    private void CreateSingleCharacter()
+    {
+        int rngSpawn = UnityEngine.Random.Range(0, _spawnAreas.Count);
+
+        GameObject playerInstance = Instantiate(this.MainPlayerData.CharacterModel, _spawnAreas[rngSpawn].getRandomSpawnPos(), Quaternion.identity, this.transform);
+        playerInstance.AddComponent<CharacterScript>().Init(this.MainPlayerData);
+        playerInstance.AddComponent<NavMeshAgent>();
+
+        /*Rigidbody _rb = playerInstance.GetComponent<Rigidbody>();
+        _rb.isKinematic = true;
+        _rb.interpolation = RigidbodyInterpolation.Interpolate;
+*/
+        if (playerInstance.TryGetComponent<CapsuleCollider>(out CapsuleCollider capsuleCollider))
+        {
+            capsuleCollider.enabled = false;
+        }
+
+        this._activePlayer = playerInstance;
+
+        this.m_PlayerController.UpdatePlayerRef(this, this._activePlayer);
+        this.m_CameraTargetter.SetTarget(this, this._activePlayer);
     }
 }

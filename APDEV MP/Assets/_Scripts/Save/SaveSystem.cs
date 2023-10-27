@@ -12,7 +12,7 @@ using UnityEngine;
  */
 public static class SaveSystem
 {
-    private static readonly string SAVE_FOLDER = Application.dataPath + "/Saves/";
+    private static readonly string SAVE_FOLDER = /*Application.dataPath */ Application.persistentDataPath + "/Saves/";
 
     public enum SAVE_FILE_ID
     {

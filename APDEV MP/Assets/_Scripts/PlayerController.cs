@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -11,7 +12,8 @@ public class PlayerController : MonoBehaviour
 
 
     [SerializeField] private AudioSource _walkSoundEffect;
-    private GameObject _activePlayerRef;
+
+    private GameObject _currActivePlayerRef;
     private NavMeshAgent _navMeshAgent;
 
 
@@ -20,17 +22,10 @@ public class PlayerController : MonoBehaviour
         GameObject moveJoystick = GameObject.Find("Joystick");
 
         this._movementJoystick = moveJoystick.GetComponent<JoystickScript>();
-
-
-        //Helps to keep track of when player switch happens
-
-
-        //PartyManager.Instance.OnSwitchPlayerEvent += UpdatePlayerRef;
     }
 
     private void Start()
     {
-        //_navMesh.bake
         PartyManager.Instance.OnSwitchPlayerEvent += UpdatePlayerRef;
     }
 
@@ -42,51 +37,34 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //Move player
+        if(this._currActivePlayerRef != null)
+        {
+            this.MovePlayer();
+        }
+    }
+
+    private void MovePlayer()
+    {
         Vector2 inputs = _movementJoystick.GetJoystickAxis(true);
-        
-        if(inputs.magnitude == 0)
+        if (inputs.magnitude == 0)
         {
             return;
         }
-        
-        
+
         Vector3 move = (inputs.x * Camera.main.transform.right) + (inputs.y * Camera.main.transform.forward);
         move *= Time.deltaTime * _movementSpeed;
-        
-        //Causes lag
-        /*if(move != Vector3.zero)
-        {
-            ///this._walkSoundEffect.Play();
-        }*/
-        
-
-
 
         //Orient & Move
-        _activePlayerRef.transform.LookAt(move + _activePlayerRef.transform.position);
-        _navMeshAgent.Move(move);   
-        
-
-        //move *= _velDamp;
-
-        //this._navMeshAgent.velocity = move;
-
-        //Causes lag
-        /*if (this._navMeshAgent.velocity == Vector3.zero)
-        {
-            this._walkSoundEffect.Stop();
-        }*/
-
+        this._currActivePlayerRef.transform.LookAt(move + this._currActivePlayerRef.transform.position);
+        _navMeshAgent.Move(move);
     }
 
-    public void UpdatePlayerRef(object sender, GameObject activePlayer)
+    private void UpdatePlayerRef(object sender, GameObject activePlayer)
     {
         Debug.Log("Updated active player");
 
-        this._activePlayerRef = activePlayer;
-
         //get move componnet //navmesh for this case
+        this._currActivePlayerRef = activePlayer;
         this._navMeshAgent = activePlayer.GetComponent<NavMeshAgent>();
     }
 }

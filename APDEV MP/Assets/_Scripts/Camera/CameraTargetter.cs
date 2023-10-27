@@ -22,12 +22,11 @@ public class CameraTargetter : MonoBehaviour
     [SerializeField] Cinemachine.CinemachineVirtualCamera _virtualCamera;
     [SerializeField] float _maxZoom = 15;
     [SerializeField] float _minZoom = 5;
-    //[SerializeField] Vector3 _defaultOffset = new Vector3(0, 2, -5);
 
     private Vector3 _zoomOffset;
 
 
-    private void Start()
+    private void OnEnable()
     {
         PartyManager.Instance.OnSwitchPlayerEvent += SetTarget;
         GestureManager.Instance.OnSwipeDelegate += SwipeRotate;
@@ -41,7 +40,7 @@ public class CameraTargetter : MonoBehaviour
         
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         PartyManager.Instance.OnSwitchPlayerEvent -= SetTarget;
         GestureManager.Instance.OnSwipeDelegate -= SwipeRotate;
@@ -58,7 +57,7 @@ public class CameraTargetter : MonoBehaviour
 
 
 
-    public void SetTarget(object sender, GameObject target)
+    private void SetTarget(object sender, GameObject target)
     {
         this._targetObject = target;
 

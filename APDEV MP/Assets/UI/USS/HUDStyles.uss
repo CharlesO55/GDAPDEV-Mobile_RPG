@@ -50,3 +50,17 @@
 
 	left: 2%;
 }
+
+#DiceRollLabel {
+	display: none;
+
+	-unity-font-style: bold; 
+	font-size: 90px;
+
+	position: absolute;
+
+	justify-content: center;
+	align-self: center;
+
+	top: 10%;
+}

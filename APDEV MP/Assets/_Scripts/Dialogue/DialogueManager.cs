@@ -23,6 +23,13 @@ public class DialogueManager : MonoBehaviour
     private float _dialogueWaitTime = 0.5f;
     private float _dialogueCurrWaitTimer = 0;
 
+    private bool m_IsRequestingRoll = false;
+    public bool IsRequestingRoll
+    {
+        get { return this.m_IsRequestingRoll; }
+        set { this.m_IsRequestingRoll = value;}
+    }
+
     private void Awake()
     {
         if(Instance != null)
@@ -125,7 +132,9 @@ public class DialogueManager : MonoBehaviour
 
         //Link to the dice manager
         DiceManager.Instance.OnDiceResultObservsers += WaitForDieResult;
-        DiceManager.Instance.DoRoll(false, nStatRequired - nPlayerStat);
+        this.m_IsRequestingRoll = true;
+
+        //DiceManager.Instance.DoRoll(false, nStatRequired - nPlayerStat);
         
     }
 

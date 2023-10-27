@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class GameHUD : MonoBehaviour, ITappable
+public class GameHUD : MonoBehaviour
 {
     private CharacterScript m_Character;
 
@@ -13,6 +13,8 @@ public class GameHUD : MonoBehaviour, ITappable
     private Image m_Interact;
     private Image m_Attack;
 
+    private Label m_DiceRollLabel;
+
     void OnEnable()
     {
         this.root = GetComponent<UIDocument>().rootVisualElement;
@@ -20,6 +22,8 @@ public class GameHUD : MonoBehaviour, ITappable
 
         this.m_Interact = this.root.Q<Image>("InteractButton");
         this.m_Attack = this.root.Q<Image>("AttackButton");
+
+        this.m_DiceRollLabel = this.root.Q<Label>("DiceRollLabel");
 
         this.ClickedImage(this.m_Interact, "Interact");
         this.ClickedImage(this.m_Attack, "Attack");
@@ -36,11 +40,15 @@ public class GameHUD : MonoBehaviour, ITappable
     private void Update()
     {
         this.m_ProgressBar.value = this.m_Character.CharacterData.CurrHealth;
-    }
 
-    public void OnTapInterface(TapEventArgs args)
-    {
+        if (DialogueManager.Instance.IsRequestingRoll)
+        {
+            this.m_DiceRollLabel.style.display = DisplayStyle.Flex;
+            this.m_DiceRollLabel.text = "Shake the Screen!";
+        }
 
+        else
+            this.m_DiceRollLabel.style.display = DisplayStyle.None;
     }
 
     private void ClickedImage(Image img, string eventname)

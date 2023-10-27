@@ -8,5 +8,6 @@
                 <ui:Image name="InteractButton" class="actionButtons" />
             </ui:Image>
         </ui:VisualElement>
+        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DiceRollLabel" />
     </ui:VisualElement>
 </ui:UXML>

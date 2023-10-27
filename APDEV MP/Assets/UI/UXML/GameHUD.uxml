@@ -3,10 +3,15 @@
     <ui:VisualElement name="HUDHolder">
         <ui:VisualElement name="Screen">
             <ui:ProgressBar name="Health" value="100" />
-            <ui:Image name="ButtonHolder">
-                <ui:Image name="AttackButton" class="actionButtons" />
-                <ui:Image name="InteractButton" class="actionButtons" />
-            </ui:Image>
+            <ui:VisualElement name="Buttons" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 20%; height: 45%; position: absolute; left: 80%; top: 55%;">
+                <ui:VisualElement name="AttackBracket" style="flex-grow: 1; flex-direction: row;">
+                    <ui:Image name="AttackButton" class="actionButtons" style="width: auto; height: auto; left: auto; position: relative; top: auto; right: auto; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-background-scale-mode: stretch-to-fill; align-items: flex-start; align-self: flex-start;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="InteractBracket" style="flex-grow: 1; flex-direction: row; justify-content: center;">
+                    <ui:Image name="InteractButton" class="actionButtons" style="width: auto; height: auto; left: auto; position: relative; top: auto; align-items: center; display: flex; align-self: center; -unity-background-scale-mode: stretch-to-fill;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Filler" style="flex-grow: 1; margin-top: 8%; margin-right: 8%; margin-bottom: 8%; margin-left: 8%;" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DiceRollLabel" />
     </ui:VisualElement>

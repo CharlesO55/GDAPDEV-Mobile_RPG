@@ -35,14 +35,16 @@
 }
 
 #InteractButton {
-	--unity-image: url("/Assets/Textures/UI/Interact.png");
+	/*--unity-image: url("/Assets/Textures/UI/Interact.png");*/
+	--unity-image: url("/Assets/Textures/UI/InteractFilled.png");
 
 	width: 70%; 
 	height: 70%;	
 }
 
 #AttackButton {
-	--unity-image: url("/Assets/Textures/UI/Attack.png");
+	/*--unity-image: url("/Assets/Textures/UI/Attack.png");*/
+	--unity-image: url("/Assets/Textures/UI/AttackFilled.png");
 	position: absolute;
 
 	width: 50%; 

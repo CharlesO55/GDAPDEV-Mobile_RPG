@@ -41,6 +41,8 @@ public class CustomCameraSwitcher : MonoBehaviour
                 cam.virtualCam.Priority = 0;
             }
         }
+
+        
     }
     /*
         private bool TryGetCamera(EcamID camID, out CinemachineVirtualCamera vCam)

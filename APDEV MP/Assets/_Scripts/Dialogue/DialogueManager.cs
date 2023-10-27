@@ -233,14 +233,17 @@ public class DialogueManager : MonoBehaviour
             for(int i = 0; i < choices.Count; i++)
             {
                 this._choiceButtons[i].text = choices[i].text;
-                this._choiceButtons[i].visible = true;
+                //this._choiceButtons[i].visible = true;
+                this._choiceButtons[i].style.display = DisplayStyle.Flex;
                 this._choiceButtons[i].RegisterCallback<ClickEvent>(MakeChoice);
             }
         }
 
         for (int i = choices.Count; i < this._choiceButtons.Count; i++)
         {
-            this._choiceButtons[i].visible = false;
+            //this._choiceButtons[i].visible = false;
+            this._choiceButtons[i].style.display = DisplayStyle.None;
+
         }
     }
     private void RelinkUIDocumment()

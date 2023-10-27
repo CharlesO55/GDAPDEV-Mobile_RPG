@@ -30,3 +30,28 @@
 	top : 40%;
 	left: 25%;
 }
+
+#MoralityValue {
+	position: absolute;
+	align-self: flex-end;
+
+	min-height: 100px;
+	min-width: 400px;
+
+	border-radius: 10px;
+	border-width: 8px;
+	border-color: rgb(0, 0, 0);
+
+	background-color: rgb(255,255,255);
+
+	top: 5%;
+	right: 2%;
+}
+
+#MoralityLevel {
+	-unity-font-style: bold; 
+	font-size: 30px;
+
+	margin: auto;
+	margin-left: 20px;
+}

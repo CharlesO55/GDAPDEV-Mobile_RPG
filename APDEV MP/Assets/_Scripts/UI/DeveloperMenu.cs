@@ -7,11 +7,16 @@ using UnityEngine.VFX;
 public class DeveloperMenu : MonoBehaviour
 {
     private UIDocument DevMenu;
+
     private VisualElement root;
     private VisualElement DevOptions;
+
     private Button autoWinButton;
     private Button autoLoseButton;
     private Button returnButton;
+
+    private Label m_MoralityLevel;
+
     public static bool isAutoWin = false;
     public static bool isAutoLose = false;
     // Start is called before the first frame update
@@ -26,11 +31,16 @@ public class DeveloperMenu : MonoBehaviour
         this.autoLoseButton = this.root.Q<Button>("AutoLoseButton");
         this.returnButton = this.root.Q<Button>("ReturnButton");
 
+        this.m_MoralityLevel = this.root.Q<Label>("MoralityLevel");
+
         this.autoWinButton.clicked += this.ToggleAutoWin;
         this.autoLoseButton.clicked += this.ToggleAutoLose;
         this.returnButton.clicked += this.ReturnToGame;
+    }
 
-
+    private void Update()
+    {
+        this.m_MoralityLevel.text = "Morality: " + QuestManager.Instance.PlayerMorality;
     }
 
     public void ToggleVisibility(bool isVisible)

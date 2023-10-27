@@ -11,15 +11,15 @@ public class QuestManager : MonoBehaviour
     //Completed quests
     [SerializeField] private List<EnumQuestID> _completedQuests = new List<EnumQuestID>();
 
-
     //This is purely for visibility in inspector.
     [SerializeField] private QuestData _questReference;
-
 
     //Progress tracking
     [SerializeField] private int _nCurrentStepIndex = -1;
     [SerializeField] private float _fCurrentGoalAmount;
 
+    //Tracking Player Morality Values
+    [SerializeField] private int m_PlayerMorality = 0;
 
     private void Awake()
     {
@@ -120,7 +120,7 @@ public class QuestManager : MonoBehaviour
     private void EndQuest()
     {
         Debug.Log("Quest completed: " + this._questReference.QuestName);
-        
+        this.m_PlayerMorality += 5;
         this._completedQuests.Add(this._questReference.QuestID);
         
         //Reset the progress tracker
@@ -195,4 +195,6 @@ public class QuestManager : MonoBehaviour
         //Different object
         return false;
     }
+
+    public int PlayerMorality { get { return this.m_PlayerMorality; } }
 }

@@ -46,6 +46,11 @@ public class QuestManager : MonoBehaviour
 
     public void CheckQuestEventOnObject(GameObject sender, EnumQuestAction actionOccured)
     {
+        if (!IsQuestActive())
+        {
+            return;
+        }
+
         bool isTargetObj = sender.GetType().IsInstanceOfType(GetCurrentObjective().GoalObject);
         bool isDesiredAction = actionOccured == GetCurrentObjective().Action;
         

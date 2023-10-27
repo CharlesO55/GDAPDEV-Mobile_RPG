@@ -31,6 +31,13 @@ public class DialogueManager : MonoBehaviour
         set { this.m_IsRequestingRoll = value;}
     }
 
+    private int m_MinRollValue;
+    public int MinRollValue
+    {
+        get { return this.m_MinRollValue; }
+        set { this.m_MinRollValue = value; }
+    }
+
     private void Awake()
     {
         if(Instance != null)
@@ -133,6 +140,7 @@ public class DialogueManager : MonoBehaviour
 
         //Link to the dice manager
         DiceManager.Instance.OnDiceResultObservsers += WaitForDieResult;
+        this.m_MinRollValue = nStatRequired - nPlayerStat;
         this.m_IsRequestingRoll = true;
 
         //DiceManager.Instance.DoRoll(false, nStatRequired - nPlayerStat);

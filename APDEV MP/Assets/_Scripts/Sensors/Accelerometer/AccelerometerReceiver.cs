@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class AccelerometerReceiver : MonoBehaviour
@@ -15,7 +16,7 @@ public class AccelerometerReceiver : MonoBehaviour
     private void FireAccelerometerEvent()
     {
         Debug.Log("Accelerometer Event Fired");
-        DiceManager.Instance.DoRoll();
+        DiceManager.Instance.DoRoll(false, DialogueManager.Instance.MinRollValue);
         DialogueManager.Instance.IsRequestingRoll = false;
     }
 

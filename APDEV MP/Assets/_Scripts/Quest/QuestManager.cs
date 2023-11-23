@@ -13,6 +13,8 @@ public class QuestManager : MonoBehaviour
 
     //This is purely for visibility in inspector.
     [SerializeField] private QuestData _questReference;
+    private List<QuestData> _activeQuests = new();
+
 
     //Progress tracking
     [SerializeField] private int _nCurrentStepIndex = -1;
@@ -32,8 +34,12 @@ public class QuestManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        this.UpdateUIQuestInfo();
+    }
 
-    private void Update()
+    /*private void Update()
     {
         if (IsQuestActive() && 
             !DialogueManager.Instance.IsStoryPlaying && 
@@ -41,7 +47,7 @@ public class QuestManager : MonoBehaviour
         {
             this.ProceedToNextStep();
         }
-    }
+    }*/
 
 
     public void CheckQuestEventOnObject(GameObject sender, EnumQuestAction actionOccured)
@@ -60,28 +66,48 @@ public class QuestManager : MonoBehaviour
         {
             this._fCurrentGoalAmount++;
             Debug.Log("Increased progress");
+
+            if(this._fCurrentGoalAmount >= GetCurrentObjective().GoalAmount)
+            {
+                this.ProceedToNextStep();
+            }
         }
     }
 
     
     
+    //THIS VER ALLLOWS FOR EXTERNAL WRITING OF THE CURRENT QUEST STEP.
+    //IDEALLY TO BE USED BY DIALOGUE MANAGER SINCE DIFFERENT OPTIONS CAN LEAD TO DIFFERENT STEPS.
     public void SetNextStep(int nNextStep)
     {
         Debug.Log("Next step" + nNextStep);
 
         this._nCurrentStepIndex = nNextStep;
 
+        //QUEST WAS RESET BY DIALOGUE OPTION
         if(nNextStep < 0)
         {
             ResetCurrQuest();
-            //DialogueManager.Instance.End
         }
 
-
+        //QUEST HAS REACHED END
         else if (GetCurrentObjective().Action == EnumQuestAction.END)
         {
-            Debug.Log("End");
             this.EndQuest();
+        }
+
+        UpdateUIQuestInfo();
+    }
+
+    private void UpdateUIQuestInfo()
+    {
+        if(!this.IsQuestActive())
+        {
+            UIManager.Instance.GetGameHUD().UpdateQuestLabels();
+        }
+        else
+        {
+            UIManager.Instance.GetGameHUD().UpdateQuestLabels(this._questReference.QuestName, this.GetCurrentObjective().Instructions);
         }
     }
 
@@ -107,6 +133,10 @@ public class QuestManager : MonoBehaviour
         return true;
     }
 
+
+    //CALLED WHEN THE GOAL AMOUNT IS MET
+    //OR COMPLETED EVENT
+    //STEPS OF DIALOGUE RELATED CHOICES USE SetNextStep() in
     public void ProceedToNextStep()
     {
         if (!this.IsQuestActive())
@@ -117,7 +147,7 @@ public class QuestManager : MonoBehaviour
         //this._nCurrentStepIndex++;
         this._fCurrentGoalAmount = 0;
 
-        Debug.Log("New step: " + this._questReference.QuestSteps[_nCurrentStepIndex].Instructions);
+        //Debug.Log("New step: " + this._questReference.QuestSteps[_nCurrentStepIndex].Instructions);
 
         DialogueManager.Instance.StartDialogue(this._questReference.QuestStory, _nCurrentStepIndex);
     }
@@ -127,11 +157,9 @@ public class QuestManager : MonoBehaviour
         Debug.Log("Quest completed: " + this._questReference.QuestName);
         this.m_PlayerMorality += 5;
         this._completedQuests.Add(this._questReference.QuestID);
-        
+
         //Reset the progress tracker
-        this._nCurrentStepIndex = -1;
-        this._fCurrentGoalAmount = 0;
-        this._questReference = null;
+        this.ResetCurrQuest();
     }
 
     public bool IsQuestActive()

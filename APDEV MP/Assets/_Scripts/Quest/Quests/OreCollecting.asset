@@ -22,12 +22,12 @@ MonoBehaviour:
     _goalAmount: 1
     _goalObject: {fileID: 99576536999500520, guid: 3bd5e13e7cd36d84bbab55b901aa03c8,
       type: 3}
-  - _instructions: Get gold ore
+  - _instructions: Keep collecting ore
     _action: 0
     _goalAmount: 3
     _goalObject: {fileID: 99576536999500520, guid: 3bd5e13e7cd36d84bbab55b901aa03c8,
       type: 3}
-  - _instructions: Return
+  - _instructions: Return to granny
     _action: 2
     _goalAmount: 1
     _goalObject: {fileID: 171298659275691851, guid: 1d67986c494475645b806f9c8b39f005,

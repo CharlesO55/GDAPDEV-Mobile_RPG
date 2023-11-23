@@ -7,8 +7,23 @@ using UnityEngine.UIElements;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private UIDocument _systemMessagesDocs;
+    [SerializeField] private UIDocument _gameHUDDocument;
+
+
+    public static UIManager Instance;
     private Label _systemMessagesLabel;
 
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this.gameObject);
+            Debug.LogError("Warning more than one UIManager exists");
+            return;
+        }
+        Instance = this;
+    }
 
     void Start()
     {
@@ -54,4 +69,20 @@ public class UIManager : MonoBehaviour
         this.ChangeText(message);
     }
 
+
+    public GameHUD GetGameHUD()
+    {
+        GameHUD docScript = null;
+
+        if (this._gameHUDDocument != null)
+        {
+            if (this._gameHUDDocument.TryGetComponent<GameHUD>(out docScript))
+            {
+                return docScript;
+            }
+        }
+
+        Debug.LogError("UIManager Failed to find GameHUD");
+        return docScript;
+    }
 }

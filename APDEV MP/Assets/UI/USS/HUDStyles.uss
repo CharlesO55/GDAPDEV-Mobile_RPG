@@ -1,3 +1,15 @@
+.unity-label{
+	-unity-font-style: bold; 
+	font-size: 54px; 
+	
+	
+	color: rgb(255, 255, 255);  
+	-unity-text-outline-width: 2px;
+	-unity-text-outline-color: rgba(0, 0, 0, 1);
+
+	text-shadow: 0 2px 5px rgba(0, 0, 0, 1);  
+}
+
 .unity-image {
 	--unity-image-size: scale-to-fit;
 }
@@ -28,7 +40,7 @@
 
 #ButtonHolder {
 	flex-direction: row;
-	align-items: end;
+	align-items: flex-end;
 
 	top: 65%;
 	left: 55%;
@@ -65,4 +77,21 @@
 	align-self: center;
 
 	top: 10%;
+}
+
+
+#QuestLabel{
+	max-width: initial; 
+	text-overflow: ellipsis; 
+	margin-right: 0px;
+}
+
+#TaskLabel{ 
+	font-size: 42px;
+	max-width: initial; 
+	text-overflow: ellipsis; 
+	align-self: flex-end;
+	white-space: normal;
+	margin-right: 0px;
+
 }

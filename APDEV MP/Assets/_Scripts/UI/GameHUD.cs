@@ -15,6 +15,10 @@ public class GameHUD : MonoBehaviour
 
     private Label m_DiceRollLabel;
 
+    private Label m_QuestLabel;
+    private Label m_TaskLabel;
+
+
     void OnEnable()
     {
         this.root = GetComponent<UIDocument>().rootVisualElement;
@@ -27,6 +31,10 @@ public class GameHUD : MonoBehaviour
 
         this.ClickedImage(this.m_Interact, "Interact");
         this.ClickedImage(this.m_Attack, "Attack");
+
+        
+        this.m_QuestLabel = this.root.Q<Label>("QuestLabel");
+        this.m_TaskLabel = this.root.Q<Label>("TaskLabel");
     }
 
     private void Start()
@@ -82,5 +90,12 @@ public class GameHUD : MonoBehaviour
             }));
         }
    
+    }
+
+
+    public void UpdateQuestLabels(string strQuestName = "No active quest", string strTask = "No active task")
+    {
+        this.m_QuestLabel.text = strQuestName;
+        this.m_TaskLabel.text = strTask;
     }
 }

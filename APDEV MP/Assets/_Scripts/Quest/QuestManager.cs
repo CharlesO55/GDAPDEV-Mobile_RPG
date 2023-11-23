@@ -60,11 +60,11 @@ public class QuestManager : MonoBehaviour
         bool isTargetObj = sender.GetType().IsInstanceOfType(GetCurrentObjective().GoalObject);
         bool isDesiredAction = actionOccured == GetCurrentObjective().Action;
         
-        //Debug.Log("res: " + isTargetObj + "act" +  isDesiredAction);
 
         if (isTargetObj && isDesiredAction)
         {
             this._fCurrentGoalAmount++;
+            this.UpdateUIQuestInfo();
             Debug.Log("Increased progress");
 
             if(this._fCurrentGoalAmount >= GetCurrentObjective().GoalAmount)
@@ -107,7 +107,8 @@ public class QuestManager : MonoBehaviour
         }
         else
         {
-            UIManager.Instance.GetGameHUD().UpdateQuestLabels(this._questReference.QuestName, this.GetCurrentObjective().Instructions);
+            string strInstructions = $"({this._fCurrentGoalAmount}/{this.GetCurrentObjective().GoalAmount}) {this.GetCurrentObjective().Instructions}";
+            UIManager.Instance.GetGameHUD().UpdateQuestLabels(this._questReference.QuestName, strInstructions);
         }
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OreCollecting
   m_EditorClassIdentifier: 
   _questID: 0
-  _questName: Ore Mining Quest Name
+  _questName: Ore Collecting Quest
   _questStory: {fileID: 4900000, guid: 96cf921bbc23b034a865004a58b457b5, type: 3}
   _prerequesiteQuests: 
   _questSteps:

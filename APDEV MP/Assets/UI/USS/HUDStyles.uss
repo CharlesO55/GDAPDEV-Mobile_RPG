@@ -1,7 +1,8 @@
 .unity-label{
 	-unity-font-style: bold; 
 	font-size: 54px; 
-	
+
+	white-space: normal;	
 	
 	color: rgb(255, 255, 255);  
 	-unity-text-outline-width: 2px;
@@ -65,7 +66,9 @@
 	left: 2%;
 }
 
-#DiceRollLabel {
+
+
+#DiceRollLabel{
 	display: none;
 
 	-unity-font-style: bold; 
@@ -80,16 +83,20 @@
 }
 
 
-#QuestLabel{
-	max-width: initial; 
-	text-overflow: ellipsis; 
+#QuestLabel {
+	-unity-text-align: middle-right;
+	max-width: 1000px; 
 	margin-right: 0px;
+
+	white-space: nowrap; 
+	text-overflow: ellipsis; 
+	overflow: hidden;
 }
 
 #TaskLabel{ 
+	-unity-text-align: middle-right;
+	max-width: 800px; 
 	font-size: 42px;
-	max-width: initial; 
-	text-overflow: ellipsis; 
 	align-self: flex-end;
 	white-space: normal;
 	margin-right: 0px;

@@ -53,6 +53,10 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = (inputs.x * Camera.main.transform.right) + (inputs.y * Camera.main.transform.forward);
         move *= Time.deltaTime * _movementSpeed;
+        if(move != Vector3.zero && !_walkSoundEffect.isPlaying)
+        {
+            this._walkSoundEffect.Play();
+        }
 
         //Orient & Move
         this._currActivePlayerRef.transform.LookAt(move + this._currActivePlayerRef.transform.position);

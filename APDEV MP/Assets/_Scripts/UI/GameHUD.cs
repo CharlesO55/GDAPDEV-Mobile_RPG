@@ -15,8 +15,8 @@ public class GameHUD : MonoBehaviour
 
     private Label m_DiceRollLabel;
 
-    private Label m_QuestLabel;
-    private Label m_TaskLabel;
+    private Label[] m_QuestLabels;
+    private Label[] m_TaskLabels;
 
 
     void OnEnable()
@@ -33,8 +33,21 @@ public class GameHUD : MonoBehaviour
         this.ClickedImage(this.m_Attack, "Attack");
 
         
-        this.m_QuestLabel = this.root.Q<Label>("QuestLabel");
-        this.m_TaskLabel = this.root.Q<Label>("TaskLabel");
+        //this.m_QuestLabel = this.root.Q<Label>("QuestLabel");
+        //this.m_TaskLabel = this.root.Q<Label>("TaskLabel");
+
+
+        m_QuestLabels = new Label[]{
+            this.root.Q<Label>("QuestLabel"),
+            this.root.Q<Label>("QuestLabel2"),
+            this.root.Q<Label>("QuestLabel3")
+        };
+
+        m_TaskLabels = new Label[]{
+            this.root.Q<Label>("TaskLabel"),
+            this.root.Q<Label>("TaskLabel2"),
+            this.root.Q<Label>("TaskLabel3")
+        };
     }
 
     private void Start()
@@ -93,9 +106,33 @@ public class GameHUD : MonoBehaviour
     }
 
 
-    public void UpdateQuestLabels(string strQuestName = "No active quest", string strTask = "No active task")
+    public void UpdateQuestLabels(string[] strQuestNames = null, string[] strTaskInstructions = null)
     {
-        this.m_QuestLabel.text = strQuestName;
-        this.m_TaskLabel.text = strTask;
+        int labelsUsed = 0;
+
+        if (strQuestNames == null || strTaskInstructions == null)
+        {
+            m_QuestLabels[0].text = "No active quest";
+            m_TaskLabels[0].text = "No task available";
+            labelsUsed++;
+        }
+
+        else
+        {
+            while (labelsUsed < strQuestNames.Length && labelsUsed < m_QuestLabels.Length)
+            {
+                this.m_QuestLabels[labelsUsed].text = strQuestNames[labelsUsed];
+                this.m_TaskLabels[labelsUsed].text = strTaskInstructions[labelsUsed];
+                labelsUsed++;
+            }
+        }
+        
+        //THE REMAINING UNUSED LABELS
+        while (labelsUsed < m_QuestLabels.Length)
+        {
+            this.m_QuestLabels[labelsUsed].text = "";
+            this.m_TaskLabels[labelsUsed].text = "";
+            labelsUsed++;
+        }
     }
 }

@@ -85,9 +85,9 @@ public class DialogueManager : MonoBehaviour
 
         //Linking observers
         GestureManager.Instance.OnTapDelegate += ContinueDialogue;
-        this._currStory.BindExternalFunction("SetNextStep", (int nNextStep) =>
+        this._currStory.BindExternalFunction("SetNextStep", (int nNextStep, string strQuestName) =>
         {
-            QuestManager.Instance.SetNextStep(nNextStep);
+            QuestManager.Instance.SetNextStep(nNextStep, strQuestName);
         });
         this._currStory.BindExternalFunction("DoDialogueRoll", (int nStatRequired, string strStatType) =>
         {

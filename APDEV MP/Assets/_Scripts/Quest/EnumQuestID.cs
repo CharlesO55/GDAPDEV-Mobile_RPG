@@ -1,4 +1,5 @@
 public enum EnumQuestID
 {
-    TEST_MINING_QUEST
+    NULL,
+    ORE_MINING
 }

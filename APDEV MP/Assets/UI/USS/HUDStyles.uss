@@ -82,23 +82,35 @@
 	top: 10%;
 }
 
-
-#QuestLabel {
-	-unity-text-align: middle-right;
-	max-width: 1000px; 
-	margin-right: 0px;
-
+.CutoffOverflow{
 	white-space: nowrap; 
 	text-overflow: ellipsis; 
 	overflow: hidden;
 }
 
-#TaskLabel{ 
+.RightAligned{
 	-unity-text-align: middle-right;
+	margin-right: 0px;
+	align-self: flex-end;
+}
+
+#QuestLabel {
+	max-width: 1000px; 
+}
+
+#TaskLabel{ 
 	max-width: 800px; 
 	font-size: 42px;
-	align-self: flex-end;
 	white-space: normal;
 	margin-right: 0px;
+}
 
+.QuestMini{
+	max-width: 600px;
+	font-size: 34px;
+}
+
+.TaskMini{
+	max-width: 600px;
+	font-size: 30px;
 }

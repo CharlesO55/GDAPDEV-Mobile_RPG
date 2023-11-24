@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ddf02474f3624e14b9c81eb6f11a9ea9, type: 3}
-  m_Name: OreCollecting
+  m_Name: OreMining
   m_EditorClassIdentifier: 
-  _questID: 0
-  _questName: Ore Collecting Quest
+  _questID: 1
+  _questName: Ore Mining
   _questStory: {fileID: 4900000, guid: 96cf921bbc23b034a865004a58b457b5, type: 3}
   _prerequesiteQuests: 
   _questSteps:

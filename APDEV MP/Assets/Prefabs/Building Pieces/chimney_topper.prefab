@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2606680476109549408}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.34999847, y: 0.5, z: 0.35000038}
+  m_LocalPosition: {x: 0.3, y: 0.5, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2092,55 +2092,55 @@ MonoBehaviour:
   - m_Vertices: 0b0000000e00000012000000
   m_SharedTextures: []
   m_Positions:
-  - {x: -0.75, y: -0.25, z: 0.75}
-  - {x: 0.75, y: -0.25, z: 0.75}
-  - {x: -0.75, y: 0.25, z: 0.75}
-  - {x: 0.75, y: 0.25, z: 0.75}
-  - {x: 0.75, y: -0.25, z: 0.75}
-  - {x: 0.75, y: -0.25, z: -0.75}
-  - {x: 0.75, y: 0.25, z: 0.75}
-  - {x: 0.75, y: 0.25, z: -0.75}
-  - {x: 0.75, y: -0.25, z: -0.75}
-  - {x: -0.75, y: -0.25, z: -0.75}
-  - {x: 0.75, y: 0.25, z: -0.75}
-  - {x: -0.75, y: 0.25, z: -0.75}
-  - {x: -0.75, y: -0.25, z: -0.75}
-  - {x: -0.75, y: -0.25, z: 0.75}
-  - {x: -0.75, y: 0.25, z: -0.75}
-  - {x: -0.75, y: 0.25, z: 0.75}
-  - {x: -0.75, y: 0.25, z: 0.75}
-  - {x: 0.75, y: 0.25, z: 0.75}
-  - {x: -0.75, y: 0.25, z: -0.75}
-  - {x: 0.75, y: 0.25, z: -0.75}
-  - {x: -0.75, y: -0.25, z: -0.75}
-  - {x: 0.75, y: -0.25, z: -0.75}
-  - {x: -0.75, y: -0.25, z: 0.75}
-  - {x: 0.75, y: -0.25, z: 0.75}
+  - {x: -0.625, y: -0.25, z: 0.625}
+  - {x: 0.625, y: -0.25, z: 0.625}
+  - {x: -0.625, y: 0.25, z: 0.625}
+  - {x: 0.625, y: 0.25, z: 0.625}
+  - {x: 0.625, y: -0.25, z: 0.625}
+  - {x: 0.625, y: -0.25, z: -0.625}
+  - {x: 0.625, y: 0.25, z: 0.625}
+  - {x: 0.625, y: 0.25, z: -0.625}
+  - {x: 0.625, y: -0.25, z: -0.625}
+  - {x: -0.625, y: -0.25, z: -0.625}
+  - {x: 0.625, y: 0.25, z: -0.625}
+  - {x: -0.625, y: 0.25, z: -0.625}
+  - {x: -0.625, y: -0.25, z: -0.625}
+  - {x: -0.625, y: -0.25, z: 0.625}
+  - {x: -0.625, y: 0.25, z: -0.625}
+  - {x: -0.625, y: 0.25, z: 0.625}
+  - {x: -0.625, y: 0.25, z: 0.625}
+  - {x: 0.625, y: 0.25, z: 0.625}
+  - {x: -0.625, y: 0.25, z: -0.625}
+  - {x: 0.625, y: 0.25, z: -0.625}
+  - {x: -0.625, y: -0.25, z: -0.625}
+  - {x: 0.625, y: -0.25, z: -0.625}
+  - {x: -0.625, y: -0.25, z: 0.625}
+  - {x: 0.625, y: -0.25, z: 0.625}
   m_Textures0:
-  - {x: 0.75, y: -0.25}
-  - {x: -0.75, y: -0.25}
-  - {x: 0.75, y: 0.25}
-  - {x: -0.75, y: 0.25}
-  - {x: 0.75, y: -0.25}
-  - {x: -0.75, y: -0.25}
-  - {x: 0.75, y: 0.25}
-  - {x: -0.75, y: 0.25}
-  - {x: 0.75, y: -0.25}
-  - {x: -0.75, y: -0.25}
-  - {x: 0.75, y: 0.25}
-  - {x: -0.75, y: 0.25}
-  - {x: 0.75, y: -0.25}
-  - {x: -0.75, y: -0.25}
-  - {x: 0.75, y: 0.25}
-  - {x: -0.75, y: 0.25}
-  - {x: -0.75, y: 0.75}
-  - {x: 0.75, y: 0.75}
-  - {x: -0.75, y: -0.75}
-  - {x: 0.75, y: -0.75}
-  - {x: 0.75, y: -0.75}
-  - {x: -0.75, y: -0.75}
-  - {x: 0.75, y: 0.75}
-  - {x: -0.75, y: 0.75}
+  - {x: 0.625, y: -0.25}
+  - {x: -0.625, y: -0.25}
+  - {x: 0.625, y: 0.25}
+  - {x: -0.625, y: 0.25}
+  - {x: 0.625, y: -0.25}
+  - {x: -0.625, y: -0.25}
+  - {x: 0.625, y: 0.25}
+  - {x: -0.625, y: 0.25}
+  - {x: 0.625, y: -0.25}
+  - {x: -0.625, y: -0.25}
+  - {x: 0.625, y: 0.25}
+  - {x: -0.625, y: 0.25}
+  - {x: 0.625, y: -0.25}
+  - {x: -0.625, y: -0.25}
+  - {x: 0.625, y: 0.25}
+  - {x: -0.625, y: 0.25}
+  - {x: -0.625, y: 0.625}
+  - {x: 0.625, y: 0.625}
+  - {x: -0.625, y: -0.625}
+  - {x: 0.625, y: -0.625}
+  - {x: 0.625, y: -0.625}
+  - {x: -0.625, y: -0.625}
+  - {x: 0.625, y: 0.625}
+  - {x: -0.625, y: 0.625}
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
@@ -2177,7 +2177,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1270
+  m_VersionIndex: 1314
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2196,14 +2196,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 4150253432906973644
-  m_Size: {x: 1.5, y: 0.5, z: 1.5}
+  m_Size: {x: 1.25, y: 0.5, z: 1.25}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_PivotLocation: 0
   m_PivotPosition: {x: 0, y: 0, z: 0}
-  m_UnmodifiedMeshVersion: 1270
+  m_UnmodifiedMeshVersion: 1314
   m_ShapeBox:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.75, y: 0.25, z: 0.75}
+    m_Extent: {x: 0.625, y: 0.25, z: 0.625}
   references:
     version: 2
     RefIds:
@@ -2312,7 +2312,7 @@ Transform:
   m_GameObject: {fileID: 4532087784370275203}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.35000134, y: 0.5, z: -0.34999943}
+  m_LocalPosition: {x: -0.3, y: 0.5, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4557,7 +4557,7 @@ Transform:
   m_GameObject: {fileID: 6969817499237043081}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.34999847, y: 0.5, z: -0.34999943}
+  m_LocalPosition: {x: 0.3, y: 0.5, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6449,7 +6449,7 @@ Transform:
   m_GameObject: {fileID: 7038880138170951276}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.35000134, y: 0.5, z: 0.35000038}
+  m_LocalPosition: {x: -0.3, y: 0.5, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,4 +1,11 @@
-using System.Collections;
+//DEPREACTED
+//USE THE MULTIPLE QUESTS VER (MultipleQuestsManager)
+
+
+
+
+
+/*using System.Collections;
 using System.Collections.Generic;
 //using TMPro.EditorUtilities;
 using Unity.VisualScripting;
@@ -6,7 +13,7 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    public static QuestManager Instance;
+    //public static QuestManager Instance;
 
     //Completed quests
     [SerializeField] private List<EnumQuestID> _completedQuests = new List<EnumQuestID>();
@@ -39,15 +46,15 @@ public class QuestManager : MonoBehaviour
         this.UpdateUIQuestInfo();
     }
 
-    /*private void Update()
+    private void Update()
     {
-        if (IsQuestActive() && 
-            !DialogueManager.Instance.IsStoryPlaying && 
+        if (IsQuestActive() &&
+            !DialogueManager.Instance.IsStoryPlaying &&
             this._fCurrentGoalAmount >= GetCurrentObjective().GoalAmount)
         {
             this.ProceedToNextStep();
         }
-    }*/
+    }
 
 
     public void CheckQuestEventOnObject(GameObject sender, EnumQuestAction actionOccured)
@@ -59,23 +66,23 @@ public class QuestManager : MonoBehaviour
 
         bool isTargetObj = sender.GetType().IsInstanceOfType(GetCurrentObjective().GoalObject);
         bool isDesiredAction = actionOccured == GetCurrentObjective().Action;
-        
 
-        if (isTargetObj && isDesiredAction)
+
+        if (isTargetObj && isDesiredAction IsQuestTarget(sender.gameObject, actionOccured))
         {
             this._fCurrentGoalAmount++;
             this.UpdateUIQuestInfo();
             Debug.Log("Increased progress");
 
-            if(this._fCurrentGoalAmount >= GetCurrentObjective().GoalAmount)
+            if (this._fCurrentGoalAmount >= GetCurrentObjective().GoalAmount)
             {
                 this.ProceedToNextStep();
             }
         }
     }
 
-    
-    
+
+
     //THIS VER ALLLOWS FOR EXTERNAL WRITING OF THE CURRENT QUEST STEP.
     //IDEALLY TO BE USED BY DIALOGUE MANAGER SINCE DIFFERENT OPTIONS CAN LEAD TO DIFFERENT STEPS.
     public void SetNextStep(int nNextStep, string strQuestName)
@@ -86,7 +93,7 @@ public class QuestManager : MonoBehaviour
         this._nCurrentStepIndex = nNextStep;
 
         //QUEST WAS RESET BY DIALOGUE OPTION
-        if(nNextStep < 0)
+        if (nNextStep < 0)
         {
             ResetCurrQuest();
         }
@@ -114,7 +121,7 @@ public class QuestManager : MonoBehaviour
 
     private void UpdateUIQuestInfo()
     {
-        if(!this.IsQuestActive())
+        if (!this.IsQuestActive())
         {
             UIManager.Instance.GetGameHUD().UpdateQuestLabels();
         }
@@ -219,7 +226,7 @@ public class QuestManager : MonoBehaviour
 
     public bool IsQuestTarget(GameObject targetObj, EnumQuestAction actionToCheck = EnumQuestAction.NONE)
     {
-        if (!IsQuestActive() )
+        if (!IsQuestActive())
         {
             return false;
         }
@@ -245,4 +252,4 @@ public class QuestManager : MonoBehaviour
     }
 
     public int PlayerMorality { get { return this.m_PlayerMorality; } }
-}
+}*/

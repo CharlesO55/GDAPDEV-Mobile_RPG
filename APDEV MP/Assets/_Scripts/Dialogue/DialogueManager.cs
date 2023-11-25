@@ -38,6 +38,9 @@ public class DialogueManager : MonoBehaviour
         set { this.m_MinRollValue = value; }
     }
 
+    /*********************************
+    *      LIFE CYCLE METHODS        *
+    *********************************/
     private void Awake()
     {
         if(Instance != null)
@@ -48,8 +51,7 @@ public class DialogueManager : MonoBehaviour
         Instance = this;
     }
 
-    
-
+   
     private void Start()
     {
         _currStory = null;
@@ -63,6 +65,8 @@ public class DialogueManager : MonoBehaviour
     {
         _dialogueCurrWaitTimer += Time.deltaTime;
     }
+
+
 
     public void StartDialogue(TextAsset inkJSON, int nQuestStep = -1)
     {
@@ -87,8 +91,10 @@ public class DialogueManager : MonoBehaviour
         GestureManager.Instance.OnTapDelegate += ContinueDialogue;
         this._currStory.BindExternalFunction("SetNextStep", (int nNextStep, string strQuestName) =>
         {
-            QuestManager.Instance.SetNextStep(nNextStep, strQuestName);
+            //QuestManager.Instance.SetNextStep(nNextStep, strQuestName);
+            MultipleQuestsManager.Instance.SetNextStep(nNextStep, strQuestName);
         });
+
         this._currStory.BindExternalFunction("DoDialogueRoll", (int nStatRequired, string strStatType) =>
         {
             this.DoDialogueRoll(nStatRequired, strStatType);

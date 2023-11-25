@@ -12,10 +12,11 @@ public class QuestGiver : MonoBehaviour , IInteractable
 
     public void OnInteractInterface()
     {
-        //Prioritize 
-        if (QuestManager.Instance.IsQuestTarget(this.gameObject, EnumQuestAction.TALK))
+        //Prioritize continuining active quest dialogue
+        
+        if(MultipleQuestsManager.Instance.IsQuestTarget(out EnumQuestID questNeedingThis, this.gameObject, EnumQuestAction.TALK))
         {
-            QuestManager.Instance.ProceedToNextStep();
+            MultipleQuestsManager.Instance.ProceedToNextStep(questNeedingThis);
         }
 
 
@@ -24,9 +25,9 @@ public class QuestGiver : MonoBehaviour , IInteractable
             //Try to start a new quest
             foreach (QuestData data in _quests)
             {
-                if (QuestManager.Instance.CanStartQuest(data))
+                if (MultipleQuestsManager.Instance.CanStartQuest(data))
                 {
-                    QuestManager.Instance.TryStartQuest(data);
+                    MultipleQuestsManager.Instance.TryStartQuest(data);
                     return;
                 }
             }

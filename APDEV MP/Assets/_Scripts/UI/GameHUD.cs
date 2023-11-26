@@ -18,7 +18,9 @@ public class GameHUD : MonoBehaviour
     private Label[] m_QuestLabels;
     private Label[] m_TaskLabels;
 
-
+    [SerializeField]
+    private AudioClip BattleBgm;
+    private bool _inBattle = false;
     void OnEnable()
     {
         this.root = GetComponent<UIDocument>().rootVisualElement;
@@ -94,6 +96,17 @@ public class GameHUD : MonoBehaviour
 
                     case "Attack":
                         Debug.Log("Attack Button Pressed");
+                        if(!_inBattle)
+                        {
+                            this._inBattle = true;
+                            MusicManager.instance.ChangeBGM(this.BattleBgm);
+                        }
+                        else
+                        {
+                            this._inBattle = false;
+                            MusicManager.instance.RevertBGM();
+                        }
+                           
                         //DiceManager.Instance.DoRoll();
                         break;
 

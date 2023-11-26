@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GridStat : MonoBehaviour
@@ -15,39 +16,71 @@ public class GridStat : MonoBehaviour
 
     private bool m_IsPlayerWithin = false;
     private bool m_IsPassable = true;
+    private bool m_IsPathable = false;
+
+    private bool m_IsProtruding = false;
 
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject == PartyManager.Instance.ActivePlayer)
         {
-            this.m_IsPlayerWithin = true;
-            ChangeTileState(2);
+            if (!CombatManager.Instance.FoundMoveRange)
+            {
+                this.m_IsPlayerWithin = true;
+                ChangeTileState(2);
+
+                CombatManager.Instance.CheckUnitMoveRange(this);
+                CombatManager.Instance.FoundMoveRange = true;
+            }
             return;
         }
 
-
-        this.ChangeTileState(1);
+        if (!other.gameObject.CompareTag("CombatTile"))
+            this.ChangeTileState(1);
     }
 
     public void ChangeTileState(int state)
     {
-        Vector3 m_Leveller = new Vector3(0, 0.1f, 0);
+        Vector3 m_Leveller = new Vector3(0, 0.05f, 0);
 
         switch (state)
         {
             case 0:
                 this.GetComponent<LineRenderer>().material = this.m_Passable;
                 this.m_IsPassable = true;
+                this.m_IsPathable = false;
+
+                if (this.m_IsProtruding)
+                {
+                    this.transform.position -= m_Leveller;
+                    this.m_IsProtruding = false;
+                }
                 break;
 
             case 1:
                 this.GetComponent<LineRenderer>().material = this.m_Impassable;
                 this.m_IsPassable = false;
+                this.m_IsPathable = false;
+
+                if (!this.m_IsProtruding)
+                {
+                    this.transform.position += m_Leveller;
+                    this.m_IsProtruding = true;
+                }
+
                 break;
 
             case 2:
                 this.GetComponent<LineRenderer>().material = this.m_Pathable;
                 this.m_IsPassable = true;
+                this.m_IsPathable = true;
+
+                if (!this.m_IsProtruding)
+                {
+                    this.transform.position += m_Leveller;
+                    this.m_IsProtruding = true;
+                }
+
                 break;
 
             default:
@@ -59,4 +92,5 @@ public class GridStat : MonoBehaviour
     public int yLoc { get { return this.m_yLoc; } set { this.m_yLoc = value; } }
     public bool IsPlayerWithin { get { return this.m_IsPlayerWithin; } }
     public bool IsPassable { get { return this.m_IsPassable; } }
+    public bool IsPathable { get { return this.m_IsPathable; } }
 }

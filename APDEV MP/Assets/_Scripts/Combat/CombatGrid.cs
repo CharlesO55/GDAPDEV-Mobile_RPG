@@ -12,7 +12,7 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] private GameObject m_GridPrefab;
     [SerializeField] private Vector3 m_BotLeftLocation = new Vector3(0, 0, 0);
 
-    [SerializeField] GameObject[,] m_Grids;
+    [SerializeField] private GameObject[,] m_Grids;
 
     // Start is called before the first frame update
     private void Awake()
@@ -29,14 +29,14 @@ public class CombatGrid : MonoBehaviour
             Debug.LogError("Missing GridPrefab in " + this.name);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        foreach(GameObject a in this.m_Grids)
-        {
-            if (a.GetComponent<GridStat>().IsPlayerWithin)
-                this.CheckNeighbor(a.GetComponent<GridStat>().xLoc, a.GetComponent<GridStat>().yLoc);
-        }
+        
+    }
+
+    private void OnDisable()
+    {
+        this.ResetGrid();
     }
 
     private void GenerateGrid()
@@ -57,19 +57,43 @@ public class CombatGrid : MonoBehaviour
         }
     }
 
-    private void CheckNeighbor(int x, int y)
+    private void ResetGrid()
     {
+        CombatManager.Instance.FoundMoveRange = false;
+        CombatManager.Instance.FoundAttackRange = false;
+
+        foreach (GameObject grid in this.m_Grids)
+            grid.GetComponent<GridStat>().ChangeTileState(0);
+    }
+
+    public void CheckMovementRange(int x, int y, int range)
+    {
+        if (range <= 0) return;
+
         if (this.m_Grids[x + 1, y].GetComponent<GridStat>().IsPassable)
+        {
             this.m_Grids[x + 1, y].GetComponent<GridStat>().ChangeTileState(2);
+            CheckMovementRange(x + 1, y, range - 1);
+        }
 
         if (this.m_Grids[x - 1, y].GetComponent<GridStat>().IsPassable)
+        {
             this.m_Grids[x - 1, y].GetComponent<GridStat>().ChangeTileState(2);
+            CheckMovementRange(x - 1, y, range - 1);
+        }
 
         if (this.m_Grids[x, y + 1].GetComponent<GridStat>().IsPassable)
+        {
             this.m_Grids[x, y + 1].GetComponent<GridStat>().ChangeTileState(2);
+            CheckMovementRange(x, y + 1, range - 1);
+        }
 
         if (this.m_Grids[x, y - 1].GetComponent<GridStat>().IsPassable)
+        {
             this.m_Grids[x, y - 1].GetComponent<GridStat>().ChangeTileState(2);
-
+            CheckMovementRange(x, y - 1, range - 1);
+        }
     }
+
+    public GameObject[,] Grids { get { return this.m_Grids; } }
 }

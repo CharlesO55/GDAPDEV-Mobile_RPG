@@ -1,4 +1,8 @@
-using System.Collections;
+//DEFECATED
+//USE THE MultipleQuestsManagerMannager instead
+
+
+/*using System.Collections;
 using System.Collections.Generic;
 //using TMPro.EditorUtilities;
 using Unity.VisualScripting;
@@ -39,7 +43,7 @@ public class QuestManager : MonoBehaviour
         this.UpdateUIQuestInfo();
     }
 
-    /*private void Update()
+    *//*private void Update()
     {
         if (IsQuestActive() && 
             !DialogueManager.Instance.IsStoryPlaying && 
@@ -47,7 +51,7 @@ public class QuestManager : MonoBehaviour
         {
             this.ProceedToNextStep();
         }
-    }*/
+    }*//*
 
 
     public void CheckQuestEventOnObject(GameObject sender, EnumQuestAction actionOccured)
@@ -245,4 +249,4 @@ public class QuestManager : MonoBehaviour
     }
 
     public int PlayerMorality { get { return this.m_PlayerMorality; } }
-}
+}*/

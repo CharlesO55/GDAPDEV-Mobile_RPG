@@ -5,7 +5,6 @@ using UnityEngine;
 public class OreDeposit : MonoBehaviour , IInteractable
 {
     [SerializeField] private int _strengthStatReq = 10;
-    private EnumObjectID _objectID = EnumObjectID.ORE;
 
     public void OnInteractInterface()
     {
@@ -22,7 +21,8 @@ public class OreDeposit : MonoBehaviour , IInteractable
         {
             Debug.Log("Mined ore");
 
-            QuestManager.Instance.CheckQuestEventOnObject(this.gameObject, EnumQuestAction.COLLECT);
+            MultipleQuestsManager.Instance.CheckQuestEventOnObject(this.gameObject, EnumQuestAction.COLLECT);
+            
             InteractableDetector.Instance.RemoveFromDetectedList(this.gameObject);
             Destroy(this.gameObject);
         }

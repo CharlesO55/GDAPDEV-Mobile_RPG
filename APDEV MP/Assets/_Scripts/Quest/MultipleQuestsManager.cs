@@ -1,5 +1,6 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MultipleQuestsManager : MonoBehaviour
@@ -7,7 +8,7 @@ public class MultipleQuestsManager : MonoBehaviour
     public static MultipleQuestsManager Instance;
 
     //Quest tracking
-    [SerializeField] private List<EnumQuestID> _completedQuests = new();
+    [SerializeField] private List<EnumQuestID> _completedQuestIDs = new();
 
 
     //This is purely for visibility in inspector.
@@ -15,15 +16,17 @@ public class MultipleQuestsManager : MonoBehaviour
     [SerializeField] private List<QuestData> _activeQuests = new();
 
     //Progress tracking
-    //[SerializeField] private int _nCurrentStepIndex = -1;
-    //[SerializeField] private float _fCurrentGoalAmount;
-    private Dictionary<EnumQuestID, ProgressTracker> _progressTrackers = new();
-
+    private Dictionary<EnumQuestID, QuestStep> _stepTrackers = new();
 
 
     //Tracking Player Morality Values
     [SerializeField] private int m_PlayerMorality = 0;
+    public int PlayerMorality { get { return this.m_PlayerMorality; } }
 
+
+    /****************************
+     *      LIFECYCLE FUNCS     *
+     ***************************/
     private void Awake()
     {
         if (Instance != null)
@@ -43,9 +46,9 @@ public class MultipleQuestsManager : MonoBehaviour
 
 
 
-    ******************
-     * STARTING QUESTS *
-     *****************
+    /********************************
+     *      STARTING QUESTS         *
+     ********************************/
     public bool IsQuestActive()
     {
         return this._activeQuests.Count != 0;
@@ -53,9 +56,10 @@ public class MultipleQuestsManager : MonoBehaviour
 
     public bool CanStartQuest(QuestData newQuest)
     {
-        if (_completedQuests.Contains(newQuest.QuestID) || _activeQuests.Contains(newQuest))
+        //Start only new quests
+        if (_completedQuestIDs.Contains(newQuest.QuestID) || _activeQuests.Contains(newQuest))
         {
-            Debug.LogWarning("Quest Rejected. Already taken");
+            Debug.LogWarning($"Quest Rejected. {newQuest.QuestName} was already taken");
             return false;
         }
 
@@ -69,25 +73,120 @@ public class MultipleQuestsManager : MonoBehaviour
         return true;
     }
 
-
-
-
-
-
-
-    /*********************
-    * PROGRESSING QUESTS *
-    *********************
-    private EnumQuestID MatchQuestIDToName(string strQuestName)
+    public bool TryStartQuest(QuestData newQuest)
     {
-        if (this._questReference.QuestName == strQuestName)
-            return _questReference.QuestID;
+        if (!CanStartQuest(newQuest))
+        {
+            return false;
+        }
 
-        else
+        Debug.Log("Started new quest: " + newQuest.QuestName);
+
+        //REGISTER THE NEW QUEST
+        this._activeQuests.Add(newQuest);
+
+        //START AT THE FIRST STEP
+        //COPY IT AS INSTANCE INSTEAD OF DIRECTLY EDITING IT
+        this._stepTrackers[newQuest.QuestID] = new QuestStep(newQuest.QuestSteps[0]);
+        
+        //TRIGGER THE FIRST DIALOGUE IN THE QUESTLINE
+        DialogueManager.Instance.StartDialogue(newQuest.QuestStory);
+
+        return true;
+    }
+
+
+
+
+    /**********************************
+    *      Progressing Quests        *
+    **********************************/
+    /*********************************************************************
+     * IMPORTANT FUNCS:                                                  *
+     * SetNextStep() is the primary method changing steps                *
+     *      - Will primarily be triggered by DialogueChoices/Completion  *
+     * ProceedToNextStep is what tells the Dialogue to start             *
+     *      - Will be trigggered by GoalAmount reached checks            *
+     * ******************************************************************/
+    public void ProceedToNextStep(QuestData questReference)
+    {
+        if (!this.IsQuestActive())
+        {
+            return;
+        }
+        else if(questReference == null)
+        {
+            Debug.LogError("Error ProceedToNextStep received null QuestData");
+        }
+
+        //Verify
+        Debug.Log($"{questReference.QuestName} Proceeding to next step");
+        this._stepTrackers[questReference.QuestID].Summarize();
+        
+        
+        this._stepTrackers[questReference.QuestID].ResetCurrAmount();
+
+
+        //TRIGGER THE NEXT DIALOGUE
+        DialogueManager.Instance.StartDialogue(questReference.QuestStory, this._stepTrackers[questReference.QuestID].QuestStepIndex+1);
+    }
+
+    public void ProceedToNextStep(EnumQuestID ID)
+    {
+        this.ProceedToNextStep(this._activeQuests.First(a => a.QuestID == ID));
+    }
+
+
+    /*********************************************************************
+     * IMPORTANT FUNCS:                                                  *
+     * SetNextStep() is the primary method changing steps                *
+     *      - Will primarily be triggered by DialogueChoices/Completion  *
+     * ProceedToNextStep is what tells the Dialogue to start             *
+     *      - Will be trigggered by GoalAmount reached checks            *
+     * ******************************************************************/
+
+    public void SetNextStep(int nNextStep, string strQuestName)
+    {
+        nNextStep -= 1;
+        Debug.Log("Next step" + nNextStep);
+
+        //SET THE NEXT STEP
+        QuestData reference = FindQuestFromName(strQuestName);
+
+
+        //QUEST WAS RESET BY DIALOGUE OPTION
+        if (nNextStep < 0)
+        {
+            ResetQuest(reference.QuestID);
+            UpdateUIQuestInfo();
+            return;
+        }
+
+        //SET THE NEXT STEP
+        this._stepTrackers[reference.QuestID] = new QuestStep(reference.QuestSteps[nNextStep]);
+        this._stepTrackers[reference.QuestID].Summarize();
+        
+        //QUEST HAS REACHED END
+        if (this._stepTrackers[reference.QuestID].Action == EnumQuestAction.END)
+        {
+            this.EndQuest(reference);
+        }
+        
+
+        UpdateUIQuestInfo();
+    }
+
+
+
+    private QuestData FindQuestFromName(string strQuestName)
+    {
+        QuestData reference = this._activeQuests.First(a => a.QuestName == strQuestName);
+        if (reference == null)
         {
             Debug.LogError($"FAILED to find mathcing quest ID to {strQuestName}");
-            return EnumQuestID.NULL;
         }
+
+        return reference;
     }
 
     public void CheckQuestEventOnObject(GameObject sender, EnumQuestAction actionOccured)
@@ -97,48 +196,99 @@ public class MultipleQuestsManager : MonoBehaviour
             return;
         }
 
-        bool isTargetObj = sender.GetType().IsInstanceOfType(GetCurrentObjective().GoalObject);
-        bool isDesiredAction = actionOccured == GetCurrentObjective().Action;
-
-
-        if (isTargetObj && isDesiredAction)
+        
+        if (IsQuestTarget(out EnumQuestID questIDFound, sender.gameObject, actionOccured))
         {
-            this._fCurrentGoalAmount++;
+            this._stepTrackers[questIDFound].IncreaseCurrAmount();
+
+
             this.UpdateUIQuestInfo();
             Debug.Log("Increased progress");
 
-            if (this._fCurrentGoalAmount >= GetCurrentObjective().GoalAmount)
+            if (this._stepTrackers[questIDFound].IsGoalAmountReached())
             {
-                this.ProceedToNextStep();
+                this.ProceedToNextStep(this._activeQuests.First(a => a.QuestID == questIDFound));
             }
         }
     }
 
-
-
-    //THIS VER ALLLOWS FOR EXTERNAL WRITING OF THE CURRENT QUEST STEP.
-    //IDEALLY TO BE USED BY DIALOGUE MANAGER SINCE DIFFERENT OPTIONS CAN LEAD TO DIFFERENT STEPS.
-    public void SetNextStep(int nNextStep)
+    public bool IsQuestTarget(out EnumQuestID belongsToQuest, GameObject targetObj, EnumQuestAction actionToCheck = EnumQuestAction.NONE)
     {
-        Debug.Log("Next step" + nNextStep);
+        belongsToQuest = EnumQuestID.NULL;
 
-        this._nCurrentStepIndex = nNextStep;
-
-        //QUEST WAS RESET BY DIALOGUE OPTION
-        if (nNextStep < 0)
+        if (!IsQuestActive())
         {
-            ResetCurrQuest();
+            return false;
         }
 
-        //QUEST HAS REACHED END
-        else if (GetCurrentObjective().Action == EnumQuestAction.END)
+
+
+        foreach (QuestData activeQuest in this._activeQuests)
         {
-            this.EndQuest();
+            QuestStep currObjective = GetCurrentObjective(activeQuest);
+            if (currObjective.GoalObject.GetType().IsInstanceOfType(targetObj))
+            {
+                if (actionToCheck != EnumQuestAction.NONE)
+                {
+                    if (actionToCheck == currObjective.Action)
+                    {
+                        //Same object and action
+                        belongsToQuest = activeQuest.QuestID;
+                        return true;
+                    }
+                    //Same object but different action
+                    return false;
+                }
+                //Same object
+                belongsToQuest = activeQuest.QuestID;
+                return true;
+            }
         }
 
-        UpdateUIQuestInfo();
+        //Different object
+        return false;
+
     }
 
+    public QuestStep GetCurrentObjective(QuestData questRef)
+    {
+        return this._stepTrackers[questRef.QuestID];
+    }
+
+
+    /**********************************
+     *        Ending Quests           *
+     *********************************/
+    private void ResetQuest(EnumQuestID questID)
+    {
+        Debug.Log("Resetting quest...");
+        this._stepTrackers.Remove(questID);
+
+        
+        //UNREGISTER THE QUEST
+        QuestData toRemove = this._activeQuests.First(a => a.QuestID == questID);
+        if(toRemove == null)
+        {
+            Debug.LogError($"{questID} is not registered in _activeQuests" );
+        }
+        this._activeQuests.Remove(toRemove);
+    }
+    private void EndQuest(QuestData questCompleted)
+    {
+        Debug.Log($"Completed {questCompleted.QuestName}");
+     
+        //REGISTER TO COMPLETED QUESTS
+        this._completedQuestIDs.Add(questCompleted.QuestID);
+        //UNREGISTER FROM ACTIVE
+        this._activeQuests.Remove(questCompleted);
+
+        this.m_PlayerMorality += 5;
+    }
+
+
+    /**********************************
+     *          UI Update             *
+     *********************************/
     private void UpdateUIQuestInfo()
     {
         if (!this.IsQuestActive())
@@ -154,106 +304,11 @@ public class MultipleQuestsManager : MonoBehaviour
             {
                 questNames.Add(quest.QuestName);
 
-                int currStep = _progressTrackers[quest.QuestID].CurrentStep;
-                questNames.Add(quest.QuestSteps[currStep].Instructions);
 
-                if (questNames.Count > 3)
-                {
-                    break;
-                }
+                QuestStep currObjective = GetCurrentObjective(quest);
+                taskInstructions.Add($"({currObjective.CurrentAmount}/{currObjective.GoalAmount}) {currObjective.Instructions}");
             }
-
-            //string strInstructions = $"({this._fCurrentGoalAmount}/{this.GetCurrentObjective().GoalAmount}) {this.GetCurrentObjective().Instructions}";
             UIManager.Instance.GetGameHUD().UpdateQuestLabels(questNames.ToArray(), taskInstructions.ToArray());
         }
     }
-
-    private void ResetCurrQuest()
-    {
-        this._nCurrentStepIndex = -1;
-        this._fCurrentGoalAmount = 0;
-        this._questReference = null;
-    }
-
-    public bool TryStartQuest(QuestData newQuest)
-    {
-        if (!CanStartQuest(newQuest))
-        {
-            return false;
-        }
-
-        Debug.Log("Started new quest: " + newQuest.QuestName);
-        this._nCurrentStepIndex = 0;
-        this._questReference = newQuest;
-        this.ProceedToNextStep();
-
-        return true;
-    }
-
-
-    //CALLED WHEN THE GOAL AMOUNT IS MET
-    //OR COMPLETED EVENT
-    //STEPS OF DIALOGUE RELATED CHOICES USE SetNextStep() in
-    public void ProceedToNextStep()
-    {
-        if (!this.IsQuestActive())
-        {
-            return;
-        }
-
-        //this._nCurrentStepIndex++;
-        this._fCurrentGoalAmount = 0;
-
-        //Debug.Log("New step: " + this._questReference.QuestSteps[_nCurrentStepIndex].Instructions);
-
-        DialogueManager.Instance.StartDialogue(this._questReference.QuestStory, _nCurrentStepIndex);
-    }
-
-    private void EndQuest()
-    {
-        Debug.Log("Quest completed: " + this._questReference.QuestName);
-        this.m_PlayerMorality += 5;
-        this._completedQuests.Add(this._questReference.QuestID);
-
-        //Reset the progress tracker
-        this.ResetCurrQuest();
-    }
-
-
-
-
-    public QuestStep GetCurrentObjective()
-    {
-        return this._questReference.QuestSteps[_nCurrentStepIndex - 1];
-    }
-
-    public bool IsQuestTarget(GameObject targetObj, EnumQuestAction actionToCheck = EnumQuestAction.NONE)
-    {
-        if (!IsQuestActive())
-        {
-            return false;
-        }
-
-
-        if (GetCurrentObjective().GoalObject.GetType().IsInstanceOfType(targetObj))
-        {
-            if (actionToCheck != EnumQuestAction.NONE)
-            {
-                if (actionToCheck == GetCurrentObjective().Action)
-                {
-                    //Same object and action
-                    return true;
-                }
-                //Same object but different action
-                return false;
-            }
-            //Same object
-            return true;
-        }
-        //Different object
-        return false;
-    }
-
-    public int PlayerMorality { get { return this.m_PlayerMorality; } }
 }
-*/

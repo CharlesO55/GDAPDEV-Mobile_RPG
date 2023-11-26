@@ -40,7 +40,7 @@ public class DeveloperMenu : MonoBehaviour
 
     private void Update()
     {
-        this.m_MoralityLevel.text = "Morality: " + QuestManager.Instance.PlayerMorality;
+        this.m_MoralityLevel.text = "Morality: " + MultipleQuestsManager.Instance.PlayerMorality;
     }
 
     public void ToggleVisibility(bool isVisible)

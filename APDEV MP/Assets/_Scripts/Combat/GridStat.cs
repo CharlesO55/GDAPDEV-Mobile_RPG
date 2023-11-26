@@ -11,10 +11,9 @@ public class GridStat : MonoBehaviour
 
     [Header("Materials")]
     [SerializeField] private Material m_Passable;
-    [SerializeField] private Material m_Impassable;
+    [SerializeField] private Material m_Targetable;
     [SerializeField] private Material m_Pathable;
 
-    private bool m_IsPlayerWithin = false;
     private bool m_IsPassable = true;
     private bool m_IsPathable = false;
 
@@ -24,19 +23,12 @@ public class GridStat : MonoBehaviour
     {
         if (other.gameObject == PartyManager.Instance.ActivePlayer)
         {
-            if (!CombatManager.Instance.FoundMoveRange)
-            {
-                this.m_IsPlayerWithin = true;
-                ChangeTileState(2);
-
-                CombatManager.Instance.CheckUnitMoveRange(this);
-                CombatManager.Instance.FoundMoveRange = true;
-            }
+            CombatManager.Instance.CurrentUnitGrid = this.gameObject;
             return;
         }
 
         if (!other.gameObject.CompareTag("CombatTile"))
-            this.ChangeTileState(1);
+            this.m_IsPassable = false;
     }
 
     public void ChangeTileState(int state)
@@ -58,9 +50,7 @@ public class GridStat : MonoBehaviour
                 break;
 
             case 1:
-                this.GetComponent<LineRenderer>().material = this.m_Impassable;
-                this.m_IsPassable = false;
-                this.m_IsPathable = false;
+                this.GetComponent<LineRenderer>().material = this.m_Targetable;
 
                 if (!this.m_IsProtruding)
                 {
@@ -90,7 +80,6 @@ public class GridStat : MonoBehaviour
 
     public int xLoc { get { return this.m_xLoc; } set { this.m_xLoc = value; } }
     public int yLoc { get { return this.m_yLoc; } set { this.m_yLoc = value; } }
-    public bool IsPlayerWithin { get { return this.m_IsPlayerWithin; } }
     public bool IsPassable { get { return this.m_IsPassable; } }
     public bool IsPathable { get { return this.m_IsPathable; } }
 }

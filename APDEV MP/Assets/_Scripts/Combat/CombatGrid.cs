@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CombatGrid : MonoBehaviour
@@ -13,6 +14,8 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] private Vector3 m_BotLeftLocation = new Vector3(0, 0, 0);
 
     [SerializeField] private GameObject[,] m_Grids;
+
+    private List<GameObject> m_PathableTiles = new List<GameObject>();
 
     // Start is called before the first frame update
     private void Awake()
@@ -29,9 +32,17 @@ public class CombatGrid : MonoBehaviour
             Debug.LogError("Missing GridPrefab in " + this.name);
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        
+        //Currently not functional, plan is to reduce the number of tiles pathable when player moves from one to the other.
+        //foreach (GameObject grid in this.m_PathableTiles)
+        //{
+        //    if (grid != CombatManager.Instance.CurrentUnitGrid)
+        //    {
+        //        CombatManager.Instance.ActiveUnitMoves--;
+        //        this.RecalculateMovementRange(grid.GetComponent<GridStat>().xLoc, grid.GetComponent<GridStat>().yLoc, CombatManager.Instance.ActiveUnitMoves);
+        //    }
+        //}
     }
 
     private void OnDisable()
@@ -59,40 +70,62 @@ public class CombatGrid : MonoBehaviour
 
     private void ResetGrid()
     {
+        CombatManager.Instance.CurrentUnitGrid = null;
+
         CombatManager.Instance.FoundMoveRange = false;
         CombatManager.Instance.FoundAttackRange = false;
 
         foreach (GameObject grid in this.m_Grids)
             grid.GetComponent<GridStat>().ChangeTileState(0);
+
+        this.m_PathableTiles.Clear();
     }
 
     public void CheckMovementRange(int x, int y, int range)
     {
         if (range <= 0) return;
 
-        if (this.m_Grids[x + 1, y].GetComponent<GridStat>().IsPassable)
+        if (this.m_Grids[x + 1, y] != null && this.m_Grids[x + 1, y].GetComponent<GridStat>().IsPassable)
         {
             this.m_Grids[x + 1, y].GetComponent<GridStat>().ChangeTileState(2);
-            CheckMovementRange(x + 1, y, range - 1);
+            this.CheckMovementRange(x + 1, y, range - 1);
+
+            if (!this.m_PathableTiles.Contains(this.m_Grids[x + 1, y]))
+                this.m_PathableTiles.Add(this.m_Grids[x + 1, y]);
         }
 
-        if (this.m_Grids[x - 1, y].GetComponent<GridStat>().IsPassable)
+        if (this.m_Grids[x - 1, y] != null && this.m_Grids[x - 1, y].GetComponent<GridStat>().IsPassable)
         {
             this.m_Grids[x - 1, y].GetComponent<GridStat>().ChangeTileState(2);
-            CheckMovementRange(x - 1, y, range - 1);
+            this.CheckMovementRange(x - 1, y, range - 1);
+
+            if (!this.m_PathableTiles.Contains(this.m_Grids[x - 1, y]))
+                this.m_PathableTiles.Add(this.m_Grids[x - 1, y]);
         }
 
-        if (this.m_Grids[x, y + 1].GetComponent<GridStat>().IsPassable)
+        if (this.m_Grids[x, y + 1] != null && this.m_Grids[x, y + 1].GetComponent<GridStat>().IsPassable)
         {
             this.m_Grids[x, y + 1].GetComponent<GridStat>().ChangeTileState(2);
-            CheckMovementRange(x, y + 1, range - 1);
+            this.CheckMovementRange(x, y + 1, range - 1);
+
+            if (!this.m_PathableTiles.Contains(this.m_Grids[x, y + 1]))
+                this.m_PathableTiles.Add(this.m_Grids[x, y + 1]);
         }
 
-        if (this.m_Grids[x, y - 1].GetComponent<GridStat>().IsPassable)
+        if (this.m_Grids[x, y - 1] != null && this.m_Grids[x, y - 1].GetComponent<GridStat>().IsPassable)
         {
             this.m_Grids[x, y - 1].GetComponent<GridStat>().ChangeTileState(2);
-            CheckMovementRange(x, y - 1, range - 1);
+            this.CheckMovementRange(x, y - 1, range - 1);
+
+            if (!this.m_PathableTiles.Contains(this.m_Grids[x, y - 1]))
+                this.m_PathableTiles.Add(this.m_Grids[x, y - 1]);
         }
+    }
+
+    public void RecalculateMovementRange(int x, int y, int movementSpeed)
+    {
+        ResetGrid();
+        CheckMovementRange(x, y, movementSpeed);
     }
 
     public GameObject[,] Grids { get { return this.m_Grids; } }

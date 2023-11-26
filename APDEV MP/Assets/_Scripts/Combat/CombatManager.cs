@@ -10,10 +10,14 @@ public class CombatManager : MonoBehaviour
 
     [SerializeField] private GameObject m_CombatGrid;
     [SerializeField] private CombatGrid m_CombatGridScript;
+
+    [SerializeField] private GameObject m_CurrentUnitGrid = null;
     [SerializeField] private bool m_IsInCombat = false;
 
     private bool m_FoundMoveRange = false;
     private bool m_FoundAttackRange = false;
+
+    private int m_AcitveUnitMoves = 0;
 
     public void Awake()
     {
@@ -38,14 +42,6 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void CheckUnitMoveRange(GridStat grid)
-    {
-        if (grid.IsPlayerWithin)
-            this.m_CombatGridScript.CheckMovementRange(grid.GetComponent<GridStat>().xLoc, 
-                                                       grid.GetComponent<GridStat>().yLoc, 
-                                                       this.CheckUnitMovementSpeed(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass));
-    }
-
     private int CheckUnitMovementSpeed(EnumUnitClass jobclass)
     {
         switch(jobclass)
@@ -67,9 +63,27 @@ public class CombatManager : MonoBehaviour
     private void Update()
     {
         this.m_CombatGrid.SetActive(this.m_IsInCombat);
+
+        if (this.IsInCombat)
+        {
+            if (!this.m_FoundMoveRange)
+            {
+                int m_Range = this.CheckUnitMovementSpeed(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
+                
+                if (this.m_CurrentUnitGrid != null)
+                {
+                    GridStat m_Stat = this.m_CurrentUnitGrid.GetComponent<GridStat>();
+
+                    this.m_FoundMoveRange = true;
+                    this.m_CombatGridScript.CheckMovementRange(m_Stat.xLoc, m_Stat.yLoc, m_Range);
+                }
+            }
+        }
     }
 
+    public GameObject CurrentUnitGrid { get { return this.m_CurrentUnitGrid; }  set { this.m_CurrentUnitGrid = value; } }
     public bool IsInCombat { get { return this.m_IsInCombat; } set { this.m_IsInCombat = value; } }
+    public int ActiveUnitMoves { get { return this.m_AcitveUnitMoves; } set { this.m_AcitveUnitMoves = value; } }
     public bool FoundMoveRange { get { return this.m_FoundMoveRange;} set { this.m_FoundMoveRange = value; } }
     public bool FoundAttackRange { get { return this.m_FoundAttackRange; } set { this.m_FoundAttackRange = value; } }
 }

@@ -15,6 +15,7 @@ public class GridStat : MonoBehaviour
     [SerializeField] private Material m_Pathable;
 
     private bool m_IsPassable = true;
+    private bool m_IsTargetable = false;
     private bool m_IsPathable = false;
 
     private bool m_IsProtruding = false;
@@ -40,6 +41,7 @@ public class GridStat : MonoBehaviour
             case 0:
                 this.GetComponent<LineRenderer>().material = this.m_Passable;
                 this.m_IsPassable = true;
+                this.m_IsTargetable = false;
                 this.m_IsPathable = false;
 
                 if (this.m_IsProtruding)
@@ -51,6 +53,7 @@ public class GridStat : MonoBehaviour
 
             case 1:
                 this.GetComponent<LineRenderer>().material = this.m_Targetable;
+                this.m_IsTargetable = true;
 
                 if (!this.m_IsProtruding)
                 {
@@ -63,6 +66,7 @@ public class GridStat : MonoBehaviour
             case 2:
                 this.GetComponent<LineRenderer>().material = this.m_Pathable;
                 this.m_IsPassable = true;
+                this.m_IsTargetable = false;
                 this.m_IsPathable = true;
 
                 if (!this.m_IsProtruding)

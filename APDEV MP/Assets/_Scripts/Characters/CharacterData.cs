@@ -29,6 +29,7 @@ public class CharacterData
     private int m_WISModifier;
     private int m_CHAModifier;
 
+    private int m_Initiative = 0;
 
     //METHODS
     public void InitializeClass(EnumUnitClass unitClass)
@@ -158,4 +159,5 @@ public class CharacterData
 
     [HideInInspector] public int MaxHealth      { get { return this._maxHealth; } }
     [HideInInspector] public int CurrHealth     { get { return this._currHealth; } set { this._currHealth = Mathf.Clamp(value, 0, this._maxHealth);  } }
+    [HideInInspector] public int Initiative     { get { return this.m_Initiative; } set { this.m_Initiative = value;  } }
 }

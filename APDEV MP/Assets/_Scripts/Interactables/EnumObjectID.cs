@@ -4,12 +4,13 @@ using UnityEngine;
 
 public enum EnumObjectID
 {
-    //Objects
     ORE,
 
-    //NPCs
     NPC_GRANDMA,
     NPC_KIDS,
 
-    ZONE_TREE
+    ZONE_TREE,
+
+    NPC_SHOPKEEPER,
+    NPC_WEAPONSMITH
 }

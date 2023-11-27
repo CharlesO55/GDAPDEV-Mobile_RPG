@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OreDeposit : MonoBehaviour , IInteractable
@@ -30,19 +31,13 @@ public class OreDeposit : MonoBehaviour , IInteractable
 
     public void HighlightInteractable(bool bEnable)
     {
-        Material mat = this.GetComponent<Renderer>().material;
-
         if (bEnable)
         {
-            float emissiveIntensity = 2f;
-            mat.EnableKeyword("_EMISSION");
-            mat.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
-            mat.SetColor("_EmissionColor", Color.yellow * emissiveIntensity);
+            Highlighter.HighlightObject(this.gameObject, Color.yellow);
         }
         else
         {
-            mat.SetColor("_EmissionColor", Color.black);
-            mat.DisableKeyword("_EMISSION");
+            Highlighter.HighlightObject(this.gameObject, Color.black);
         }
     }
 }

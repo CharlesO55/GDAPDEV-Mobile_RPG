@@ -6,4 +6,6 @@ public interface IInteractable
 {
     public void OnInteractInterface();
     public virtual void HighlightInteractable(bool bEnable) { }
+
+
 }

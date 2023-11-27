@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class OreDeposit : MonoBehaviour , IInteractable
 {
+    [SerializeField] private EnumObjectID _objectID;
     [SerializeField] private int _strengthStatReq = 10;
 
-    public void OnInteractInterface()
+    public void OnInteractInterface(EnumQuestAction questAction = EnumQuestAction.TALK)
     {
         DiceManager.Instance.OnDiceResultObservsers += CheckDiceRoll;
         DiceManager.Instance.DoRoll(false, _strengthStatReq);   
@@ -40,4 +41,6 @@ public class OreDeposit : MonoBehaviour , IInteractable
             Highlighter.HighlightObject(this.gameObject, Color.black);
         }
     }
+
+    public EnumObjectID GetObjectID() { return _objectID; }
 }

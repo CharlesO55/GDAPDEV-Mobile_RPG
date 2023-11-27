@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf02474f3624e14b9c81eb6f11a9ea9, type: 3}
+  m_Name: SayMyName
+  m_EditorClassIdentifier: 
+  _questID: 2
+  _questName: Say My Name
+  _questStory: {fileID: 4900000, guid: 79a20c0e5aa6d9f43a56837e9f511e77, type: 3}
+  _prerequesiteQuests: 
+  _questSteps:
+  - _questStepIndex: 0
+    _instructions: Talk to the kids
+    _action: 2
+    _goalAmount: 1
+    _goalObject: {fileID: 919132149155446097, guid: b9a1c0a49b015804e83705d2e66fa591,
+      type: 3}
+  - _questStepIndex: 1
+    _instructions: Go to the tree
+    _action: 4
+    _goalAmount: 1
+    _goalObject: {fileID: 8828214304107347303, guid: 6ffdfab35fed07b43819adf73b1ef482,
+      type: 3}
+  - _questStepIndex: 2
+    _instructions: Try talking instead
+    _action: 2
+    _goalAmount: 1
+    _goalObject: {fileID: 8828214304107347303, guid: 6ffdfab35fed07b43819adf73b1ef482,
+      type: 3}
+  - _questStepIndex: 3
+    _instructions: Return to Granny
+    _action: 2
+    _goalAmount: 1
+    _goalObject: {fileID: 613051427367329764, guid: 08f28a84fffaa6641b9876be46178a5d,
+      type: 3}
+  - _questStepIndex: 4
+    _instructions: END
+    _action: 5
+    _goalAmount: 0
+    _goalObject: {fileID: 0}

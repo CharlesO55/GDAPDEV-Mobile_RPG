@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    public void OnInteractInterface();
+    public void OnInteractInterface(EnumQuestAction questAction = EnumQuestAction.TALK);
     public virtual void HighlightInteractable(bool bEnable) { }
 
-
+    public EnumObjectID GetObjectID();
 }

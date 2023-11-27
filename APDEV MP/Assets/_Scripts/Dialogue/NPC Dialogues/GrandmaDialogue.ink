@@ -1,4 +1,4 @@
-Oh hello, dear.
+Oh hello, dear.#SPEAKER:Grandma
 You must be our new travelling guest.
 We hope you can help out around here.
 Folks like us old bag of bones could quite use the help.

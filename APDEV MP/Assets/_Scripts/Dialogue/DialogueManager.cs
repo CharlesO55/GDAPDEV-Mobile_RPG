@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
 
     //UI Dialogue
     [SerializeField] private UIDocument _dialogueUI;
+    private Label _speakerLabel;
     private Label _dialogueTextLabel;
     private List<Button> _choiceButtons;
 
@@ -103,7 +104,7 @@ public class DialogueManager : MonoBehaviour
 
         this._dialogueUI.enabled = true;
         this.RelinkUIDocumment();   //Necessary whenver a UIDoc is enabled/disabled
-
+        
         this.ContinueDialogue(null, null);
     }
 
@@ -171,7 +172,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         _dialogueCurrWaitTimer = 0; //Reset
-        
+
 
         //this.StopCoroutine(PrintText(null));
 
@@ -184,6 +185,7 @@ public class DialogueManager : MonoBehaviour
                 StartCoroutine(PrintText(textToPrint));
 
                 this.PrintChoices();
+                this.ProcessTags();
             }
         }
         else
@@ -226,6 +228,7 @@ public class DialogueManager : MonoBehaviour
         GestureManager.Instance.OnTapDelegate += this.ContinueDialogue;
 
         //Continue the story as well when choice is made
+
         this.ContinueDialogue(null, null);
     }
 
@@ -275,8 +278,31 @@ public class DialogueManager : MonoBehaviour
 
         }
     }
+
+
+    private void ProcessTags()
+    {
+        List<string> tags = this._currStory.currentTags;
+
+        foreach(string tag in tags)
+        {
+            string[] words = tag.Split(":");
+
+            switch (words[0])
+            {
+                case "SPEAKER":
+                    this._speakerLabel.text = words[1];
+                    break;
+                default:
+                    Debug.LogError($"Tag Parsing Failed. Unknown Tag: {words[0]}");
+                    break;
+            }
+        }
+    }
+
     private void RelinkUIDocumment()
     {
+        this._speakerLabel = _dialogueUI.rootVisualElement.Q<Label>("SpeakerText");
         this._dialogueTextLabel = _dialogueUI.rootVisualElement.Q<Label>("DialogueText");
         
         this._choiceButtons.Clear();

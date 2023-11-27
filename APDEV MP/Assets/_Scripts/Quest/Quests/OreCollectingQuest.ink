@@ -14,7 +14,7 @@ VAR _rollSuccess = false
 
 
 ===Step0===
-Hello, dear.
+Hello, dear. #SPEAKER:Grandma
 I heard iron is good for the body.
 Can you get your old granny some iron?
 
@@ -30,7 +30,7 @@ Oh, how heartless.
 
 
 ===Step1===
-Wait, did granny want iron or gold?
+Wait, did granny want iron or gold? #SPEAKER:Narrator
 *[Iron (5 INT)]
 ~ DoDialogueRoll(5, "INT")
 You think you recall it being iron. //Pass the result in
@@ -70,13 +70,13 @@ We yearn for the mines.
 
 
 ===Step2===
-That's enough, gold.
+That's enough, gold. #SPEAKER:Narrator
 ~ SetNextStep(3,  _questName)
 Back to granny.
 ->END
 
 ===Step3===
-Thank you very much, dear.
+Thank you very much, dear. #SPEAKER:Grandma
 With this granny can last for a year.
 ~ SetNextStep(4,  _questName)
 This old lady won't be another victim to pharmaceutical greed.

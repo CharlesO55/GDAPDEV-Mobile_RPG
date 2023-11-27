@@ -291,12 +291,26 @@ public class DialogueManager : MonoBehaviour
             switch (words[0])
             {
                 case "SPEAKER":
-                    this._speakerLabel.text = words[1];
+                    UpdateSpeakerText(words[1]);
                     break;
                 default:
                     Debug.LogError($"Tag Parsing Failed. Unknown Tag: {words[0]}");
                     break;
             }
+        }
+    }
+
+    private void UpdateSpeakerText(string speakerName)
+    {
+        this._speakerLabel.text = speakerName;
+
+        if(speakerName == "Narrator")
+        {
+            this._dialogueTextLabel.style.unityFontStyleAndWeight = FontStyle.BoldAndItalic;
+        }
+        else
+        {
+            this._dialogueTextLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
         }
     }
 

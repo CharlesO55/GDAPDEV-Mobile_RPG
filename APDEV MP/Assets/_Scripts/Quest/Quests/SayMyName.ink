@@ -86,13 +86,13 @@ What's your plan?
     You begin reaching for branches and pulling yourself up.
     Years of training has blessed you with the "Pull up blessing".
     A blessing only granted by the holiest of temples...
-    The Holy Lord's Gym.
+    The Lord's Holy Gym.
     As you can continue climbing, the kid notices your figure.
     Waaaaaaaaaaaaaah!!! #SPEAKER:Tree Kid
     It's a gorilla!
     Losing the element of surprise, you continue to climb faster. #SPEAKER:Narrator
     ~ DoDialogueRoll(10, "DEX")
-    My body is the Lord's temple! #SPEAKER: You
+    I am Allah's strongest warrior!!! #SPEAKER: You
     {_rollSuccess:
         [{_rollSuccess}] You blaze through the tree at impossible speeds. #SPEAKER:Narrator
             ~ SetNextStep(3, _questName)
@@ -136,7 +136,8 @@ What if she feeds me to the demons?
 - My name?
 +[Yes, your name]
 - I'm Pharmaceutical Greed #SPEAKER:Kid named Pharmaceutical Greed
-+[Then I'm Biggus Dickus]
+ 
++[Hi, I'm Biggus Dickus]
 - Hey, stop making fun of my name!
 I didn't ask for any of this.
 Even the other kids think I'm a demon spy.

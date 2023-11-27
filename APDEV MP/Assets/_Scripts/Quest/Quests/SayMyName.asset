@@ -21,25 +21,25 @@ MonoBehaviour:
     _instructions: Talk to the kids
     _action: 2
     _goalAmount: 1
-    _goalObject: {fileID: 919132149155446097, guid: b9a1c0a49b015804e83705d2e66fa591,
+    _goalObject: {fileID: 2195649636557316104, guid: ab12ca76a4be64d409eef1af41b7d7bf,
       type: 3}
   - _questStepIndex: 1
     _instructions: Go to the tree
     _action: 4
     _goalAmount: 1
-    _goalObject: {fileID: 8828214304107347303, guid: 6ffdfab35fed07b43819adf73b1ef482,
+    _goalObject: {fileID: 6899884600924723635, guid: 327dedf82f56cf0438b77385557b2300,
       type: 3}
   - _questStepIndex: 2
     _instructions: Try talking instead
     _action: 2
     _goalAmount: 1
-    _goalObject: {fileID: 8828214304107347303, guid: 6ffdfab35fed07b43819adf73b1ef482,
+    _goalObject: {fileID: 6899884600924723635, guid: 327dedf82f56cf0438b77385557b2300,
       type: 3}
   - _questStepIndex: 3
     _instructions: Return to Granny
     _action: 2
     _goalAmount: 1
-    _goalObject: {fileID: 613051427367329764, guid: 08f28a84fffaa6641b9876be46178a5d,
+    _goalObject: {fileID: 3481595132963372758, guid: 05c3e65d6fc63954f9ebdecc9b9ea21d,
       type: 3}
   - _questStepIndex: 4
     _instructions: END

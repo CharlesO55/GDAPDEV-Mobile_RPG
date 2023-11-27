@@ -226,7 +226,27 @@ public class MultipleQuestsManager : MonoBehaviour
         foreach (QuestData activeQuest in this._activeQuests)
         {
             QuestStep currObjective = GetCurrentObjective(activeQuest);
-            if (currObjective.GoalObject.GetType().IsInstanceOfType(targetObj))
+
+            
+            if(currObjective.Action == actionToCheck)
+            {
+                //Debug.Log($"{currObjective}")
+
+                if(currObjective.GoalObject.TryGetComponent<IInteractable>(out IInteractable currIInteractable) && targetObj.TryGetComponent(out IInteractable targetIInteractable))
+                {
+                    if(currIInteractable.GetObjectID() == targetIInteractable.GetObjectID())
+                    {
+                        belongsToQuest = activeQuest.QuestID;
+                        return true;
+                    }
+                }
+
+            }
+            else if (currObjective.Action == EnumQuestAction.NONE)
+            {
+                Debug.LogError("QuestAction can't be NONE");
+            }
+            /*if (currObjective.GoalObject.GetType().IsInstanceOfType(targetObj))
             {
                 if (actionToCheck != EnumQuestAction.NONE)
                 {
@@ -242,7 +262,7 @@ public class MultipleQuestsManager : MonoBehaviour
                 //Same object
                 belongsToQuest = activeQuest.QuestID;
                 return true;
-            }
+            }*/
         }
 
         //Different object

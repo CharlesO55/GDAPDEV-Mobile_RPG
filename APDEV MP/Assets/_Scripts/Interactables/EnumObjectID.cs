@@ -8,5 +8,8 @@ public enum EnumObjectID
     ORE,
 
     //NPCs
-    GRANDMA
+    NPC_GRANDMA,
+    NPC_KIDS,
+
+    ZONE_TREE
 }

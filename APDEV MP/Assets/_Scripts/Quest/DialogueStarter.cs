@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class DialogueStarter : MonoBehaviour , IInteractable
 {
+    [SerializeField] private EnumObjectID _objectID;
+
     [SerializeField] private TextAsset _npcDialogue;
 
     [SerializeField] private List<QuestData> _quests;
 
 
-    public void OnInteractInterface()
+    public void OnInteractInterface(EnumQuestAction questAction = EnumQuestAction.TALK)
     {
         //Prioritize continuining active quest dialogue
         
-        if(MultipleQuestsManager.Instance.IsQuestTarget(out EnumQuestID questNeedingThis, this.gameObject, EnumQuestAction.TALK))
+        if(MultipleQuestsManager.Instance.IsQuestTarget(out EnumQuestID questNeedingThis, this.gameObject, questAction))
         {
             MultipleQuestsManager.Instance.ProceedToNextStep(questNeedingThis);
         }
@@ -33,7 +35,14 @@ public class DialogueStarter : MonoBehaviour , IInteractable
             }
 
             //Else do normal dialogue
-            DialogueManager.Instance.StartDialogue(_npcDialogue);
+            if (_npcDialogue != null)
+            {
+                DialogueManager.Instance.StartDialogue(_npcDialogue);
+            }
+            else
+            {
+                Debug.LogWarning($"{this.name} has no NPC Dialogue");
+            }
         }
     }
 
@@ -51,4 +60,7 @@ public class DialogueStarter : MonoBehaviour , IInteractable
             Highlighter.HighlightObject(this.gameObject, Color.black);
         }
     }
+
+
+    public EnumObjectID GetObjectID() { return _objectID; }
 }

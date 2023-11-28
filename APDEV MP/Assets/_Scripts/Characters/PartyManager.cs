@@ -141,7 +141,9 @@ public class PartyManager : MonoBehaviour
 
         if (characterObject.TryGetComponent<CapsuleCollider>(out CapsuleCollider capsuleCollider))
         {
-            capsuleCollider.enabled = false;
+            capsuleCollider.enabled = true;
+            capsuleCollider.isTrigger = true;
+            capsuleCollider.radius = 0.2f;
         }
 
         Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());

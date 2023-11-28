@@ -73,8 +73,8 @@ public class CombatGrid : MonoBehaviour
     {
         CombatManager.Instance.CurrentUnitGrid = null;
 
-        CombatManager.Instance.FoundMoveRange = false;
-        CombatManager.Instance.FoundAttackRange = false;
+        CombatManager.Instance.IsViewingMoveRange = false;
+        CombatManager.Instance.IsViewingAttackRange = false;
 
         foreach (GameObject grid in this.m_Grids)
             grid.GetComponent<GridStat>().ChangeTileState(0);

@@ -18,8 +18,10 @@ public class CombatManager : MonoBehaviour
 
     [Space]
     [SerializeField] private List<GameObject> m_UnitList = new List<GameObject>();
-    private bool m_FoundMoveRange = false;
-    private bool m_FoundAttackRange = false;
+    private int m_CurrentTurnIndex = -1;
+
+    [SerializeField] private bool m_IsViewingMoveRange = false;
+    [SerializeField] private bool m_IsViewingAttackRange = false;
 
     private int m_AcitveUnitMoves = 0;
 
@@ -67,9 +69,29 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void SelectNextActiveUnit()
+    private int CheckUnitAttackRange(EnumUnitClass jobclass)
     {
+        switch (jobclass)
+        {
+            case EnumUnitClass.FIGHTER:
+            case EnumUnitClass.PALADIN:
+                return 1;
 
+            case EnumUnitClass.MAGE:
+            case EnumUnitClass.ROGUE:
+                return 2;
+
+            default:
+                return 0;
+        }
+    } 
+
+    private void SwitchNextActiveUnit()
+    {
+        this.m_CurrentTurnIndex++;
+
+        if (this.m_CurrentTurnIndex > this.m_UnitList.Count)
+            this.m_CurrentTurnIndex = 0;
     }
 
     public void BeginCombat()
@@ -88,6 +110,8 @@ public class CombatManager : MonoBehaviour
     public void EndCombat()
     {
         this.IsInCombat = false;
+        this.m_CurrentTurnIndex = -1;
+
         this.m_UnitList.Clear();
 
         foreach (GameObject unit in this.m_UnitList)
@@ -120,17 +144,27 @@ public class CombatManager : MonoBehaviour
 
         if (this.IsInCombat)
         {
-            if (!this.m_FoundMoveRange)
+            if (this.m_CurrentUnitGrid != null)
             {
-                int m_Range = this.CheckUnitMovementSpeed(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
-                
-                if (this.m_CurrentUnitGrid != null)
-                {
+                if (this.m_UnitList.Count == 0)
                     this.RetrieveUnits();
-                    GridStat m_Stat = this.m_CurrentUnitGrid.GetComponent<GridStat>();
 
-                    this.m_FoundMoveRange = true;
-                    this.m_CombatGridScript.CheckMovementRange(m_Stat.xLoc, m_Stat.yLoc, m_Range);
+                GridStat m_GridStat = this.m_CurrentUnitGrid.GetComponent<GridStat>();
+
+                if (this.m_IsViewingMoveRange)
+                {
+                    this.m_IsViewingAttackRange = false;
+
+                    int m_MoveRange = this.CheckUnitMovementSpeed(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
+                    this.m_CombatGridScript.CheckMovementRange(m_GridStat.xLoc, m_GridStat.yLoc, m_MoveRange);
+                }
+
+                if (this.m_IsViewingAttackRange)
+                {
+                    this.m_IsViewingMoveRange = false;
+
+                    int m_AttackRange = this.CheckUnitAttackRange(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
+                    this.m_CombatGridScript.CheckAttackRange(m_GridStat.xLoc, m_GridStat.yLoc, m_AttackRange);
                 }
             }
         }
@@ -145,6 +179,6 @@ public class CombatManager : MonoBehaviour
     public GameObject CurrentUnitGrid { get { return this.m_CurrentUnitGrid; }  set { this.m_CurrentUnitGrid = value; } }
     public bool IsInCombat { get { return this.m_IsInCombat; } set { this.m_IsInCombat = value; } }
     public int ActiveUnitMoves { get { return this.m_AcitveUnitMoves; } set { this.m_AcitveUnitMoves = value; } }
-    public bool FoundMoveRange { get { return this.m_FoundMoveRange;} set { this.m_FoundMoveRange = value; } }
-    public bool FoundAttackRange { get { return this.m_FoundAttackRange; } set { this.m_FoundAttackRange = value; } }
+    public bool IsViewingMoveRange { get { return this.m_IsViewingMoveRange; } set { this.m_IsViewingMoveRange = value; } }
+    public bool IsViewingAttackRange { get { return this.m_IsViewingAttackRange; } set { this.m_IsViewingAttackRange = value; } }
 }

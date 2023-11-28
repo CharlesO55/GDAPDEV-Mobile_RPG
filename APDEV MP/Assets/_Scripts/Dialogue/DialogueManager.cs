@@ -77,7 +77,8 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        
+
+
         this._isStoryPlaying = true;
 
         //Helps setup the story to select the correct segment
@@ -102,7 +103,12 @@ public class DialogueManager : MonoBehaviour
         });
 
 
+
+
+        UIManager.Instance.ToggleGameHUDControls(false);
         this._dialogueUI.enabled = true;
+        
+        
         this.RelinkUIDocumment();   //Necessary whenver a UIDoc is enabled/disabled
         
         this.ContinueDialogue(null, null);
@@ -196,9 +202,12 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
+
+
         GestureManager.Instance.OnTapDelegate -= ContinueDialogue;
         this._isStoryPlaying = false;
 
+        UIManager.Instance.ToggleGameHUDControls(true);
         this._dialogueUI.enabled = false;
 
         this._currStory.UnbindExternalFunction("SetNextStep");

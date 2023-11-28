@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(this._currActivePlayerRef != null)
+        if(this._movementJoystick != null && this._currActivePlayerRef != null)
         {
             this.MovePlayer();
         }

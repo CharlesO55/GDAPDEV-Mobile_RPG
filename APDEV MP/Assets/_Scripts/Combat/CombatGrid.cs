@@ -16,6 +16,7 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] private GameObject[,] m_Grids;
 
     private List<GameObject> m_PathableTiles = new List<GameObject>();
+    private List<GameObject> m_TargetableTiles = new List<GameObject>();
 
     // Start is called before the first frame update
     private void Awake()
@@ -72,13 +73,14 @@ public class CombatGrid : MonoBehaviour
     {
         CombatManager.Instance.CurrentUnitGrid = null;
 
-        CombatManager.Instance.FoundMoveRange = false;
-        CombatManager.Instance.FoundAttackRange = false;
+        CombatManager.Instance.IsViewingMoveRange = false;
+        CombatManager.Instance.IsViewingAttackRange = false;
 
         foreach (GameObject grid in this.m_Grids)
             grid.GetComponent<GridStat>().ChangeTileState(0);
 
         this.m_PathableTiles.Clear();
+        this.m_TargetableTiles.Clear();
     }
 
     public void CheckMovementRange(int x, int y, int range)
@@ -119,6 +121,47 @@ public class CombatGrid : MonoBehaviour
 
             if (!this.m_PathableTiles.Contains(this.m_Grids[x, y - 1]))
                 this.m_PathableTiles.Add(this.m_Grids[x, y - 1]);
+        }
+    }
+
+    public void CheckAttackRange(int x, int y, int range)
+    {
+        if (range <= 0) return;
+
+        if (this.m_Grids[x + 1, y] != null && this.m_Grids[x + 1, y].GetComponent<GridStat>().IsPassable)
+        {
+            this.m_Grids[x + 1, y].GetComponent<GridStat>().ChangeTileState(1);
+            this.CheckAttackRange(x + 1, y, range - 1);
+
+            if (!this.m_TargetableTiles.Contains(this.m_Grids[x + 1, y]))
+                this.m_TargetableTiles.Add(this.m_Grids[x + 1, y]);
+        }
+
+        if (this.m_Grids[x - 1, y] != null && this.m_Grids[x - 1, y].GetComponent<GridStat>().IsPassable)
+        {
+            this.m_Grids[x - 1, y].GetComponent<GridStat>().ChangeTileState(1);
+            this.CheckAttackRange(x - 1, y, range - 1);
+
+            if (!this.m_TargetableTiles.Contains(this.m_Grids[x - 1, y]))
+                this.m_TargetableTiles.Add(this.m_Grids[x - 1, y]);
+        }
+
+        if (this.m_Grids[x, y + 1] != null && this.m_Grids[x, y + 1].GetComponent<GridStat>().IsPassable)
+        {
+            this.m_Grids[x, y + 1].GetComponent<GridStat>().ChangeTileState(1);
+            this.CheckAttackRange(x, y + 1, range - 1);
+
+            if (!this.m_TargetableTiles.Contains(this.m_Grids[x, y + 1]))
+                this.m_TargetableTiles.Add(this.m_Grids[x, y + 1]);
+        }
+
+        if (this.m_Grids[x, y - 1] != null && this.m_Grids[x, y - 1].GetComponent<GridStat>().IsPassable)
+        {
+            this.m_Grids[x, y - 1].GetComponent<GridStat>().ChangeTileState(1);
+            this.CheckAttackRange(x, y - 1, range - 1);
+
+            if (!this.m_TargetableTiles.Contains(this.m_Grids[x, y - 1]))
+                this.m_TargetableTiles.Add(this.m_Grids[x, y - 1]);
         }
     }
 

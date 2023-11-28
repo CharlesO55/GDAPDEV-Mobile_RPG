@@ -20,27 +20,23 @@ MonoBehaviour:
   - _questStepIndex: 0
     _instructions: Collect some ore
     _action: 0
-    _currAmount: 0
     _goalAmount: 1
-    _goalObject: {fileID: 99576536999500520, guid: 3bd5e13e7cd36d84bbab55b901aa03c8,
+    _goalObject: {fileID: 998189905678975371, guid: 8638d13aeb521f5488971f1559e96153,
       type: 3}
   - _questStepIndex: 1
     _instructions: Keep collecting ore
     _action: 0
-    _currAmount: 0
     _goalAmount: 3
-    _goalObject: {fileID: 99576536999500520, guid: 3bd5e13e7cd36d84bbab55b901aa03c8,
+    _goalObject: {fileID: 998189905678975371, guid: 8638d13aeb521f5488971f1559e96153,
       type: 3}
   - _questStepIndex: 2
     _instructions: Return to granny
     _action: 2
-    _currAmount: 0
     _goalAmount: 1
-    _goalObject: {fileID: 171298659275691851, guid: 1d67986c494475645b806f9c8b39f005,
+    _goalObject: {fileID: 3481595132963372758, guid: 05c3e65d6fc63954f9ebdecc9b9ea21d,
       type: 3}
   - _questStepIndex: 3
     _instructions: END
-    _action: 4
-    _currAmount: 0
+    _action: 5
     _goalAmount: 0
     _goalObject: {fileID: 0}

@@ -55,7 +55,7 @@ public class PartyManager : MonoBehaviour
   
     void FirstTimeCreateCharacterData()
     {
-        Debug.Log("Saving party data from fields");
+        Debug.LogWarning("Saving party data from fields");
 
         SaveSystem.Save<CharacterData>(_newPartyMembers, SaveSystem.SAVE_FILE_ID.PARTY_DATA);
     }
@@ -141,7 +141,9 @@ public class PartyManager : MonoBehaviour
 
         if (characterObject.TryGetComponent<CapsuleCollider>(out CapsuleCollider capsuleCollider))
         {
-            capsuleCollider.enabled = false;
+            capsuleCollider.enabled = true;
+            capsuleCollider.isTrigger = true;
+            capsuleCollider.radius = 0.2f;
         }
 
         Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());

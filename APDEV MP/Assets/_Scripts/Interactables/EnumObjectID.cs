@@ -4,9 +4,13 @@ using UnityEngine;
 
 public enum EnumObjectID
 {
-    //Objects
+    //DON'T REORDER. JUST APPEND TO THE BOTTOM.
+    //OTHERWISE ENUMS ORDER WILL BE MESSED UP
     ORE,
-
-    //NPCs
-    GRANDMA
+    NPC_GRANDMA,
+    NPC_KIDS,
+    ZONE_TREE,
+    NPC_SHOPKEEPER,
+    NPC_WEAPONSMITH,
+    DOOR
 }

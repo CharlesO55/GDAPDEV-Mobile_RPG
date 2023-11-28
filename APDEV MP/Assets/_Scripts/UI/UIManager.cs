@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-//using static UnityEditor.PlayerSettings;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private UIDocument _systemMessagesDocs;
     [SerializeField] private UIDocument _gameHUDDocument;
 
-
     public static UIManager Instance;
     private Label _systemMessagesLabel;
 
-
+    
     private void Awake()
     {
         if (Instance != null)
@@ -32,7 +30,7 @@ public class UIManager : MonoBehaviour
         GestureManager.Instance.OnSwipeDelegate += DisplayGestureSwipe;
 
         //FIND LABEL TO MODIFY LATER
-        _systemMessagesLabel = _systemMessagesDocs?.rootVisualElement.Q<Label>("Message");
+        _systemMessagesLabel = _systemMessagesDocs?.rootVisualElement.Q<Label>("Message");   
     }
 
     private void OnDisable()
@@ -45,6 +43,7 @@ public class UIManager : MonoBehaviour
     private void ChangeText(string message)
     {
         this._systemMessagesLabel.text = message;
+
     }
 
 
@@ -84,5 +83,21 @@ public class UIManager : MonoBehaviour
 
         Debug.LogError("UIManager Failed to find GameHUD");
         return docScript;
+    }
+
+
+    public void ToggleGameHUDControls(bool bEnable)
+    {
+        GameObject uiElements = GameObject.Find("UI Elements");
+        if (uiElements != null && uiElements.TryGetComponent<Canvas>(out Canvas joystickCanvas))
+        {
+            joystickCanvas.enabled = bEnable;
+        }
+        else
+        {
+            Debug.LogError("Failed to toggle joystick's canvas");
+        }
+
+        this._gameHUDDocument.rootVisualElement.Q<VisualElement>("Buttons").visible = bEnable;
     }
 }

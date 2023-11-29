@@ -146,6 +146,8 @@ public class PartyManager : MonoBehaviour
             capsuleCollider.radius = 0.2f;
         }
 
+        characterObject.tag = "Ally";
+
         Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());
         return characterObject;
     }

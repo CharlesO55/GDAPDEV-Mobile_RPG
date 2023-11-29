@@ -20,16 +20,52 @@ public class GridStat : MonoBehaviour
 
     private bool m_IsProtruding = false;
 
+    private bool m_HasHostileUnit = false;
+    private bool m_HasAllyUnit = false;
+
+    private GameObject m_UnitInTile = null;
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject == PartyManager.Instance.ActivePlayer)
         {
+            this.m_UnitInTile = other.gameObject;
             CombatManager.Instance.CurrentUnitGrid = this.gameObject;
             return;
         }
 
-        if (!other.gameObject.CompareTag("CombatTile"))
+        else if (other.gameObject.CompareTag("Hostile"))
+        {
+            this.m_HasHostileUnit = true;
+            this.m_UnitInTile = other.gameObject;
+        }
+
+        else if(other.gameObject.CompareTag("Ally"))
+        {
+            this.m_HasAllyUnit = true;
+            this.m_UnitInTile = other.gameObject;
+        }
+
+        else
             this.m_IsPassable = false;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == PartyManager.Instance.ActivePlayer)
+            this.m_UnitInTile = null;
+
+        if (other.gameObject.CompareTag("Hostile"))
+        {
+            this.m_HasHostileUnit = false;
+            this.m_UnitInTile = null;
+        }
+
+        if (other.gameObject.CompareTag("Ally"))
+        {
+            this.m_HasAllyUnit = false;
+            this.m_UnitInTile = null;
+        }
     }
 
     public void ChangeTileState(int state)
@@ -85,5 +121,9 @@ public class GridStat : MonoBehaviour
     public int xLoc { get { return this.m_xLoc; } set { this.m_xLoc = value; } }
     public int yLoc { get { return this.m_yLoc; } set { this.m_yLoc = value; } }
     public bool IsPassable { get { return this.m_IsPassable; } }
+    public bool IsTargetable { get { return this.m_IsTargetable; } }
     public bool IsPathable { get { return this.m_IsPathable; } }
+    public bool HasHostileUnit { get { return this.m_HasHostileUnit; } }
+    public bool HasAllyUnit { get { return this.m_HasAllyUnit; } }  
+    public GameObject UnitInTile { get { return this.m_UnitInTile; } }
 }

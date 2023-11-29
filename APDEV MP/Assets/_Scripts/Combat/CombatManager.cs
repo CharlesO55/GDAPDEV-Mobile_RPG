@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Android;
 using UnityEngine.InputSystem.HID;
 
 public class CombatManager : MonoBehaviour
@@ -27,6 +28,7 @@ public class CombatManager : MonoBehaviour
     private bool m_MoveRangeDetected = false;
 
     private int m_ActiveUnitMoves = 0;
+    [SerializeField] bool ishealing = true;
 
     [Header("Debug Settings")]
     [SerializeField] int player = 1;
@@ -40,10 +42,12 @@ public class CombatManager : MonoBehaviour
         else
             Destroy(this.gameObject);
 
-        GestureManager.Instance.OnTapDelegate += this.CheckMoveablePath;
+        GestureManager.Instance.OnTapDelegate += this.MoveUnit;
+        GestureManager.Instance.OnTapDelegate += this.AttackUnit;
+        GestureManager.Instance.OnTapDelegate += this.HealUnit;
     }
 
-    private void CheckMoveablePath(object sender, TapEventArgs args)
+    private void MoveUnit(object sender, TapEventArgs args)
     {
         if (args.ObjHit != null && args.ObjHit.CompareTag("CombatTile"))
         {
@@ -63,17 +67,78 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    private void AttackUnit(object sender, TapEventArgs args)
+    {
+        if (args.ObjHit != null && (args.ObjHit.CompareTag("CombatTile")))
+        {
+            GridStat m_GridStat = args.ObjHit.GetComponent<GridStat>();
+
+            if (m_GridStat.IsTargetable && m_GridStat.HasHostileUnit)
+            {
+                CharacterData m_DamagedUnitData = m_GridStat.UnitInTile.GetComponent<CharacterScript>().CharacterData;
+                m_DamagedUnitData.CurrHealth -= this.CheckDamage(m_DamagedUnitData);
+
+                if (m_DamagedUnitData.CurrHealth < 0)
+                    m_DamagedUnitData.CurrHealth = 0;
+            }
+        }
+    }
+
+    private void HealUnit(object sender, TapEventArgs args)
+    {
+        if (args.ObjHit != null && (args.ObjHit.CompareTag("CombatTile")))
+        {
+            GridStat m_GridStat = args.ObjHit.GetComponent<GridStat>();
+
+            if (m_GridStat.IsTargetable && m_GridStat.HasAllyUnit)
+            {
+                if (PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass == EnumUnitClass.PALADIN)
+                {
+                    CharacterData m_HealedUnitData = m_GridStat.UnitInTile.GetComponent<CharacterScript>().CharacterData;
+                    m_HealedUnitData.CurrHealth += Random.Range(1, 9) + PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CHAMod;
+
+                    if (m_HealedUnitData.CurrHealth > m_HealedUnitData.MaxHealth)
+                        m_HealedUnitData.CurrHealth = m_HealedUnitData.MaxHealth;
+                }
+
+                else
+                    Debug.Log("Active unit is not a Paladin!");
+            }
+        }
+    }
+
+    private int CheckDamage(CharacterData data)
+    {
+        switch(data.CharacterClass)
+        {
+            case EnumUnitClass.FIGHTER:
+                return Random.Range(1, 9) + data.STRMod;
+
+            case EnumUnitClass.PALADIN:
+                return Random.Range(1, 7) + data.STRMod;
+
+            case EnumUnitClass.ROGUE:
+                return Random.Range(1, 7) + data.DEXMod;
+
+            case EnumUnitClass.MAGE:
+                return Random.Range(1, 11) + data.INTMod;
+
+            default:
+                return 0;
+        }
+    }
+
     private int CheckUnitMovementSpeed(EnumUnitClass jobclass)
     {
         switch(jobclass)
         {
-            case EnumUnitClass.FIGHTER:
             case EnumUnitClass.MAGE:
-                return 1;
+                return 2;
 
+            case EnumUnitClass.FIGHTER:
             case EnumUnitClass.PALADIN:
             case EnumUnitClass.ROGUE:
-                return 2;
+                return 3;
 
             default:
                 return 0;
@@ -89,8 +154,10 @@ public class CombatManager : MonoBehaviour
                 return 1;
 
             case EnumUnitClass.MAGE:
+                return 3;
+
             case EnumUnitClass.ROGUE:
-                return 2;
+                return 4;
 
             default:
                 return 0;

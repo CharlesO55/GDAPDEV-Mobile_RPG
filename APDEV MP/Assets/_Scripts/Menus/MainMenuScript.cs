@@ -22,7 +22,7 @@ public class MainMenuScript : MonoBehaviour
 
     private void StartGame()
     {
-        SceneManager.LoadScene("Holden");
+        SceneLoaderManager.Instance.LoadScene(1);
     }
     private void QuitGame()
     {

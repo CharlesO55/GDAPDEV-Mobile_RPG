@@ -28,11 +28,8 @@ public class CombatManager : MonoBehaviour
     private bool m_MoveRangeDetected = false;
 
     private int m_ActiveUnitMoves = 0;
-    [SerializeField] bool ishealing = true;
-
-    [Header("Debug Settings")]
-    [SerializeField] int player = 1;
-    [SerializeField] private bool mswitch = false;
+    private bool m_HasAttacked = false;
+    private bool m_HasEndedTurn = false;
 
     public void Awake()
     {
@@ -41,7 +38,10 @@ public class CombatManager : MonoBehaviour
 
         else
             Destroy(this.gameObject);
+    }
 
+    private void Start()
+    {
         GestureManager.Instance.OnTapDelegate += this.MoveUnit;
         GestureManager.Instance.OnTapDelegate += this.AttackUnit;
         GestureManager.Instance.OnTapDelegate += this.HealUnit;
@@ -80,7 +80,13 @@ public class CombatManager : MonoBehaviour
 
                 if (m_DamagedUnitData.CurrHealth < 0)
                     m_DamagedUnitData.CurrHealth = 0;
+
+                this.m_HasAttacked = true;
+                Debug.Log("Attack Successful");
             }
+
+            else
+                Debug.Log("Path is not targetable or Path has no hostile unit");
         }
     }
 
@@ -99,11 +105,17 @@ public class CombatManager : MonoBehaviour
 
                     if (m_HealedUnitData.CurrHealth > m_HealedUnitData.MaxHealth)
                         m_HealedUnitData.CurrHealth = m_HealedUnitData.MaxHealth;
+
+                    this.m_HasAttacked = true;
+                    Debug.Log("Heal Successful");
                 }
 
                 else
                     Debug.Log("Active unit is not a Paladin!");
             }
+
+            else
+                Debug.Log("Path is not targetable or Path has no ally unit.");
         }
     }
 
@@ -130,7 +142,7 @@ public class CombatManager : MonoBehaviour
 
     private int CheckUnitMovementSpeed(EnumUnitClass jobclass)
     {
-        switch(jobclass)
+        switch (jobclass)
         {
             case EnumUnitClass.MAGE:
                 return 2;
@@ -171,7 +183,12 @@ public class CombatManager : MonoBehaviour
         if (this.m_CurrentTurnIndex > this.m_UnitList.Count)
             this.m_CurrentTurnIndex = 0;
 
-        PartyManager.Instance.SwitchActiveCharacter(this.m_CurrentTurnIndex);
+        if (PartyManager.Instance.PartyEntities.Contains(this.m_UnitList[this.m_CurrentTurnIndex]))
+            PartyManager.Instance.SwitchActiveCharacterByObject(this.m_UnitList[this.m_CurrentTurnIndex]);
+
+        else
+            Debug.Log("ENEMY SHOULD ACT");
+
         this.m_CombatGridScript.ResetGrid();
     }
 
@@ -188,10 +205,15 @@ public class CombatManager : MonoBehaviour
 
     private IEnumerator WaitForTurnEnd()
     {
-        while (!this.mswitch)
+        while ((this.m_ActiveUnitMoves > 0 || !this.m_HasAttacked) && !this.m_HasEndedTurn)
             yield return null;
 
-        this.mswitch = false;
+        this.EndTurn();
+    }
+
+    public void EndTurn()
+    {
+        this.m_HasAttacked = false;
         this.m_MoveRangeDetected = false;
         this.SwitchNextActiveUnit();
     }
@@ -200,6 +222,7 @@ public class CombatManager : MonoBehaviour
     {
         this.IsInCombat = true;
         this.RetrieveUnits();
+        this.SwitchNextActiveUnit();
     }
 
     public void EndCombat()
@@ -207,10 +230,10 @@ public class CombatManager : MonoBehaviour
         this.IsInCombat = false;
         this.m_CurrentTurnIndex = -1;
 
-        this.m_UnitList.Clear();
-
         foreach (GameObject unit in this.m_UnitList)
             unit.GetComponent<CharacterScript>().CharacterData.Initiative = 0;
+
+        this.m_UnitList.Clear();
     }
 
     //Adjust accordingly if enemies will not have CharacterScriptComponent
@@ -255,7 +278,7 @@ public class CombatManager : MonoBehaviour
                     this.m_CombatGridScript.CheckMovementRange(m_GridStat.xLoc, m_GridStat.yLoc, this.m_ActiveUnitMoves);
                 }
 
-                if (this.m_IsViewingAttackRange)
+                else if (this.m_IsViewingAttackRange)
                 {
                     this.m_IsViewingMoveRange = false;
 
@@ -274,4 +297,5 @@ public class CombatManager : MonoBehaviour
     public bool IsViewingMoveRange { get { return this.m_IsViewingMoveRange; } set { this.m_IsViewingMoveRange = value; } }
     public bool IsViewingAttackRange { get { return this.m_IsViewingAttackRange; } set { this.m_IsViewingAttackRange = value; } }
     public bool MoveRangeDetected { get { return this.m_MoveRangeDetected;} set { this.m_MoveRangeDetected = value; } } 
+    public bool HasEndedTurn { get { return this.m_HasEndedTurn;} set { this.m_HasEndedTurn = value; } }
 }

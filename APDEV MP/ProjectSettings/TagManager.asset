@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CombatTile
   - Ally
+  - Hostile
   layers:
   - Default
   - TransparentFX

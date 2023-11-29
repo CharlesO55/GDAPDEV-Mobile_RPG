@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -122,6 +123,20 @@ public class PartyManager : MonoBehaviour
         return bSuccess;
     }
 
+    public void SwitchActiveCharacterByObject(GameObject member)
+    {
+        if (member.TryGetComponent<CharacterScript>(out CharacterScript charScript))
+        {
+            if (charScript.CanCharacterAct())
+            {
+                this._activePlayer = member;
+                Debug.Log("[Switched] " + charScript.GetDetails());
+
+                this.OnSwitchPlayerEvent?.Invoke(this, this._activePlayer);
+            }
+        }
+    }
+
     private GameObject CreateCharacter(CharacterData _saveData)
     {
         int spawnAreaIndex = SceneLoaderManager.Instance.SpawnAreaIndex;
@@ -157,4 +172,6 @@ public class PartyManager : MonoBehaviour
         Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());
         return characterObject;
     }
+
+    public List<GameObject> PartyEntities { get { return this._partyEntities; } }
 }

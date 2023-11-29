@@ -45,9 +45,6 @@ public class GridStat : MonoBehaviour
             this.m_HasAllyUnit = true;
             this.m_UnitInTile = other.gameObject;
         }
-
-        else
-            this.m_IsPassable = false;
     }
 
     private void OnTriggerExit(Collider other)

@@ -33,19 +33,6 @@ public class CombatGrid : MonoBehaviour
             Debug.LogError("Missing GridPrefab in " + this.name);
     }
 
-    private void Update()
-    {
-        //Currently not functional, plan is to reduce the number of tiles pathable when player moves from one to the other.
-        //foreach (GameObject grid in this.m_PathableTiles)
-        //{
-        //    if (grid != CombatManager.Instance.CurrentUnitGrid)
-        //    {
-        //        CombatManager.Instance.ActiveUnitMoves--;
-        //        this.RecalculateMovementRange(grid.GetComponent<GridStat>().xLoc, grid.GetComponent<GridStat>().yLoc, CombatManager.Instance.ActiveUnitMoves);
-        //    }
-        //}
-    }
-
     private void OnDisable()
     {
         this.ResetGrid();

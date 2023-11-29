@@ -69,12 +69,9 @@ public class CombatGrid : MonoBehaviour
         }
     }
 
-    private void ResetGrid()
+    public void ResetGrid()
     {
         CombatManager.Instance.CurrentUnitGrid = null;
-
-        CombatManager.Instance.IsViewingMoveRange = false;
-        CombatManager.Instance.IsViewingAttackRange = false;
 
         foreach (GameObject grid in this.m_Grids)
             grid.GetComponent<GridStat>().ChangeTileState(0);

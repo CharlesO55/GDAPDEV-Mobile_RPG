@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.HID;
 
 public class CombatManager : MonoBehaviour
 {
@@ -23,7 +24,9 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private bool m_IsViewingMoveRange = false;
     [SerializeField] private bool m_IsViewingAttackRange = false;
 
-    private int m_AcitveUnitMoves = 0;
+    private bool m_MoveRangeDetected = false;
+
+    private int m_ActiveUnitMoves = 0;
 
     [Header("Debug Settings")]
     [SerializeField] int player = 1;
@@ -44,8 +47,16 @@ public class CombatManager : MonoBehaviour
     {
         if (args.ObjHit != null && args.ObjHit.CompareTag("CombatTile"))
         {
-            if (args.ObjHit.GetComponent<GridStat>().IsPathable)
+            if (args.ObjHit.GetComponent<GridStat>().IsPathable && this.m_ActiveUnitMoves > 0)
+            {
+                GridStat m_CurrentTile = this.m_CurrentUnitGrid.GetComponent<GridStat>();
+                GridStat m_TargetTile = args.ObjHit.GetComponent<GridStat>();
+
+                this.m_ActiveUnitMoves -= Mathf.Abs(m_CurrentTile.xLoc - m_TargetTile.xLoc) + Mathf.Abs(m_CurrentTile.yLoc - m_TargetTile.yLoc);
+
+                StartCoroutine(this.WaitForMovement(m_TargetTile.xLoc, m_TargetTile.yLoc));
                 PartyManager.Instance.ActivePlayer.GetComponent<NavMeshAgent>().SetDestination(args.ObjHit.transform.position);
+            }
 
             else
                 Debug.Log("Area is not pathable");
@@ -92,19 +103,36 @@ public class CombatManager : MonoBehaviour
 
         if (this.m_CurrentTurnIndex > this.m_UnitList.Count)
             this.m_CurrentTurnIndex = 0;
+
+        PartyManager.Instance.SwitchActiveCharacter(this.m_CurrentTurnIndex);
+        this.m_CombatGridScript.ResetGrid();
+    }
+
+    private IEnumerator WaitForMovement(int x, int y)
+    {
+        GridStat m_CurrentTile = this.m_CurrentUnitGrid.GetComponent<GridStat>();
+
+        while (m_CurrentTile.xLoc != x && m_CurrentTile.yLoc != y)
+            yield return null;
+
+        this.m_CombatGridScript.ResetGrid();
+        this.m_CombatGridScript.CheckMovementRange(x, y, this.m_ActiveUnitMoves);
+    }
+
+    private IEnumerator WaitForTurnEnd()
+    {
+        while (!this.mswitch)
+            yield return null;
+
+        this.mswitch = false;
+        this.m_MoveRangeDetected = false;
+        this.SwitchNextActiveUnit();
     }
 
     public void BeginCombat()
     {
         this.IsInCombat = true;
-
-        foreach (GameObject unit in this.m_UnitList)
-        {
-            int m_UnitInitiative = Random.Range(1, 21);
-            int m_DexModifier = unit.GetComponent<CharacterScript>().CharacterData.DEXMod;
-
-            unit.GetComponent<CharacterScript>().CharacterData.Initiative = m_UnitInitiative + m_DexModifier;
-        }
+        this.RetrieveUnits();
     }
 
     public void EndCombat()
@@ -151,12 +179,13 @@ public class CombatManager : MonoBehaviour
 
                 GridStat m_GridStat = this.m_CurrentUnitGrid.GetComponent<GridStat>();
 
-                if (this.m_IsViewingMoveRange)
+                if (this.m_IsViewingMoveRange && !this.m_MoveRangeDetected)
                 {
                     this.m_IsViewingAttackRange = false;
+                    this.m_MoveRangeDetected = true;
 
-                    int m_MoveRange = this.CheckUnitMovementSpeed(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
-                    this.m_CombatGridScript.CheckMovementRange(m_GridStat.xLoc, m_GridStat.yLoc, m_MoveRange);
+                    this.m_ActiveUnitMoves = this.CheckUnitMovementSpeed(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
+                    this.m_CombatGridScript.CheckMovementRange(m_GridStat.xLoc, m_GridStat.yLoc, this.m_ActiveUnitMoves);
                 }
 
                 if (this.m_IsViewingAttackRange)
@@ -166,19 +195,16 @@ public class CombatManager : MonoBehaviour
                     int m_AttackRange = this.CheckUnitAttackRange(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
                     this.m_CombatGridScript.CheckAttackRange(m_GridStat.xLoc, m_GridStat.yLoc, m_AttackRange);
                 }
-            }
-        }
 
-        if (this.mswitch)
-        {
-            PartyManager.Instance.SwitchActiveCharacter(this.player);
-            this.mswitch = false;
+                StartCoroutine(this.WaitForTurnEnd());
+            }
         }
     }
 
     public GameObject CurrentUnitGrid { get { return this.m_CurrentUnitGrid; }  set { this.m_CurrentUnitGrid = value; } }
     public bool IsInCombat { get { return this.m_IsInCombat; } set { this.m_IsInCombat = value; } }
-    public int ActiveUnitMoves { get { return this.m_AcitveUnitMoves; } set { this.m_AcitveUnitMoves = value; } }
+    public int ActiveUnitMoves { get { return this.m_ActiveUnitMoves; } set { this.m_ActiveUnitMoves = value; } }
     public bool IsViewingMoveRange { get { return this.m_IsViewingMoveRange; } set { this.m_IsViewingMoveRange = value; } }
     public bool IsViewingAttackRange { get { return this.m_IsViewingAttackRange; } set { this.m_IsViewingAttackRange = value; } }
+    public bool MoveRangeDetected { get { return this.m_MoveRangeDetected;} set { this.m_MoveRangeDetected = value; } } 
 }

@@ -29,13 +29,15 @@ public class MultipleQuestsManager : MonoBehaviour
      ***************************/
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
+        {
+            Instance = this;
+            GameObject.DontDestroyOnLoad(this.gameObject);
+        }
+        else
         {
             Destroy(this.gameObject);
-            return;
         }
-
-        Instance = this;
     }
 
     private void Start()

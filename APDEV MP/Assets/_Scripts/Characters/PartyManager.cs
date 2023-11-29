@@ -124,14 +124,20 @@ public class PartyManager : MonoBehaviour
 
     private GameObject CreateCharacter(CharacterData _saveData)
     {
-        if(_spawnAreas.Count <= 0)
+        int spawnAreaIndex = SceneLoaderManager.Instance.SpawnAreaIndex;
+
+        if (_spawnAreas.Count <= 0)
         {
             Debug.LogError("CreateCharacter failed : No spawn area set");
         }
-        int rngSpawn = UnityEngine.Random.Range(0, _spawnAreas.Count);
+        else if (spawnAreaIndex >= _spawnAreas.Count)
+        {
+            spawnAreaIndex = 0;
+            Debug.LogWarning("SpawnAreaIndex is out of range");
+        }
+        //int spawnAreaIndex = UnityEngine.Random.Range(0, _spawnAreas.Count);
 
-
-        GameObject characterObject = Instantiate(_saveData.CharacterModel, _spawnAreas[rngSpawn].getRandomSpawnPos(), Quaternion.identity, this.transform);
+        GameObject characterObject = Instantiate(_saveData.CharacterModel, _spawnAreas[spawnAreaIndex].getRandomSpawnPos(), Quaternion.identity, this.transform);
 
 
         //ADD COMPONENTS TO OUR CHARACTERS or DIRECTLY USE A PREFAB

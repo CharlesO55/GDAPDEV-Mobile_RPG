@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CombatTile
+  - Ally
   layers:
   - Default
   - TransparentFX

@@ -9,13 +9,24 @@ public class SceneLoaderManager : MonoBehaviour
     public static SceneLoaderManager Instance;
 
     private UIDocument m_LoadingScreen;
-    
 
-    public void LoadScene(int  sceneId)
+    private int m_SpawnAreaIndex;
+    public int SpawnAreaIndex
+    {
+        get { return m_SpawnAreaIndex; }
+    }
+
+    public void LoadScene(int sceneId, int spawnAreaIndex = 0)
     {
         if (sceneId >= SceneManager.sceneCountInBuildSettings)
+        {
             Debug.LogError("ERROR: SceneId not within range of scene count in build settings.");
-        else this.StartCoroutine(this.ShowLoadingScreen(sceneId));
+        }
+        else
+        {
+            this.m_SpawnAreaIndex = spawnAreaIndex;
+            this.StartCoroutine(this.ShowLoadingScreen(sceneId));
+        }
     }
 
     private IEnumerator ShowLoadingScreen(int sceneId)
@@ -29,8 +40,15 @@ public class SceneLoaderManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        GameObject.DontDestroyOnLoad(this.gameObject);
-        this.m_LoadingScreen = GetComponent<UIDocument>();
+        if (Instance == null)
+        {
+            Instance = this;
+            GameObject.DontDestroyOnLoad(this.gameObject);
+            this.m_LoadingScreen = GetComponent<UIDocument>();
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

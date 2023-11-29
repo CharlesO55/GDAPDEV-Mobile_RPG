@@ -39,7 +39,7 @@ MonoBehaviour:
     _instructions: Open the door
     _action: 4
     _goalAmount: 1
-    _goalObject: {fileID: 919132149155446097, guid: b9a1c0a49b015804e83705d2e66fa591,
+    _goalObject: {fileID: 6322556187633357650, guid: f5e4cf5af47ee60418f92554c028a4ce,
       type: 3}
   - _questStepIndex: 4
     _instructions: Look for the key
@@ -51,7 +51,7 @@ MonoBehaviour:
     _instructions: Go to the main gate
     _action: 4
     _goalAmount: 1
-    _goalObject: {fileID: 919132149155446097, guid: b9a1c0a49b015804e83705d2e66fa591,
+    _goalObject: {fileID: 6322556187633357650, guid: f5e4cf5af47ee60418f92554c028a4ce,
       type: 3}
   - _questStepIndex: 6
     _instructions: Confront the demon king
@@ -65,3 +65,8 @@ MonoBehaviour:
     _goalAmount: 1
     _goalObject: {fileID: 919132149155446097, guid: b9a1c0a49b015804e83705d2e66fa591,
       type: 3}
+  - _questStepIndex: 8
+    _instructions: END
+    _action: 5
+    _goalAmount: 0
+    _goalObject: {fileID: 0}

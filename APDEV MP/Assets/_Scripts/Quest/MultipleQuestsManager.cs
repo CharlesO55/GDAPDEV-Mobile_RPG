@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MultipleQuestsManager : MonoBehaviour
 {
@@ -42,10 +43,23 @@ public class MultipleQuestsManager : MonoBehaviour
 
     private void Start()
     {
+        SceneManager.sceneLoaded += CallUIUpdate;
         this.UpdateUIQuestInfo();
     }
 
+    private void CallUIUpdate(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex != 0)
+        {
+            this.UpdateUIQuestInfo();
+        }
+    }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= CallUIUpdate;
+        Destroy(this.gameObject);
+    }
 
 
     /********************************
@@ -311,6 +325,13 @@ public class MultipleQuestsManager : MonoBehaviour
     /**********************************
      *          UI Update             *
      *********************************/
+    IEnumerator UpdateUIInMomment()
+    {
+        yield return new WaitForSeconds(2);
+        UpdateUIQuestInfo();
+    }
+
+
     private void UpdateUIQuestInfo()
     {
         if (!this.IsQuestActive())

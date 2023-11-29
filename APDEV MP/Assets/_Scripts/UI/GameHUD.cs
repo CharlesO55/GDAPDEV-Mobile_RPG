@@ -54,15 +54,17 @@ public class GameHUD : MonoBehaviour
 
     private void Start()
     {
-        this.m_Character = PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>();
+        //this.m_Character = PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>();
 
         this.m_ProgressBar.lowValue = 0;
-        this.m_ProgressBar.highValue = this.m_Character.CharacterData.MaxHealth;
+        //this.m_ProgressBar.highValue = this.m_Character.CharacterData.MaxHealth;
     }
 
     private void Update()
     {
-        this.m_ProgressBar.value = this.m_Character.CharacterData.CurrHealth;
+        this.m_ProgressBar.value = PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CurrHealth;
+        this.m_ProgressBar.highValue = PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.MaxHealth;
+        //this.m_ProgressBar.value = this.m_Character.CharacterData.CurrHealth;
 
         if (DialogueManager.Instance.IsRequestingRoll)
         {

@@ -113,9 +113,9 @@ public class GestureManager : MonoBehaviour
         //SINGLE FINGER
         switch (ETouch.Touch.activeTouches.Count)
         {
-            case 1:
+            /*case 1:
                 this.CheckDrag();
-                break;
+                break;*/
             case 2:
                 this.CheckSpread();
                 break;
@@ -126,6 +126,13 @@ public class GestureManager : MonoBehaviour
     private void Update()
     {
         this.bGestureDetermined = false;
+
+        //OVERRIDES THE EVENT TRIGGER VER.
+        //DRAG NEEDS REGULAR UPDATES INSTEAD OF JUST ONFINGERMOVE EVENT
+        if (ETouch.Touch.activeTouches.Count == 1)
+        {
+            this.CheckDrag();
+        }
     }
 
 

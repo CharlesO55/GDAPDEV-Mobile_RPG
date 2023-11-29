@@ -12,5 +12,7 @@ public enum EnumObjectID
     ZONE_TREE,
     NPC_SHOPKEEPER,
     NPC_WEAPONSMITH,
-    DOOR
+    DOOR,
+    DEMON_KING,
+    NPC_VERGIL
 }

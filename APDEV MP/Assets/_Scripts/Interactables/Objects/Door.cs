@@ -8,20 +8,21 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField] int _targetScene;
     [SerializeField] int _spawnAreaIndex = 0;
 
-    [SerializeField] bool _isLocked;
+    [Header("Door Locking")]
+    [SerializeField] string _keyName;
 
 
     public void OnInteractInterface(EnumQuestAction questAction = EnumQuestAction.TALK)
     {
-        if (this._isLocked)
+        if (!string.IsNullOrEmpty(_keyName) && !InventoryManager.Instance.HasItem(_keyName))
         {
             Debug.Log($"{this.name} is LOCKED");
             return;
         }
 
 
-        Debug.Log($"Used DOOR {this.name}");
-        SceneLoaderManager.Instance.LoadScene(_targetScene);
+        Debug.Log($"Used DOOR {this.name} to load Scene{_targetScene} at spawn zone {_spawnAreaIndex}");
+        SceneLoaderManager.Instance.LoadScene(_targetScene, _spawnAreaIndex);
     }
     public virtual void HighlightInteractable(bool bEnable) 
     {

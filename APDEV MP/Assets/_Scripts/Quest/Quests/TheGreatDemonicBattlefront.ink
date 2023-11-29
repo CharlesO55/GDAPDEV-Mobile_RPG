@@ -120,44 +120,9 @@ Listen kid. I went through all this effort and you're just gonna bail?
 Bruh... #SPEAKER:Narrator
 
 * [Rebute CON(8)]
-    There's no way you can use a chaingun. #SPEAKER:Narrator
-    A quarrel soon breaks out.
-    +[I asked for a normal weapon]
-    +[I didn't tell you]
-    +[to go the extra mile]
-    -His face stiffens with your ungrateful attitude. #SPEAKER:Narrator
-    Each word you hurl at him continues to shatter his dream.
-    ~ DoDialogueRoll(8, "CON")
-    His face fumes red with anger as he prepares to berate you.
-    { _rollSuccess :
-        [{_rollSuccess}] Insults are hurled at you. 
-            Yet you don't flinch and walk out the door.
-            ~ SetNextStep(4, _questName)
-            Even without a weapon, you should still be able to enter the castle.
-            ->END
-            -else:
-            [{_rollSuccess}] Each insult tears at your heart.
-            Soon you begin to feel the guilt and reconsider.
-            ->AngryWeaponsmith
-    }    
-* [Convince CHR(8)]
-    There's no way you can use a chaingun. #SPEAKER:Narrator
-    You try your best to convince them with empty promises.
-    ~ DoDialogueRoll(8, "CHR")
-    Yet they remain dubious.
-    {_rollSuccess:
-        [{_rollSuccess}] You promise that you'll pick it up by lunch. #SPEAKER:Narrator
-            All right then. #SPEAKER:Weaponsmith
-            You're permitted to leave the store.#SPEAKER:Narrator
-            ~ SetNextStep(4, _questName)
-            We should head for the castle before they find out.
-            ->END
-        -else:
-        [{_rollSuccess}] Kid, just come out straight. #SPEAKER:Weaponsmith
-            I know a liar when I see one.
-            My brother may be a dick, but at least he's real with me.
-            ->AngryWeaponsmith
-    }
+    ->Rebute
+* [Convince CHA(8)]
+    ->Convince
 + [Run]
     ~ SetNextStep(2, _questName)
     You dash out the door as Rhein and his brother scream at you.
@@ -165,6 +130,49 @@ Bruh... #SPEAKER:Narrator
     The guards soon investigate and confiscate the proclaimed 6 piped chandelier.
     Rhein Metalworks may face eviction upon the investigation's conclusion.
     -> END
+    
+    
+=== Rebute ===
+There's no way you can use a chaingun. #SPEAKER:Narrator
+A quarrel soon breaks out.
+    +[I asked for a normal weapon]
+    +[I didn't tell you]
+    +[to go the extra mile]
+-His face stiffens with your ungrateful attitude. #SPEAKER:Narrator
+Each word you hurl at him continues to shatter his dream.
+~ DoDialogueRoll(8, "CON")
+His face fumes red with anger as he prepares to berate you.
+{ _rollSuccess :
+    [{_rollSuccess}] Insults are hurled at you. 
+        Yet you don't flinch and walk out the door.
+        ~ SetNextStep(4, _questName)
+        Even without a weapon, you should still be able to enter the castle.
+        ->END
+        -else:
+        [{_rollSuccess}] Each insult tears at your heart.
+        Soon you begin to feel the guilt and reconsider.
+        ->AngryWeaponsmith
+}
+
+=== Convince ===
+There's no way you can use a chaingun. #SPEAKER:Narrator
+You try your best to convince them with empty promises.
+~ DoDialogueRoll(8, "CHA")
+Yet they remain dubious.
+{_rollSuccess:
+    [{_rollSuccess}] You promise that you'll pick it up by lunch. #SPEAKER:Narrator
+        All right then. #SPEAKER:Weaponsmith
+        You're permitted to leave the store.#SPEAKER:Narrator
+        ~ SetNextStep(4, _questName)
+        We should head for the castle before they find out.
+        ->END
+    -else:
+    [{_rollSuccess}] Kid, just come out straight. #SPEAKER:Weaponsmith
+        I know a liar when I see one.
+        My brother may be a dick, but at least he's real with me.
+        ->AngryWeaponsmith
+}
+
     
 === Step4 ===
 You approach the castle door.#SPEAKER:Narrator

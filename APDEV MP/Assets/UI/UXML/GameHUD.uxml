@@ -12,13 +12,18 @@
                 <ui:VisualElement name="Filler" style="flex-grow: 1; margin-top: 8%; margin-right: 8%; margin-bottom: 8%; margin-left: 8%;" />
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="CombatButtons" style="flex-grow: 1; position: absolute; left: 85%; top: 20%; max-width: 256px; max-height: 700px; display: none;">
+            <ui:Image name="CombatMoveButton" style="flex-grow: 1; margin-bottom: 50px;" />
+            <ui:Image name="CombatAttackButton" style="flex-grow: 1; margin-bottom: 50px;" />
+            <ui:Image name="CombatEndButton" style="flex-grow: 1;" />
+        </ui:VisualElement>
         <ui:VisualElement name="CharacterPortraitContainer" style="flex-grow: 1; position: absolute; top: 12%; height: 40%; width: 10%; left: 2%;">
-            <ui:VisualElement name="Player1Frame" class="player-frame" style="flex-grow: 1;">
+            <ui:VisualElement name="Player1Frame" class="player-frame" style="flex-grow: 1; display: flex;">
                 <ui:Image name="Player1Image" style="flex-grow: 1;">
                     <ui:Label tabindex="-1" text="16/16" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Player1Health" class="player-health" />
                 </ui:Image>
             </ui:VisualElement>
-            <ui:VisualElement name="Player2Frame" class="player-frame" style="flex-grow: 1; border-left-color: rgb(255, 0, 0); border-right-color: rgb(255, 0, 0); border-top-color: rgb(255, 0, 0); border-bottom-color: rgb(255, 0, 0);">
+            <ui:VisualElement name="Player2Frame" class="player-frame" style="flex-grow: 1; border-left-color: rgb(255, 0, 0); border-right-color: rgb(255, 0, 0); border-top-color: rgb(255, 0, 0); border-bottom-color: rgb(255, 0, 0); display: flex;">
                 <ui:Image name="Player2Image" style="flex-grow: 1;">
                     <ui:Label tabindex="-1" text="16/16" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Player2Health" class="player-health" />
                 </ui:Image>

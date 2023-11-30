@@ -127,7 +127,7 @@ public class PartyManager : MonoBehaviour
     {
         if (member.TryGetComponent<CharacterScript>(out CharacterScript charScript))
         {
-            if (charScript.CanCharacterAct() && !CombatManager.Instance.IsInCombat)
+            if (charScript.CanCharacterAct())
             {
                 this._activePlayer = member;
                 Debug.Log("[Switched] " + charScript.GetDetails());

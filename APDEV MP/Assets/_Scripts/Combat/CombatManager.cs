@@ -182,7 +182,7 @@ public class CombatManager : MonoBehaviour
         this.m_ActiveUnitMoves = this.CheckUnitMovementSpeed(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
         this.m_ActiveUnitAttackRange = this.CheckUnitAttackRange(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
 
-        if (this.m_CurrentTurnIndex > this.m_UnitList.Count)
+        if (this.m_CurrentTurnIndex >= this.m_UnitList.Count)
             this.m_CurrentTurnIndex = 0;
 
         if (PartyManager.Instance.PartyEntities.Contains(this.m_UnitList[this.m_CurrentTurnIndex]))
@@ -236,6 +236,7 @@ public class CombatManager : MonoBehaviour
             unit.GetComponent<CharacterScript>().CharacterData.Initiative = 0;
 
         this.m_UnitList.Clear();
+        MusicManager.instance.RevertBGM();
     }
 
     //Adjust accordingly if enemies will not have CharacterScriptComponent
@@ -272,16 +273,10 @@ public class CombatManager : MonoBehaviour
                 GridStat m_GridStat = this.m_CurrentUnitGrid.GetComponent<GridStat>();
 
                 if (this.m_IsViewingMoveRange)
-                {
-                    this.m_IsViewingAttackRange = false;
                     this.m_CombatGridScript.CheckMovementRange(m_GridStat.xLoc, m_GridStat.yLoc, this.m_ActiveUnitMoves);
-                }
 
                 else if (this.m_IsViewingAttackRange)
-                {
-                    this.m_IsViewingMoveRange = false;
                     this.m_CombatGridScript.CheckAttackRange(m_GridStat.xLoc, m_GridStat.yLoc, this.m_ActiveUnitAttackRange);
-                }
 
                 else
                     this.m_CombatGridScript.ResetGrid();

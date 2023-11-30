@@ -112,7 +112,20 @@
 	left: 2%;
 }
 
+#CombatMoveButton {
+	--unity-image: url("/Assets/Textures/UI/CombatMoveButton.png");
 
+}
+
+#CombatAttackButton {
+	--unity-image: url("/Assets/Textures/UI/CombatAttackButton.png");
+
+}
+
+#CombatEndButton {
+	--unity-image: url("/Assets/Textures/UI/CombatEndTurnButton.png");
+
+}
 
 #DiceRollLabel{
 	display: none;

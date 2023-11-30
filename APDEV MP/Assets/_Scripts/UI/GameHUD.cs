@@ -6,8 +6,6 @@ using UnityEngine.UIElements;
 
 public class GameHUD : MonoBehaviour
 {
-    private CharacterScript m_Character;
-
     private VisualElement root;
 
     private Image m_Interact;
@@ -18,6 +16,10 @@ public class GameHUD : MonoBehaviour
     private Image m_Player3Portrait;
     private Image m_Player4Portrait;
 
+    private Image m_CombatMoveButton;
+    private Image m_CombatAttackButton;
+    private Image m_CombatEndTurnButton;
+
     private VisualElement[] m_PlayerFrames;
     private Label[] m_PlayerHealth;
 
@@ -26,8 +28,13 @@ public class GameHUD : MonoBehaviour
     private Label[] m_QuestLabels;
     private Label[] m_TaskLabels;
 
-    [SerializeField]
-    private AudioClip BattleBgm;
+    private VisualElement m_ButtonContainer;
+    private VisualElement m_CombatButtonContainer;
+    private VisualElement m_QuestContainer;
+
+    [SerializeField] private AudioClip BattleBgm;
+    [SerializeField] private GameObject m_Joystick;
+    [SerializeField] private CombatGrid m_CombatGrid;
 
     void OnEnable()
     {
@@ -41,7 +48,15 @@ public class GameHUD : MonoBehaviour
         this.m_Player3Portrait = this.root.Q<Image>("Player3Image");
         this.m_Player4Portrait = this.root.Q<Image>("Player4Image");
 
+        this.m_CombatMoveButton = this.root.Q<Image>("CombatMoveButton");
+        this.m_CombatAttackButton = this.root.Q<Image>("CombatAttackButton");
+        this.m_CombatEndTurnButton = this.root.Q<Image>("CombatEndButton");
+
         this.m_DiceRollLabel = this.root.Q<Label>("DiceRollLabel");
+
+        this.m_ButtonContainer = this.root.Q<VisualElement>("Buttons");
+        this.m_CombatButtonContainer = this.root.Q<VisualElement>("CombatButtons");
+        this.m_QuestContainer = this.root.Q<VisualElement>("QuestStuff");
 
         this.ClickedImage(this.m_Interact, "Interact");
         this.ClickedImage(this.m_Attack, "Attack");
@@ -50,10 +65,13 @@ public class GameHUD : MonoBehaviour
         this.ClickedImage(this.m_Player2Portrait, "SwitchToP2");
         this.ClickedImage(this.m_Player3Portrait, "SwitchToP3");
         this.ClickedImage(this.m_Player4Portrait, "SwitchToP4");
+
+        this.ClickedImage(this.m_CombatMoveButton, "ShowMove");
+        this.ClickedImage(this.m_CombatAttackButton, "ShowAttack");
+        this.ClickedImage(this.m_CombatEndTurnButton, "EndTurn");
         
         //this.m_QuestLabel = this.root.Q<Label>("QuestLabel");
         //this.m_TaskLabel = this.root.Q<Label>("TaskLabel");
-
 
         m_QuestLabels = new Label[]{
             this.root.Q<Label>("QuestLabel"),
@@ -98,6 +116,7 @@ public class GameHUD : MonoBehaviour
         //this.m_ProgressBar.highValue = PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.MaxHealth;
         //this.m_ProgressBar.value = this.m_Character.CharacterData.CurrHealth;
 
+        this.ToggleUI();
         this.UpdatePlayerFrames();
         this.UpdatePlayerHealth();
 
@@ -139,10 +158,23 @@ public class GameHUD : MonoBehaviour
                             MusicManager.instance.ChangeBGM(this.BattleBgm);
                         }
 
-                        else
-                            MusicManager.instance.RevertBGM();
-
                         //DiceManager.Instance.DoRoll();
+                        break;
+
+                    case "ShowMove":
+                        this.m_CombatGrid.ResetGrid();
+                        CombatManager.Instance.IsViewingMoveRange = true;
+                        CombatManager.Instance.IsViewingAttackRange = false;
+                        break;
+
+                    case "ShowAttack":
+                        this.m_CombatGrid.ResetGrid();
+                        CombatManager.Instance.IsViewingMoveRange = false;
+                        CombatManager.Instance.IsViewingAttackRange = true;
+                        break;
+
+                    case "EndTurn":
+                        CombatManager.Instance.EndTurn();
                         break;
 
                     case "SwitchToP1":
@@ -168,6 +200,25 @@ public class GameHUD : MonoBehaviour
             }));
         }
    
+    }
+
+    private void ToggleUI()
+    {
+        if (CombatManager.Instance.IsInCombat)
+        {
+            this.m_QuestContainer.style.display = DisplayStyle.None;
+            this.m_ButtonContainer.style.display = DisplayStyle.None;
+            this.m_CombatButtonContainer.style.display = DisplayStyle.Flex;
+            this.m_Joystick.SetActive(false);
+        }
+
+        else
+        {
+            this.m_QuestContainer.style.display = DisplayStyle.Flex;
+            this.m_ButtonContainer.style.display = DisplayStyle.Flex;
+            this.m_CombatButtonContainer.style.display = DisplayStyle.None;
+            this.m_Joystick.SetActive(true);
+        }
     }
 
     private void UpdatePlayerHealth()

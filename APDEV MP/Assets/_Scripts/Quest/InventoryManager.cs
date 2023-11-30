@@ -6,7 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
 
-    private List<string> _itemNames = new();
+    [SerializeField] private List<string> _itemNames = new();
 
     private void Awake()
     {

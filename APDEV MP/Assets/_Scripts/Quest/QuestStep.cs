@@ -14,7 +14,6 @@ public class QuestStep
     private float _currAmount = 0;
     [SerializeField] private float _goalAmount;
     [SerializeField] private GameObject _goalObject;
-
     //ACCESS
     public int QuestStepIndex
     {

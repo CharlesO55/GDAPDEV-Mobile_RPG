@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
         GestureManager.Instance.OnSwipeDelegate -= DisplayGestureSwipe;
     }
 
-    private void ChangeText(string message)
+    public void ChangeText(string message)
     {
         this._systemMessagesLabel.text = message;
 
@@ -58,13 +58,13 @@ public class UIManager : MonoBehaviour
     private void DisplayGestureTap(object sender, TapEventArgs args)
     {
         string message = "Tap heard.";
-        if(args.ObjHit != null) { message += " Tappable " + args.ObjHit.name + " was hit";  }
+        if(args.ObjHit != null) { message += args.ObjHit.name + " was hit";  }
         this.ChangeText(message);
     }
     private void DisplayGestureSwipe(object sender, SwipeEventArgs args)
     {
         string message = args.Direction + " Swipe heard.";
-        if (args.ObjHit != null) { message += " Swipeable " + args.ObjHit.name + " was hit"; }
+        if (args.ObjHit != null) { message += args.ObjHit.name + " was hit"; }
         this.ChangeText(message);
     }
 

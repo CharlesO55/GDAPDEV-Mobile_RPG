@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    EnumObjectID _objectID = EnumObjectID.DOOR;
+    [SerializeField] EnumObjectID _objectID = EnumObjectID.NONE;
     [SerializeField] int _targetScene;
     [SerializeField] int _spawnAreaIndex = 0;
 
@@ -16,6 +16,7 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (!string.IsNullOrEmpty(_keyName) && !InventoryManager.Instance.HasItem(_keyName))
         {
+            UIManager.Instance.ChangeText("Door is LOCKED");
             Debug.Log($"{this.name} is LOCKED");
             return;
         }

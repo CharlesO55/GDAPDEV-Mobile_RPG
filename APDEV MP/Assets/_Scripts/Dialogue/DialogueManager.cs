@@ -90,17 +90,7 @@ public class DialogueManager : MonoBehaviour
 
 
         //Linking observers
-        GestureManager.Instance.OnTapDelegate += ContinueDialogue;
-        this._currStory.BindExternalFunction("SetNextStep", (int nNextStep, string strQuestName) =>
-        {
-            //QuestManager.Instance.SetNextStep(nNextStep, strQuestName);
-            MultipleQuestsManager.Instance.SetNextStep(nNextStep, strQuestName);
-        });
-
-        this._currStory.BindExternalFunction("DoDialogueRoll", (int nStatRequired, string strStatType) =>
-        {
-            this.DoDialogueRoll(nStatRequired, strStatType);
-        });
+        this.ToggleFuncBinds(true);
 
 
 
@@ -112,6 +102,39 @@ public class DialogueManager : MonoBehaviour
         this.RelinkUIDocumment();   //Necessary whenver a UIDoc is enabled/disabled
         
         this.ContinueDialogue(null, null);
+    }
+
+    private void ToggleFuncBinds(bool bEnable)
+    {
+
+        if (bEnable)
+        {
+            GestureManager.Instance.OnTapDelegate += ContinueDialogue;
+
+
+            this._currStory.BindExternalFunction("SetNextStep", (int nNextStep, string strQuestName) =>
+            {
+                MultipleQuestsManager.Instance.SetNextStep(nNextStep, strQuestName);
+            });
+
+            this._currStory.BindExternalFunction("DoDialogueRoll", (int nStatRequired, string strStatType) =>
+            {
+                this.DoDialogueRoll(nStatRequired, strStatType);
+            });
+
+            this._currStory.BindExternalFunction("RewardItem", (string strItemName) =>
+            {
+                InventoryManager.Instance.AddItem(strItemName);
+            });
+        }
+        else
+        {
+            GestureManager.Instance.OnTapDelegate -= ContinueDialogue;
+
+            this._currStory.UnbindExternalFunction("SetNextStep");
+            this._currStory.UnbindExternalFunction("DoDialogueRoll");
+            this._currStory.UnbindExternalFunction("RewardItem");
+        }
     }
 
 
@@ -202,16 +225,12 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
-
-
-        GestureManager.Instance.OnTapDelegate -= ContinueDialogue;
         this._isStoryPlaying = false;
 
         UIManager.Instance.ToggleGameHUDControls(true);
         this._dialogueUI.enabled = false;
 
-        this._currStory.UnbindExternalFunction("SetNextStep");
-        this._currStory.UnbindExternalFunction("DoDialogueRoll");
+        this.ToggleFuncBinds(false);
     }
 
     private void MakeChoice(ClickEvent args)

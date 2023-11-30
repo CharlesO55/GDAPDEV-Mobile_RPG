@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 public class PartyManager : MonoBehaviour
 {
@@ -43,6 +44,11 @@ public class PartyManager : MonoBehaviour
 
     void Start()
     {
+        if(_spawnAreas.Count <= 0 || _spawnAreas[0] == null)
+        {
+            Debug.LogError("PartyManager has no SpawnAreas set");
+        }
+
         if (isCreateDataFromField)
         {
             this.FirstTimeCreateCharacterData();

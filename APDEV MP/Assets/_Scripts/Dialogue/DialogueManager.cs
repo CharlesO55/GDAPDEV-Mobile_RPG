@@ -126,6 +126,11 @@ public class DialogueManager : MonoBehaviour
             {
                 InventoryManager.Instance.AddItem(strItemName);
             });
+
+            this._currStory.BindExternalFunction("StartBattle", () =>
+            {     
+                CombatManager.Instance.BeginCombat();
+            });
         }
         else
         {
@@ -134,6 +139,7 @@ public class DialogueManager : MonoBehaviour
             this._currStory.UnbindExternalFunction("SetNextStep");
             this._currStory.UnbindExternalFunction("DoDialogueRoll");
             this._currStory.UnbindExternalFunction("RewardItem");
+            this._currStory.UnbindExternalFunction("StartBattle");
         }
     }
 

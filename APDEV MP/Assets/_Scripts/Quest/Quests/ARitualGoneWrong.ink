@@ -1,6 +1,7 @@
 EXTERNAL SetNextStep(nNextStep, strQuestName)
 EXTERNAL DoDialogueRoll(nStatRequired, strStatType)
 EXTERNAL RewardItem(strItemName)
+EXTERNAL StartBattle()
 
 CONST _questName = "A Ritual Gone Wrong"
 VAR _questStep = 0
@@ -103,5 +104,6 @@ RIZZLER! Where is it!?#SPEAKER:Key Demon
 -The demon howls an unholy screech as the battle begins.#SPEAEKER:Narrator
 ~RewardItem("Keep Gate Key")
 ~SetNextStep(3, _questName)
-Let's defeat the Key demon.
+Let's defeat the Key demon and get that key.
+~StartBattle()
 ->END

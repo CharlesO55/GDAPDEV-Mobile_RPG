@@ -8,7 +8,7 @@ public class CharacterScript : MonoBehaviour
     private CapsuleCollider _collider;
 
 
-    private CharacterData _characterData;
+    [SerializeField] private CharacterData _characterData;
     public CharacterData CharacterData { get { return this._characterData; } }
 
 

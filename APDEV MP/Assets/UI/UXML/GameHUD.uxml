@@ -13,17 +13,25 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="CharacterPortraitContainer" style="flex-grow: 1; position: absolute; top: 12%; height: 40%; width: 10%; left: 2%;">
-            <ui:VisualElement name="Player1Frame" style="flex-grow: 1; -unity-text-outline-color: rgb(0, 110, 255); -unity-text-outline-width: 2px; width: auto; height: auto; max-width: 128px; max-height: 128px; min-width: 128px; min-height: 128px; border-left-color: rgb(0, 127, 255); border-right-color: rgb(0, 127, 255); border-top-color: rgb(0, 127, 255); border-bottom-color: rgb(0, 127, 255); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px;">
-                <ui:Image name="Player1Image" style="flex-grow: 1;" />
+            <ui:VisualElement name="Player1Frame" class="player-frame" style="flex-grow: 1;">
+                <ui:Image name="Player1Image" style="flex-grow: 1;">
+                    <ui:Label tabindex="-1" text="16/16" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Player1Health" class="player-health" />
+                </ui:Image>
             </ui:VisualElement>
-            <ui:VisualElement name="Player2Frame" style="flex-grow: 1; -unity-text-outline-color: rgb(0, 110, 255); -unity-text-outline-width: 2px; width: auto; height: auto; max-width: 128px; max-height: 128px; min-width: 128px; min-height: 128px; border-left-color: rgb(255, 5, 0); border-right-color: rgb(255, 5, 0); border-top-color: rgb(255, 5, 0); border-bottom-color: rgb(255, 5, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; display: flex;">
-                <ui:Image name="Player2Image" style="flex-grow: 1;" />
+            <ui:VisualElement name="Player2Frame" class="player-frame" style="flex-grow: 1; border-left-color: rgb(255, 0, 0); border-right-color: rgb(255, 0, 0); border-top-color: rgb(255, 0, 0); border-bottom-color: rgb(255, 0, 0);">
+                <ui:Image name="Player2Image" style="flex-grow: 1;">
+                    <ui:Label tabindex="-1" text="16/16" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Player2Health" class="player-health" />
+                </ui:Image>
             </ui:VisualElement>
-            <ui:VisualElement name="Player3Frame" style="flex-grow: 1; -unity-text-outline-color: rgb(0, 110, 255); -unity-text-outline-width: 2px; width: auto; height: auto; max-width: 128px; max-height: 128px; min-width: 128px; min-height: 128px; border-left-color: rgb(255, 223, 0); border-right-color: rgb(255, 223, 0); border-top-color: rgb(255, 223, 0); border-bottom-color: rgb(255, 223, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px;">
-                <ui:Image name="Player3Image" style="flex-grow: 1;" />
+            <ui:VisualElement name="Player3Frame" class="player-frame" style="flex-grow: 1; border-left-color: rgb(255, 255, 0); border-right-color: rgb(255, 255, 0); border-top-color: rgb(255, 255, 0); border-bottom-color: rgb(255, 255, 0);">
+                <ui:Image name="Player3Image" style="flex-grow: 1;">
+                    <ui:Label tabindex="-1" text="16/16" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Player3Health" class="player-health" />
+                </ui:Image>
             </ui:VisualElement>
-            <ui:VisualElement name="Player4Frame" style="flex-grow: 1; -unity-text-outline-color: rgb(0, 110, 255); -unity-text-outline-width: 2px; width: auto; height: auto; max-width: 128px; max-height: 128px; min-width: 128px; min-height: 128px; border-left-color: rgb(139, 255, 0); border-right-color: rgb(139, 255, 0); border-top-color: rgb(139, 255, 0); border-bottom-color: rgb(139, 255, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px;">
-                <ui:Image name="Player4Image" style="flex-grow: 1;" />
+            <ui:VisualElement name="Player4Frame" class="player-frame" style="flex-grow: 1; border-left-color: rgb(0, 255, 0); border-right-color: rgb(0, 255, 0); border-top-color: rgb(0, 255, 0); border-bottom-color: rgb(0, 255, 0);">
+                <ui:Image name="Player4Image" style="flex-grow: 1;">
+                    <ui:Label tabindex="-1" text="16/16" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Player4Health" class="player-health" />
+                </ui:Image>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DiceRollLabel" />

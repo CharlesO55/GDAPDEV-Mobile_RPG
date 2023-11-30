@@ -127,7 +127,7 @@ public class PartyManager : MonoBehaviour
     {
         if (member.TryGetComponent<CharacterScript>(out CharacterScript charScript))
         {
-            if (charScript.CanCharacterAct())
+            if (charScript.CanCharacterAct() && !CombatManager.Instance.IsInCombat)
             {
                 this._activePlayer = member;
                 Debug.Log("[Switched] " + charScript.GetDetails());
@@ -135,6 +135,34 @@ public class PartyManager : MonoBehaviour
                 this.OnSwitchPlayerEvent?.Invoke(this, this._activePlayer);
             }
         }
+    }
+
+    public void SwitchActiveCharacterByName(string name)
+    {
+        GameObject m_CharacterToSwitch = this.FindCharacterByName(name);
+
+        if (m_CharacterToSwitch != null)
+            this.SwitchActiveCharacterByObject(m_CharacterToSwitch);
+    }
+
+    public GameObject FindCharacterByName(string name)
+    {
+        foreach (GameObject unit in this._partyEntities)
+            if (unit.GetComponent<CharacterScript>().CharacterData.PlayerName == name)
+                return unit;
+
+        Debug.LogWarning($"No Character with name: {name}");
+        return null;
+    }
+
+    public GameObject FindCharacterByClass(EnumUnitClass jobclass)
+    {
+        foreach (GameObject unit in this._partyEntities)
+            if (unit.GetComponent<CharacterScript>().CharacterData.CharacterClass == jobclass)
+                return unit;
+
+        Debug.LogWarning($"No Character with class: {jobclass}");
+        return null;
     }
 
     private GameObject CreateCharacter(CharacterData _saveData)

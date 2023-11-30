@@ -30,6 +30,12 @@ MonoBehaviour:
     _goalObject: {fileID: 2065486568512107439, guid: 199cd6228f3ffdb409be89fa132eb761,
       type: 3}
   - _questStepIndex: 2
+    _instructions: Find Vergil
+    _action: 2
+    _goalAmount: 1
+    _goalObject: {fileID: 300687364135933663, guid: 9480fd26eb44f9d499b69fc889d18b44,
+      type: 3}
+  - _questStepIndex: 3
     _instructions: END
     _action: 5
     _goalAmount: 0

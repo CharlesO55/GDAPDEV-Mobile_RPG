@@ -11,6 +11,7 @@ VAR _rollSuccess = false
 - 0: -> Step0
 - 1: -> Step1
 - 2: -> Step2
+- 3: -> Step3
 }
 
 
@@ -101,9 +102,81 @@ More than that it has a key on its neck.
 It may be prove useful to take it.
 RIZZLER! Where is it!?#SPEAKER:Key Demon
 +[Fight]
--The demon howls an unholy screech as the battle begins.#SPEAEKER:Narrator
-~RewardItem("Keep Gate Key")
-~SetNextStep(3, _questName)
+-The demon howls an unholy screech as the battle begins.#SPEAKER:Narrator
 Let's defeat the Key demon and get that key.
-~StartBattle()
+You lunge into action with your sword flailing left and right.
+Just as you make contact, the demon parries and sends you flying.
+Woah, why so hostile? #SPEAKER:Key Demon
+I'm just here to party.
++[Wait, you also]
++[want to party?]
+- Duh.
+Virgil, sent me an invite.
+He seemed really happy and giggity. Something about finally cleaning out.
+He said I could make a lot of friends here.
+But everyone already left.
+Why's everyone gotta be so rude?
+Don't they know I'm demon too?
+The key demon begins to break down in tears. #SPEAKER:Narrator
+It's honestly kinda sad.
++[COMFORT (0 CHA)]
+-You try your best to comfort the Key demon. #SPEAKER:Narrator
+~DoDialogueRoll(0, "CHA")
+You try to start a conversation to get him back in shape.
+{ _rollSuccess :
+    [{_rollSuccess}] How's the weather today?
+    -else:
+    [{_rollSuccess}] Did you really fail?
+}
+No matter how abysmal you are with words.
++[It's alright]
++[There's still more parties]
+-You don't get it. #SPEAKER:Key Demon
+Every party I go to always ends like this!
+I just want to have fun for once.
++[You can always]
++[have fun]
++[by yoursellf]
+-Ya, that's what everyone says.
+But I got work.
+I can't just go ball'n whenever I want.
++[I can take your place]
+-No, I shouldn't.
+My work is important.
++[It's just one shift]
+-Hmmmmm...
+I mean you just stand at a gate all day.
+Fine.
+Here take this.
+~RewardItem("Keep Gate Key")
+It's a key to the castle gate.
++[What's my job?]
+-You're now a key demon.
+Make sure that no one EVER takes this key from you.
+Or That's what the Demon King told me.
+Anyways, I'm off to the next party in town.
++[Have fun]
+-Vergil will probably be waiting.#SPEAKER:Narrator
+~SetNextStep(3, _questName)
+We should return.
+->END
+
+===Step3===
+You exit the house to see Vergil hitting the nae nae like a skibbidi toilet #SPEAKER:Narrator
+YES! They're gone! #SPEAKER:Vergil
+Finally, I can complete the ritual.
+Vergil barely notices you and begins enchanting the mana stones around his home.#SPEAKER:Narrator
+The summoning circles light up once more.
+Lorem ipsum. Lorem ipsum. Lorem ipsum.#SPEAKER:Vergil
+Rise undead of Holden and heed my call.
+Unleash the rage rooted in your bon--
+YOOOOOOOOO.#SPEAKER:Demons
+It's another rave fest from Vergil.
+Just then a variety of demons begin storming into Vergil's home once more.#SPEAKER:Narrator
+Mina-saaaaaaaaaaaaaaan.#SPEAKER:Youkai
+This incubussy wants to get topped tonight.#SPEAKER:Incubus
+Mabuhay. #SPEAKER:Aswang
+Noooooooooooooo. Get OuUttTtTT! #SPEAKER:Vergil
+~SetNextStep(4, _questName)
+Heheheheeeeeeeee #SPEAKER:Banshee
 ->END

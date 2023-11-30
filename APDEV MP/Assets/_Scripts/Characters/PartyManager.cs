@@ -192,14 +192,20 @@ public class PartyManager : MonoBehaviour
         //ADD COMPONENTS TO OUR CHARACTERS or DIRECTLY USE A PREFAB
         characterObject.AddComponent<CharacterScript>().Init(_saveData);
         characterObject.AddComponent<NavMeshAgent>();
-        
 
-        if (characterObject.TryGetComponent<CapsuleCollider>(out CapsuleCollider capsuleCollider))
+
+        foreach(var collider in characterObject.GetComponents<Collider>())
+        {
+            collider.enabled = false;
+        }
+
+        characterObject.AddComponent<BoxCollider>();
+        /*if (characterObject.TryGetComponent<CapsuleCollider>(out CapsuleCollider capsuleCollider))
         {
             capsuleCollider.enabled = true;
             capsuleCollider.isTrigger = true;
             capsuleCollider.radius = 0.2f;
-        }
+        }*/
 
         characterObject.tag = "Ally";
 

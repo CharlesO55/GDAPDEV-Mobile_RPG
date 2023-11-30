@@ -199,14 +199,14 @@ public class PartyManager : MonoBehaviour
             collider.enabled = false;
         }
 
-        characterObject.AddComponent<BoxCollider>();
-        /*if (characterObject.TryGetComponent<CapsuleCollider>(out CapsuleCollider capsuleCollider))
+        if (characterObject.TryGetComponent<CapsuleCollider>(out CapsuleCollider capsuleCollider))
         {
             capsuleCollider.enabled = true;
             capsuleCollider.isTrigger = true;
             capsuleCollider.radius = 0.2f;
-        }*/
+        }
 
+        characterObject.GetComponent<NavMeshAgent>().stoppingDistance = 0.2f;
         characterObject.tag = "Ally";
 
         Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());

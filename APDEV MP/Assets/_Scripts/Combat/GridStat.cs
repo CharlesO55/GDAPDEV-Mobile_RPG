@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -20,49 +21,89 @@ public class GridStat : MonoBehaviour
 
     private bool m_IsProtruding = false;
 
-    private bool m_HasHostileUnit = false;
-    private bool m_HasAllyUnit = false;
+    [SerializeField] private bool m_HasHostileUnit = false;
+    [SerializeField] private bool m_HasAllyUnit = false;
 
-    private GameObject m_UnitInTile = null;
+    [SerializeField] private GameObject m_UnitInTile = null;
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == PartyManager.Instance.ActivePlayer)
-        {
-            this.m_UnitInTile = other.gameObject;
-            CombatManager.Instance.CurrentUnitGrid = this.gameObject;
-            return;
-        }
+        //if (other.gameObject == PartyManager.Instance.ActivePlayer)
+        //{
+        //    this.m_UnitInTile = other.gameObject;
+        //    CombatManager.Instance.CurrentUnitGrid = this.gameObject;
+        //    return;
+        //}
 
-        else if (other.gameObject.CompareTag("Hostile"))
-        {
-            this.m_HasHostileUnit = true;
-            this.m_UnitInTile = other.gameObject;
-        }
+        //else if (other.gameObject.CompareTag("Hostile"))
+        //{
+        //    this.m_HasHostileUnit = true;
+        //    this.m_UnitInTile = other.gameObject;
+        //}
 
-        else if(other.gameObject.CompareTag("Ally"))
-        {
-            this.m_HasAllyUnit = true;
-            this.m_UnitInTile = other.gameObject;
-        }
+        //else if (other.gameObject.CompareTag("Ally"))
+        //{
+        //    this.m_HasAllyUnit = true;
+        //    this.m_UnitInTile = other.gameObject;
+        //}
+        this.UpdateTileEntities(other.gameObject);
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Obstruction"))
+            this.m_IsPassable = false;
     }
 
-    private void OnTriggerExit(Collider other)
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject == PartyManager.Instance.ActivePlayer)
+    //        this.m_UnitInTile = null;
+
+    //    if (other.gameObject.CompareTag("Hostile"))
+    //    {
+    //        this.m_HasHostileUnit = false;
+    //        this.m_UnitInTile = null;
+    //    }
+
+    //    if (other.gameObject.CompareTag("Ally"))
+    //    {
+    //        this.m_HasAllyUnit = false;
+    //        this.m_UnitInTile = null;
+    //    }
+    //}
+
+    private async void UpdateTileEntities(GameObject obj)
     {
-        if (other.gameObject == PartyManager.Instance.ActivePlayer)
-            this.m_UnitInTile = null;
+        float end = Time.time + 3;
 
-        if (other.gameObject.CompareTag("Hostile"))
+        while (end > Time.time)
         {
-            this.m_HasHostileUnit = false;
-            this.m_UnitInTile = null;
+            if (obj == null)
+                return;
+
+            if (obj == PartyManager.Instance.ActivePlayer)
+            {
+                this.UnitInTile = obj;
+                CombatManager.Instance.CurrentUnitGrid = this.gameObject;
+            }
+
+            else if (obj.CompareTag("Ally"))
+            {
+                this.UnitInTile = obj;
+                this.m_HasAllyUnit = true;
+            }
+
+            else if (obj.CompareTag("Hostile"))
+            {
+                this.UnitInTile = obj;
+                this.m_HasHostileUnit = true;
+            }
+
+
+            await Task.Yield();
         }
 
-        if (other.gameObject.CompareTag("Ally"))
-        {
-            this.m_HasAllyUnit = false;
-            this.m_UnitInTile = null;
-        }
+        this.UnitInTile = null;
+        this.HasAllyUnit = false;
+        this.HasHostileUnit = false;
     }
 
     public void ChangeTileState(int state)
@@ -120,7 +161,7 @@ public class GridStat : MonoBehaviour
     public bool IsPassable { get { return this.m_IsPassable; } }
     public bool IsTargetable { get { return this.m_IsTargetable; } }
     public bool IsPathable { get { return this.m_IsPathable; } }
-    public bool HasHostileUnit { get { return this.m_HasHostileUnit; } }
-    public bool HasAllyUnit { get { return this.m_HasAllyUnit; } }  
-    public GameObject UnitInTile { get { return this.m_UnitInTile; } }
+    public bool HasHostileUnit { get { return this.m_HasHostileUnit; } set { this.m_HasHostileUnit = value; } }
+    public bool HasAllyUnit { get { return this.m_HasAllyUnit; } set { this.m_HasAllyUnit = value; } }  
+    public GameObject UnitInTile { get { return this.m_UnitInTile; } set { this.m_UnitInTile = value; } }
 }

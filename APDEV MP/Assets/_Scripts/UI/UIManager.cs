@@ -59,13 +59,13 @@ public class UIManager : MonoBehaviour
     {
         string message = "Tap heard.";
         if(args.ObjHit != null) { message += args.ObjHit.name + " was hit";  }
-        this.ChangeText(message);
+        //this.ChangeText(message);
     }
     private void DisplayGestureSwipe(object sender, SwipeEventArgs args)
     {
         string message = args.Direction + " Swipe heard.";
         if (args.ObjHit != null) { message += args.ObjHit.name + " was hit"; }
-        this.ChangeText(message);
+        //this.ChangeText(message);
     }
 
 

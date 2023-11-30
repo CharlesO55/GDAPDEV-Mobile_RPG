@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 6236949691984844543}
   - component: {fileID: -778611620725365939}
   - component: {fileID: 5664335484383834508}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GridTile
   m_TagString: CombatTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7948542341482054074
 Transform:
@@ -167,6 +167,9 @@ MonoBehaviour:
   m_Passable: {fileID: 2100000, guid: 55391d3122afea142978667258613885, type: 2}
   m_Targetable: {fileID: 2100000, guid: 829d835a7a3b20a40ab1fb52ba2fc8ee, type: 2}
   m_Pathable: {fileID: 2100000, guid: 9523ccf71e91393459ccdba39f781913, type: 2}
+  m_HasHostileUnit: 0
+  m_HasAllyUnit: 0
+  m_UnitInTile: {fileID: 0}
 --- !u!65 &5664335484383834508
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -186,5 +189,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.25}
-  m_Center: {x: 0, y: 0, z: -0.2}
+  m_Size: {x: 1, y: 1, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/ConnectedScenes/04VirgilHouse.unity
     guid: f203dfb472eb30a4b9082c76473f202d
   - enabled: 1
+    path: Assets/Scenes/ConnectedScenes/05AbandonedHouse.unity
+    guid: 98463b357d3440a46a7e648c052e8b11
+  - enabled: 1
     path: Assets/Scenes/Game Menus/EndingScreen.unity
     guid: b23b0daeba8f65543bc0b0dbbe498b43
   m_configObjects:

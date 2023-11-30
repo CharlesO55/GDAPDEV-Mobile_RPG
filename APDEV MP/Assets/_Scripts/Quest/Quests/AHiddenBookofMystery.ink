@@ -99,8 +99,7 @@ As you scan her chambers for the book, you suddenly trip over something. #SPEAKE
 It's big, 
 bulky, 
 veiny 
-and 
-hideous in sight.
+and hideous in sight.
 It's a college textbook.
 This can't possibly be the book, she's referring to?
 +[Keep searching]

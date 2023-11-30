@@ -1,5 +1,7 @@
 EXTERNAL SetNextStep(nNextStep, strQuestName)
 EXTERNAL DoDialogueRoll(nStatRequired, strStatType)
+EXTERNAL RewardItem(strItemName)
+EXTERNAL StartBattle()
 
 CONST _questName = "The Great Demonic Battlefront"
 VAR _questStep = 0
@@ -183,6 +185,7 @@ It seems difficult to enter but with the right skills, it should budge.
     {_rollSuccess:
         [{_rollSuccess}] A click is heard and the lock falls off.
         ~ SetNextStep(6, _questName)
+        ~ RewardItem("Keep Gate Key")
         Only the Demon King remains.
         ->END
         - else:
@@ -196,6 +199,7 @@ It seems difficult to enter but with the right skills, it should budge.
     {_rollSuccess:
         [{_rollSuccess}] The door goes flying as it's smashed apart.
         ~ SetNextStep(6, _questName)
+        ~ RewardItem("Keep Gate Key")
         Only the Demon King remains.
         ->END
         - else:
@@ -207,7 +211,7 @@ It seems difficult to enter but with the right skills, it should budge.
     }
 *[Get key]
     Behind the door, you hear the guards talking.
-    According to them, the key was lost somewhere nearby.
+    According to them, the key was lost in the abandoned house.
     ~ SetNextStep(5, _questName)
     We should go look for it.
 ->END
@@ -215,12 +219,15 @@ It seems difficult to enter but with the right skills, it should budge.
 ===  Step5 ===
 You pick up the key. #SPEAKER:Narrator
 ~ SetNextStep(6, _questName)
+~ RewardItem("Keep Gate Key")
 Huh, it was just right here all along?
+Finally, we can enter the castle gate.
 ->END
 
 === Step6 ===
+You enter the castle and prepare to fight the Demon King.#SPEAKER:Narrator
 ~ SetNextStep(7, _questName)
-You enter the castle and prepare to fight the Demon King.
+We must navigate the long and twisting corridors to the throne room.
 ->END
 
 === Step7 ===
@@ -229,6 +236,7 @@ Now could be the perfect oppurtunity to strike.
 + [Attack]
 ~ SetNextStep(8, _questName)
 You charge forward and begin your attack.
+~ StartBattle()
 ->END
 
 === Step8 ===

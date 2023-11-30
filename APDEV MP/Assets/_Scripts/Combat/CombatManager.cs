@@ -25,9 +25,9 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private bool m_IsViewingMoveRange = false;
     [SerializeField] private bool m_IsViewingAttackRange = false;
 
-    private bool m_MoveRangeDetected = false;
-
     private int m_ActiveUnitMoves = 0;
+    private int m_ActiveUnitAttackRange = 0;
+
     private bool m_HasAttacked = false;
     private bool m_HasEndedTurn = false;
 
@@ -179,6 +179,8 @@ public class CombatManager : MonoBehaviour
     private void SwitchNextActiveUnit()
     {
         this.m_CurrentTurnIndex++;
+        this.m_ActiveUnitMoves = this.CheckUnitMovementSpeed(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
+        this.m_ActiveUnitAttackRange = this.CheckUnitAttackRange(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
 
         if (this.m_CurrentTurnIndex > this.m_UnitList.Count)
             this.m_CurrentTurnIndex = 0;
@@ -214,13 +216,13 @@ public class CombatManager : MonoBehaviour
     public void EndTurn()
     {
         this.m_HasAttacked = false;
-        this.m_MoveRangeDetected = false;
         this.SwitchNextActiveUnit();
     }
 
     public void BeginCombat()
     {
-        this.IsInCombat = true;
+        this.m_IsInCombat = true;
+        this.m_IsViewingMoveRange = true;
         this.RetrieveUnits();
         this.SwitchNextActiveUnit();
     }
@@ -269,22 +271,20 @@ public class CombatManager : MonoBehaviour
 
                 GridStat m_GridStat = this.m_CurrentUnitGrid.GetComponent<GridStat>();
 
-                if (this.m_IsViewingMoveRange && !this.m_MoveRangeDetected)
+                if (this.m_IsViewingMoveRange)
                 {
                     this.m_IsViewingAttackRange = false;
-                    this.m_MoveRangeDetected = true;
-
-                    this.m_ActiveUnitMoves = this.CheckUnitMovementSpeed(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
                     this.m_CombatGridScript.CheckMovementRange(m_GridStat.xLoc, m_GridStat.yLoc, this.m_ActiveUnitMoves);
                 }
 
                 else if (this.m_IsViewingAttackRange)
                 {
                     this.m_IsViewingMoveRange = false;
-
-                    int m_AttackRange = this.CheckUnitAttackRange(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
-                    this.m_CombatGridScript.CheckAttackRange(m_GridStat.xLoc, m_GridStat.yLoc, m_AttackRange);
+                    this.m_CombatGridScript.CheckAttackRange(m_GridStat.xLoc, m_GridStat.yLoc, this.m_ActiveUnitAttackRange);
                 }
+
+                else
+                    this.m_CombatGridScript.ResetGrid();
 
                 StartCoroutine(this.WaitForTurnEnd());
             }
@@ -296,6 +296,5 @@ public class CombatManager : MonoBehaviour
     public int ActiveUnitMoves { get { return this.m_ActiveUnitMoves; } set { this.m_ActiveUnitMoves = value; } }
     public bool IsViewingMoveRange { get { return this.m_IsViewingMoveRange; } set { this.m_IsViewingMoveRange = value; } }
     public bool IsViewingAttackRange { get { return this.m_IsViewingAttackRange; } set { this.m_IsViewingAttackRange = value; } }
-    public bool MoveRangeDetected { get { return this.m_MoveRangeDetected;} set { this.m_MoveRangeDetected = value; } } 
     public bool HasEndedTurn { get { return this.m_HasEndedTurn;} set { this.m_HasEndedTurn = value; } }
 }

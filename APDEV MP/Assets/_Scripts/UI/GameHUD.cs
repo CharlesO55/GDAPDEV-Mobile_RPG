@@ -98,16 +98,21 @@ public class GameHUD : MonoBehaviour
 
                     case "Attack":
                         Debug.Log("Attack Button Pressed");
-                        if(!_inBattle)
+                        if(!CombatManager.Instance.IsInCombat)
                         {
-                            this._inBattle = true;
+                            CombatManager.Instance.BeginCombat();
                             MusicManager.instance.ChangeBGM(this.BattleBgm);
                         }
+
                         else
                         {
-                            this._inBattle = false;
                             MusicManager.instance.RevertBGM();
                         }
+                        //else
+                        //{
+                        //    this._inBattle = false;
+                        //    MusicManager.instance.RevertBGM();
+                        //}
                            
                         //DiceManager.Instance.DoRoll();
                         break;

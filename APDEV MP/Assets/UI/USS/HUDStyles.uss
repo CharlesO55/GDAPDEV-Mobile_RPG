@@ -39,6 +39,26 @@
 	width: 30%;
 }
 
+#CharacterPortraitContainer {
+
+}
+
+#Player1Image {
+	--unity-image: url("/Assets/Textures/UI/Fighter_Frame.png");
+}
+
+#Player2Image {
+	--unity-image: url("/Assets/Textures/UI/Paladin_Frame.png");
+}
+
+#Player3Image {
+	--unity-image: url("/Assets/Textures/UI/Rogue_Frame.png");
+}
+
+#Player4Image {
+	--unity-image: url("/Assets/Textures/UI/Mage_Frame.png");
+}
+
 #ButtonHolder {
 	flex-direction: row;
 	align-items: flex-end;

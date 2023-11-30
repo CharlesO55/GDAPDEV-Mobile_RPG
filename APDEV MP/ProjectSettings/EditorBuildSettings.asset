@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TheJuicyPrince.unity
     guid: aa1c35c6e81f71e41b4d1d558b82a028
+  - enabled: 1
+    path: Assets/Scenes/Game Menus/EndingScreen.unity
+    guid: b23b0daeba8f65543bc0b0dbbe498b43
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
       guid: 0746785c724d6a346b2f0e4456a58421, type: 2}

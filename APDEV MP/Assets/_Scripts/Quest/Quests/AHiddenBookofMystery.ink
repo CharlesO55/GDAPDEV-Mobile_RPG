@@ -16,7 +16,6 @@ VAR _rollSuccess = false
 
 ===Step0===
 As you inspect tavern for a seat, a figure catches your eye. #SPEAKER:Narrator
-~RewardItem("Testite")
 Ah, you must be the famed adventurer. #SPEAKER:Lady
 Here to liberate the people from tyranny?
 + [You could say so]

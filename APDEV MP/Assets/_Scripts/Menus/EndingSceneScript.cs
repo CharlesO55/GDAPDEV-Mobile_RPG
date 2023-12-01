@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class EndingSceneScript : MonoBehaviour
 {
+    public static bool isDead;
     private VisualElement _root;
     private Button _returnToMain;
 
@@ -24,6 +25,19 @@ public class EndingSceneScript : MonoBehaviour
         this._endingText = this._root.Q<Label>("EndingText");
         this._EndingType = this._root.Q<Label>("EndingType");
         this._returnToMain = this._root.Q<Button>("MenuReturn");
+
+        if(MultipleQuestsManager.Instance.PlayerMorality > -2 && MultipleQuestsManager.Instance.PlayerMorality < 2)
+        {
+            this.NeutralEnd();
+        }
+        else if(MultipleQuestsManager.Instance.PlayerMorality > 2)
+        {
+            this.GoodEnd();
+        }
+        else if(MultipleQuestsManager.Instance.PlayerMorality < -2)
+        {
+             this.BadEnd();
+        }
 
         this._returnToMain.clicked += ReturnToMain;
         

@@ -12,14 +12,21 @@ public class CharacterScript : MonoBehaviour
     public CharacterData CharacterData { get { return this._characterData; } }
 
 
-    public void Init(CharacterData characterData)
+    public void Init(CharacterData characterData, bool IsInitializeFromTemplate)
     {
         this._characterData = characterData;
         this.name = characterData.PlayerName;
-        this._characterData.InitializeClass(EnumUnitClass.PALADIN); //For testing. REMOVE WHEN UI FOR CLASS SELECTION IS DONE
+
+        //NEW SCRIPT. 
+        //OVERWRITES WHEN NEW GAME FROM TEMPLATE
+        if (IsInitializeFromTemplate)
+        {
+            this._characterData.InitializeClass(characterData.CharacterClass);
+        }
+        //this._characterData.InitializeClass(EnumUnitClass.PALADIN); //For testing. REMOVE WHEN UI FOR CLASS SELECTION IS DONE
 
         //RIGIDBODY INITIALIZATION
-        if(this._rb == null)
+        if (this._rb == null)
         {
             this._rb = this.gameObject.AddComponent<Rigidbody>();
             _rb.useGravity = true;
@@ -35,6 +42,7 @@ public class CharacterScript : MonoBehaviour
             _collider.isTrigger = false;
         }
     }
+
 
 
     //CHECK IF ALIVE AND NOT STUNNED OR OTHER FACTORS IF EVER

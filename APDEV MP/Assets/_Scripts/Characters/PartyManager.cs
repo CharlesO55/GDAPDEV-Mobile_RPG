@@ -21,7 +21,7 @@ public class PartyManager : MonoBehaviour
     }
 
 
-    [Header("Creating new party data")]
+    [Header("FORCE OVERWRITE On Initialize Only")]
     [Tooltip("Enable to create party data from fields, otherwise from save data")]
     [SerializeField] private bool isCreateDataFromField;
     [SerializeField] private List<CharacterData> _newPartyMembers;
@@ -49,9 +49,10 @@ public class PartyManager : MonoBehaviour
             Debug.LogError("PartyManager has no SpawnAreas set");
         }
 
+        //ALTERNATIVE FOR TESTING ONLY
         if (isCreateDataFromField)
         {
-            this.FirstTimeCreateCharacterData();
+            this.SavePartyData();
         }
         
         this._partyEntities = new List<GameObject>();
@@ -60,10 +61,9 @@ public class PartyManager : MonoBehaviour
     }
 
   
-    void FirstTimeCreateCharacterData()
+    public void SavePartyData()
     {
-        Debug.LogWarning("Saving party data from fields");
-
+        Debug.LogWarning("Overwriting party members save data");
         SaveSystem.Save<CharacterData>(_newPartyMembers, SaveSystem.SAVE_FILE_ID.PARTY_DATA);
     }
     
@@ -186,11 +186,14 @@ public class PartyManager : MonoBehaviour
         }
         //int spawnAreaIndex = UnityEngine.Random.Range(0, _spawnAreas.Count);
 
-        GameObject characterObject = Instantiate(_saveData.CharacterModel, _spawnAreas[spawnAreaIndex].getRandomSpawnPos(), Quaternion.identity, this.transform);
+        //GameObject characterObject = Instantiate(_saveData.CharacterModel, _spawnAreas[spawnAreaIndex].getRandomSpawnPos(), Quaternion.identity, this.transform);
+
+        GameObject prefabModel = UnitclassModelLibrary.Instance.GetUnitModel(_saveData.CharacterClass);
+        GameObject characterObject = Instantiate(prefabModel, _spawnAreas[spawnAreaIndex].getRandomSpawnPos(), Quaternion.identity, this.transform);
 
 
         //ADD COMPONENTS TO OUR CHARACTERS or DIRECTLY USE A PREFAB
-        characterObject.AddComponent<CharacterScript>().Init(_saveData);
+        characterObject.AddComponent<CharacterScript>().Init(_saveData, SceneLoaderManager.Instance.IsNewGame);
         characterObject.AddComponent<NavMeshAgent>();
 
 

@@ -15,8 +15,10 @@ public class AccelerometerReceiver : MonoBehaviour
 
     private void FireAccelerometerEvent()
     {
+        
+
         Debug.Log("Accelerometer Event Fired");
-        DiceManager.Instance.DoRoll(false, DialogueManager.Instance.MinRollValue);
+        DiceManager.Instance.DoRoll(false, DialogueManager.Instance.MinRollValue, default, Input.acceleration);
         DialogueManager.Instance.IsRequestingRoll = false;
         CombatManager.Instance.IsRequestingRoll = false;
     }

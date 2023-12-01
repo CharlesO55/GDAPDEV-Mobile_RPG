@@ -39,7 +39,7 @@ MonoBehaviour:
     _instructions: Breach the castle gate
     _action: 4
     _goalAmount: 1
-    _goalObject: {fileID: 6322556187633357650, guid: f5e4cf5af47ee60418f92554c028a4ce,
+    _goalObject: {fileID: 7965279759901144860, guid: a0e13efcd5a36144d982470b4e196881,
       type: 3}
   - _questStepIndex: 4
     _instructions: Search the abandoned house

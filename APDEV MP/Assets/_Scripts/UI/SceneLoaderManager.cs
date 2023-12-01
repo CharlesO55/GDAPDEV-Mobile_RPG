@@ -16,6 +16,7 @@ public class SceneLoaderManager : MonoBehaviour
         get { return m_SpawnAreaIndex; }
     }
 
+
     public void LoadScene(int sceneId, int spawnAreaIndex = 0)
     {
         if (sceneId >= SceneManager.sceneCountInBuildSettings)
@@ -45,6 +46,8 @@ public class SceneLoaderManager : MonoBehaviour
             Instance = this;
             GameObject.DontDestroyOnLoad(this.gameObject);
             this.m_LoadingScreen = GetComponent<UIDocument>();
+
+            NotificationManager.SendNotification("Start", "Start your journey!");
         }
         else
         {

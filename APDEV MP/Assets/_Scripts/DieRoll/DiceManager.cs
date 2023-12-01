@@ -10,6 +10,8 @@ public class DiceManager : MonoBehaviour
 
     [SerializeField] private GameObject _dieObject = null;
     [SerializeField] private float _diceRollWaitTime = 3f;
+    [SerializeField] private readonly Vector3 _defaultDropPos = new Vector3(0, 5, 0);
+    private Vector3 _lastDropPos;
 
     private bool m_DebugAlwaysWin = false;
     private bool m_DebugAlwaysLose = false;
@@ -33,7 +35,7 @@ public class DiceManager : MonoBehaviour
         Instance = this;
     }
 
-    public void DoRoll(bool isInstantaneousRoll = false, int nMin = 1, Vector3 rollPos = default)
+    public void DoRoll(bool isInstantaneousRoll = false, int nMin = 1, Vector3 rollPos = default, Vector3 throwDirection = default)
     {
         if (_dieObject.activeSelf)
         {
@@ -45,9 +47,16 @@ public class DiceManager : MonoBehaviour
 
         //Create the dice
         this._dieObject.SetActive(true);
+        
+        _lastDropPos = (rollPos == default) ?
+            _defaultDropPos :
+            rollPos;
 
-        this._dieObject.transform.position = rollPos;
+        this._dieObject.transform.position = _lastDropPos;
         this.RandomizeDieRotation();
+
+
+        this._dieObject.GetComponent<Rigidbody>().AddForce(throwDirection * 2, ForceMode.Impulse);
 
         //Set the camera
         CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.DICE_CAM, this._dieObject);

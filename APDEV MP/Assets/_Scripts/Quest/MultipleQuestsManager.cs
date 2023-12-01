@@ -311,6 +311,7 @@ public class MultipleQuestsManager : MonoBehaviour
     }
     private void EndQuest(QuestData questCompleted)
     {
+        NotificationManager.SendNotification("Quest Completed", questCompleted.QuestName);
         Debug.Log($"Completed {questCompleted.QuestName}");
      
         //REGISTER TO COMPLETED QUESTS

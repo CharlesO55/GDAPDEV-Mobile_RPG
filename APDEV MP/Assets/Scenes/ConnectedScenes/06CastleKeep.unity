@@ -309,12 +309,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa962cb8aaff4943a4a1a59ce102216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Rows: 20
+  m_Rows: 35
   m_Columns: 20
   m_Scale: 1
   m_GridPrefab: {fileID: 3346276004448664004, guid: 089624642e8433d49b38d7f90516dfbf,
     type: 3}
-  m_BotLeftLocation: {x: -49.25, y: 0.01, z: 37.7}
+  m_BotLeftLocation: {x: -49.25, y: 0.01, z: 25.7}
 --- !u!4 &58016454
 Transform:
   m_ObjectHideFlags: 0
@@ -547,6 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de08bfb20d72794429c88e81f593173e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsNewPlayerSave: 0
 --- !u!114 &229718935
 MonoBehaviour:
   m_ObjectHideFlags: 0

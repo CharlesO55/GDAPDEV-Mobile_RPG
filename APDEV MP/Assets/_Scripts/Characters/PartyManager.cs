@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 public class PartyManager : MonoBehaviour
 {
@@ -43,6 +44,11 @@ public class PartyManager : MonoBehaviour
 
     void Start()
     {
+        if(_spawnAreas.Count <= 0 || _spawnAreas[0] == null)
+        {
+            Debug.LogError("PartyManager has no SpawnAreas set");
+        }
+
         if (isCreateDataFromField)
         {
             this.FirstTimeCreateCharacterData();
@@ -186,7 +192,12 @@ public class PartyManager : MonoBehaviour
         //ADD COMPONENTS TO OUR CHARACTERS or DIRECTLY USE A PREFAB
         characterObject.AddComponent<CharacterScript>().Init(_saveData);
         characterObject.AddComponent<NavMeshAgent>();
-        
+
+
+        foreach(var collider in characterObject.GetComponents<Collider>())
+        {
+            collider.enabled = false;
+        }
 
         if (characterObject.TryGetComponent<CapsuleCollider>(out CapsuleCollider capsuleCollider))
         {
@@ -195,6 +206,7 @@ public class PartyManager : MonoBehaviour
             capsuleCollider.radius = 0.2f;
         }
 
+        characterObject.GetComponent<NavMeshAgent>().stoppingDistance = 0.2f;
         characterObject.tag = "Ally";
 
         Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());

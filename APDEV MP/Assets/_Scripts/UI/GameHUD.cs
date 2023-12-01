@@ -120,7 +120,7 @@ public class GameHUD : MonoBehaviour
         this.UpdatePlayerFrames();
         this.UpdatePlayerHealth();
 
-        if (DialogueManager.Instance.IsRequestingRoll)
+        if (DialogueManager.Instance.IsRequestingRoll || CombatManager.Instance.IsRequestingRoll)
         {
             this.m_DiceRollLabel.style.display = DisplayStyle.Flex;
             this.m_DiceRollLabel.text = "Shake the Screen!";

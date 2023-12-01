@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf02474f3624e14b9c81eb6f11a9ea9, type: 3}
+  m_Name: ARitualGoneWrong
+  m_EditorClassIdentifier: 
+  _questID: 5
+  _questName: A Ritual Gone Wrong
+  _questStory: {fileID: 4900000, guid: b8e4ab909ef068c49a76fe6ecc794115, type: 3}
+  _prerequesiteQuests: 
+  _questSteps:
+  - _questStepIndex: 0
+    _instructions: Enter Vergil's house
+    _action: 4
+    _goalAmount: 1
+    _goalObject: {fileID: 4720818941858729551, guid: 535b0aa729419a349b0a791266633bc8,
+      type: 3}
+  - _questStepIndex: 1
+    _instructions: Investigate the summoning circle
+    _action: 4
+    _goalAmount: 1
+    _goalObject: {fileID: 2065486568512107439, guid: 199cd6228f3ffdb409be89fa132eb761,
+      type: 3}
+  - _questStepIndex: 2
+    _instructions: Find Vergil
+    _action: 2
+    _goalAmount: 1
+    _goalObject: {fileID: 300687364135933663, guid: 9480fd26eb44f9d499b69fc889d18b44,
+      type: 3}
+  - _questStepIndex: 3
+    _instructions: END
+    _action: 5
+    _goalAmount: 0
+    _goalObject: {fileID: 0}

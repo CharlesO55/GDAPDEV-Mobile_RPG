@@ -12,8 +12,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Holden.unity
     guid: 8ee0650c1f2d423439583be042e85658
   - enabled: 1
-    path: Assets/Scenes/TheJuicyPrince.unity
-    guid: aa1c35c6e81f71e41b4d1d558b82a028
+    path: Assets/Scenes/ConnectedScenes/02TheJuicyPrince.unity
+    guid: 216644724d223514d86c9fc0115ad06a
+  - enabled: 1
+    path: Assets/Scenes/ConnectedScenes/03TheTrustyComet.unity
+    guid: 618f753e6a3b4524c945bb85434f829a
+  - enabled: 1
+    path: Assets/Scenes/ConnectedScenes/04VirgilHouse.unity
+    guid: f203dfb472eb30a4b9082c76473f202d
+  - enabled: 1
+    path: Assets/Scenes/ConnectedScenes/05AbandonedHouse.unity
+    guid: 98463b357d3440a46a7e648c052e8b11
+  - enabled: 1
+    path: Assets/Scenes/ConnectedScenes/06CastleKeep.unity
+    guid: 8ab64ae50ade09345abf9924cb054937
   - enabled: 1
     path: Assets/Scenes/Game Menus/EndingScreen.unity
     guid: b23b0daeba8f65543bc0b0dbbe498b43

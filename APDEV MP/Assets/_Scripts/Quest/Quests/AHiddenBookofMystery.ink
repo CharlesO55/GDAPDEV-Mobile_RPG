@@ -16,7 +16,6 @@ VAR _rollSuccess = false
 
 ===Step0===
 As you inspect tavern for a seat, a figure catches your eye. #SPEAKER:Narrator
-~RewardItem("Testite")
 Ah, you must be the famed adventurer. #SPEAKER:Lady
 Here to liberate the people from tyranny?
 + [You could say so]
@@ -100,8 +99,7 @@ As you scan her chambers for the book, you suddenly trip over something. #SPEAKE
 It's big, 
 bulky, 
 veiny 
-and 
-hideous in sight.
+and hideous in sight.
 It's a college textbook.
 This can't possibly be the book, she's referring to?
 +[Keep searching]

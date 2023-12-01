@@ -31,6 +31,13 @@ public class CombatManager : MonoBehaviour
     private bool m_HasAttacked = false;
     private bool m_HasEndedTurn = false;
 
+    private bool m_IsRequestingRoll = false;
+    private bool m_IsMoving = false;
+
+    private bool m_IsEnemyTurn = false;
+
+    private GameObject m_TileToMove = null;
+
     public void Awake()
     {
         if (Instance == null)
@@ -59,7 +66,9 @@ public class CombatManager : MonoBehaviour
                 this.m_ActiveUnitMoves -= Mathf.Abs(m_CurrentTile.xLoc - m_TargetTile.xLoc) + Mathf.Abs(m_CurrentTile.yLoc - m_TargetTile.yLoc);
 
                 StartCoroutine(this.WaitForMovement(m_TargetTile.xLoc, m_TargetTile.yLoc));
-                PartyManager.Instance.ActivePlayer.GetComponent<NavMeshAgent>().SetDestination(args.ObjHit.transform.position);
+                this.m_IsMoving = true;
+                this.m_TileToMove = args.ObjHit;
+                //PartyManager.Instance.ActivePlayer.GetComponent<NavMeshAgent>().SetDestination(args.ObjHit.transform.position);
             }
 
             else
@@ -73,16 +82,43 @@ public class CombatManager : MonoBehaviour
         {
             GridStat m_GridStat = args.ObjHit.GetComponent<GridStat>();
 
-            if (m_GridStat.IsTargetable && m_GridStat.HasHostileUnit)
+            if (m_GridStat.IsTargetable && m_GridStat.HasHostileUnit && !this.m_HasAttacked)
             {
-                CharacterData m_DamagedUnitData = m_GridStat.UnitInTile.GetComponent<CharacterScript>().CharacterData;
-                m_DamagedUnitData.CurrHealth -= this.CheckDamage(m_DamagedUnitData);
+                int m_HitChance = Random.Range(1, 21);
+                int m_DamageDealt = 0;
 
-                if (m_DamagedUnitData.CurrHealth < 0)
+                CharacterData m_ActiveUnitData = PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData;
+                CharacterData m_DamagedUnitData = m_GridStat.UnitInTile.GetComponent<CharacterScript>().CharacterData;
+
+                if (m_HitChance < 10 + m_DamagedUnitData.DEXMod)
+                    UIManager.Instance.ChangeText($"Attack on {m_DamagedUnitData.PlayerName} has missed!");
+
+                else if (m_HitChance == 20)
+                {
+                    m_DamageDealt = this.CheckDamage(m_ActiveUnitData) * 2;
+
+                    UIManager.Instance.ChangeText($"Critical strike on {m_DamagedUnitData.PlayerName} for {m_DamageDealt}!");
+                    m_DamagedUnitData.CurrHealth -= m_DamageDealt;
+                }
+
+                else
+                {
+                    m_DamageDealt = this.CheckDamage(m_ActiveUnitData);
+
+                    UIManager.Instance.ChangeText($"Successful hit on {m_DamagedUnitData.PlayerName} for {m_DamageDealt}!");
+                    m_DamagedUnitData.CurrHealth -= m_DamageDealt;
+                }
+                 
+                if (m_DamagedUnitData.CurrHealth <= 0)
+                {
                     m_DamagedUnitData.CurrHealth = 0;
 
+                    this.m_UnitList.Remove(m_GridStat.UnitInTile);
+                    this.CheckCombatEnd();
+                }
+
                 this.m_HasAttacked = true;
-                Debug.Log("Attack Successful");
+                this.m_ActiveUnitAttackRange = 0;
             }
 
             else
@@ -96,18 +132,21 @@ public class CombatManager : MonoBehaviour
         {
             GridStat m_GridStat = args.ObjHit.GetComponent<GridStat>();
 
-            if (m_GridStat.IsTargetable && m_GridStat.HasAllyUnit)
+            if (m_GridStat.IsTargetable && m_GridStat.HasAllyUnit && !this.m_HasAttacked)
             {
                 if (PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass == EnumUnitClass.PALADIN)
                 {
                     CharacterData m_HealedUnitData = m_GridStat.UnitInTile.GetComponent<CharacterScript>().CharacterData;
-                    m_HealedUnitData.CurrHealth += Random.Range(1, 9) + PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CHAMod;
+                    int m_HealAmount = Random.Range(1, 9) + PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CHAMod;
+                    m_HealedUnitData.CurrHealth += m_HealAmount;
 
                     if (m_HealedUnitData.CurrHealth > m_HealedUnitData.MaxHealth)
                         m_HealedUnitData.CurrHealth = m_HealedUnitData.MaxHealth;
 
                     this.m_HasAttacked = true;
-                    Debug.Log("Heal Successful");
+                    this.m_ActiveUnitAttackRange = 0;
+
+                    UIManager.Instance.ChangeText($"Heal {m_HealedUnitData.PlayerName} for {m_HealAmount} points!");
                 }
 
                 else
@@ -117,6 +156,52 @@ public class CombatManager : MonoBehaviour
             else
                 Debug.Log("Path is not targetable or Path has no ally unit.");
         }
+    }
+
+    private void AttackRandomAlly()
+    {
+        int m_HitChance = Random.Range(1, 21);
+        int m_DamageDealt = 0;
+
+        int m_Rand = Random.Range(0,4);
+        CharacterData m_AllyTargetData = null;
+        CharacterData m_EnemyAttackerData = this.m_UnitList[this.m_CurrentTurnIndex].GetComponent<CharacterScript>().CharacterData;
+
+        if (this.m_UnitList.Contains(PartyManager.Instance.PartyEntities[m_Rand]))
+            m_AllyTargetData = PartyManager.Instance.PartyEntities[m_Rand].GetComponent<CharacterScript>().CharacterData;
+
+        if (m_AllyTargetData != null)
+        {
+            if (m_HitChance < 10 + m_AllyTargetData.DEXMod)
+                UIManager.Instance.ChangeText($"{m_EnemyAttackerData.PlayerName}'s attack on {m_AllyTargetData.PlayerName} has missed!");
+
+            else if (m_HitChance == 20)
+            {
+                m_DamageDealt = this.CheckEnemyDamage(m_EnemyAttackerData) * 2;
+
+                UIManager.Instance.ChangeText($"{m_EnemyAttackerData.PlayerName} critically strikes {m_AllyTargetData.PlayerName} for {m_DamageDealt}!");
+                m_AllyTargetData.CurrHealth -= m_DamageDealt;
+            }
+
+            else
+            {
+                m_DamageDealt = this.CheckEnemyDamage(m_EnemyAttackerData);
+                UIManager.Instance.ChangeText($"{m_EnemyAttackerData.PlayerName} strikes {m_AllyTargetData.PlayerName} for {m_DamageDealt}!");
+                m_AllyTargetData.CurrHealth -= m_DamageDealt;
+            }
+
+            if (m_AllyTargetData.CurrHealth < 0)
+            {
+                m_AllyTargetData.CurrHealth = 0;
+
+                this.m_UnitList.Remove(this.m_UnitList[this.m_CurrentTurnIndex]);
+                this.CheckCombatEnd();
+            }
+        }
+
+        else
+            Debug.LogWarning("Ally Does Not Exist");
+
     }
 
     private int CheckDamage(CharacterData data)
@@ -134,6 +219,27 @@ public class CombatManager : MonoBehaviour
 
             case EnumUnitClass.MAGE:
                 return Random.Range(1, 11) + data.INTMod;
+
+            default:
+                return 0;
+        }
+    }
+
+    private int CheckEnemyDamage(CharacterData data)
+    {
+        switch(data.CharacterClass)
+        {
+            case EnumUnitClass.FIGHTER:
+                return Random.Range(1, 5) + data.STRMod;
+
+            case EnumUnitClass.PALADIN:
+                return Random.Range(1, 5) + data.STRMod;
+
+            case EnumUnitClass.ROGUE:
+                return Random.Range(1, 5) + data.DEXMod;
+
+            case EnumUnitClass.MAGE:
+                return Random.Range(1, 7) + data.INTMod;
 
             default:
                 return 0;
@@ -186,12 +292,28 @@ public class CombatManager : MonoBehaviour
             this.m_CurrentTurnIndex = 0;
 
         if (PartyManager.Instance.PartyEntities.Contains(this.m_UnitList[this.m_CurrentTurnIndex]))
+        {
+            this.m_IsEnemyTurn = false;
             PartyManager.Instance.SwitchActiveCharacterByObject(this.m_UnitList[this.m_CurrentTurnIndex]);
+        }
 
         else
-            Debug.Log("ENEMY SHOULD ACT");
+        {
+            this.m_IsEnemyTurn = true;
+            StartCoroutine(this.EnemyAction());
+        }
 
         this.m_CombatGridScript.ResetGrid();
+    }
+
+    private IEnumerator EnemyAction()
+    {
+        this.m_IsViewingAttackRange = false;
+        this.m_IsViewingMoveRange = false;
+
+        yield return new WaitForSeconds(2);
+        this.AttackRandomAlly();
+        this.EndTurn();
     }
 
     private IEnumerator WaitForMovement(int x, int y)
@@ -216,15 +338,33 @@ public class CombatManager : MonoBehaviour
     public void EndTurn()
     {
         this.m_HasAttacked = false;
+        this.m_IsMoving = false;
+        this.m_TileToMove = null;
+
         this.SwitchNextActiveUnit();
     }
 
     public void BeginCombat()
     {
+        this.m_IsRequestingRoll = true;
+
         this.m_IsInCombat = true;
-        this.m_IsViewingMoveRange = true;
         this.RetrieveUnits();
         this.SwitchNextActiveUnit();
+    }
+
+    private void CheckCombatEnd()
+    {
+        if (this.m_UnitList.Count == 0)
+            return;
+
+        string m_FirstUnitTag = this.m_UnitList[0].tag;
+
+        foreach (GameObject unit in this.m_UnitList)
+            if (unit.tag != m_FirstUnitTag)
+                return;
+
+        this.EndCombat();
     }
 
     public void EndCombat()
@@ -258,6 +398,15 @@ public class CombatManager : MonoBehaviour
         this.m_UnitList.Sort((a, b) => b.GetComponent<CharacterScript>().CharacterData.Initiative.CompareTo(a.GetComponent<CharacterScript>().CharacterData.Initiative));
     }
 
+    private void MoveCurrentUnit()
+    {
+        Vector3 m_Velocity = Vector3.zero;
+        PartyManager.Instance.ActivePlayer.transform.position = Vector3.SmoothDamp(PartyManager.Instance.ActivePlayer.transform.position, this.m_TileToMove.transform.position, ref m_Velocity, 0.05f);
+
+        if (PartyManager.Instance.ActivePlayer.transform.position == this.m_TileToMove.transform.position)
+            this.m_IsMoving = false;
+    }
+
     // Update is called once per frame
     private void Update()
     {
@@ -283,6 +432,11 @@ public class CombatManager : MonoBehaviour
 
                 StartCoroutine(this.WaitForTurnEnd());
             }
+
+            if (this.m_IsMoving)
+            {
+                this.MoveCurrentUnit();
+            }
         }
     }
 
@@ -292,4 +446,6 @@ public class CombatManager : MonoBehaviour
     public bool IsViewingMoveRange { get { return this.m_IsViewingMoveRange; } set { this.m_IsViewingMoveRange = value; } }
     public bool IsViewingAttackRange { get { return this.m_IsViewingAttackRange; } set { this.m_IsViewingAttackRange = value; } }
     public bool HasEndedTurn { get { return this.m_HasEndedTurn;} set { this.m_HasEndedTurn = value; } }
+    public bool IsRequestingRoll { get { return this.m_IsRequestingRoll; } set { this.m_IsRequestingRoll = value; } }
+    public bool IsEnemyTurn { get { return this.m_IsRequestingRoll; } }
 }

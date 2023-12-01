@@ -23,7 +23,7 @@ public class SampleDragMoveScript : MonoBehaviour , IDraggable
             
             
             Ray ray = Camera.main.ScreenPointToRay(fingerPos);
-            Vector3 worldPos = ray.GetPoint(5);
+            Vector3 worldPos = ray.GetPoint(10);
 
             this.targetPos = worldPos;
             this.transform.position = worldPos;

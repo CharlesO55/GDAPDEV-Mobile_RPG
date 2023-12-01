@@ -36,37 +36,31 @@ MonoBehaviour:
     _goalObject: {fileID: 3257273300562490455, guid: 91c84f4c4471ead42bae7ce92430f348,
       type: 3}
   - _questStepIndex: 3
-    _instructions: Open the door
+    _instructions: Breach the castle gate
     _action: 4
     _goalAmount: 1
     _goalObject: {fileID: 6322556187633357650, guid: f5e4cf5af47ee60418f92554c028a4ce,
       type: 3}
   - _questStepIndex: 4
-    _instructions: Look for the key
-    _action: 0
-    _goalAmount: 1
-    _goalObject: {fileID: 919132149155446097, guid: b9a1c0a49b015804e83705d2e66fa591,
-      type: 3}
-  - _questStepIndex: 5
-    _instructions: Go to the main gate
+    _instructions: Search the abandoned house
     _action: 4
     _goalAmount: 1
-    _goalObject: {fileID: 6322556187633357650, guid: f5e4cf5af47ee60418f92554c028a4ce,
+    _goalObject: {fileID: 4993527906706845866, guid: 0dbf943f4eb989141b8c84bb6593d063,
+      type: 3}
+  - _questStepIndex: 5
+    _instructions: Enter the castle
+    _action: 4
+    _goalAmount: 1
+    _goalObject: {fileID: 2480950119394160749, guid: 1819c26e873da8a47836e951dd085a74,
       type: 3}
   - _questStepIndex: 6
     _instructions: Confront the demon king
-    _action: 2
+    _action: 4
     _goalAmount: 1
-    _goalObject: {fileID: 919132149155446097, guid: b9a1c0a49b015804e83705d2e66fa591,
+    _goalObject: {fileID: 7212887012168295727, guid: 44e8f520fd0617149ac0ff1285c4a364,
       type: 3}
   - _questStepIndex: 7
     _instructions: Defeat the Demon King
-    _action: 1
-    _goalAmount: 1
-    _goalObject: {fileID: 919132149155446097, guid: b9a1c0a49b015804e83705d2e66fa591,
-      type: 3}
-  - _questStepIndex: 8
-    _instructions: END
     _action: 5
     _goalAmount: 0
     _goalObject: {fileID: 0}

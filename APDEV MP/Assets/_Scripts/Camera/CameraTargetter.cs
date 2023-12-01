@@ -115,41 +115,9 @@ public class CameraTargetter : MonoBehaviour
 
     private void ZoomForOrthoCamera(SpreadEventArgs args)
     {
-        /*
-        Vector3 zoomDir = _zoomOffset.normalized;
-
-
-        Vector3 currZoom = _zoomOffset;
-        //Basically add a Vector one but at the camera's current facing
-        if (args.DistanceChange > 0)
-        {
-            _zoomOffset -= zoomDir * _zoomSpeeed * Time.deltaTime;
-        }
-        else if (args.DistanceChange < 0)
-        {
-            _zoomOffset += zoomDir * _zoomSpeeed * Time.deltaTime;
-        }
-
-        _zoomOffset = Vector3.Lerp(currZoom, _zoomOffset, Time.deltaTime * _zoomSpeeed);
-
-        //Cap the zoom amount
-        if (_zoomOffset.magnitude > _maxZoom)
-        {
-            _zoomOffset = zoomDir * _maxZoom;
-        }
-        else if (_zoomOffset.magnitude < _minZoom || _zoomOffset.y <= 0)
-        {
-            _zoomOffset = zoomDir * _minZoom;
-        }
-
-
-        Debug.Log("Zoom : " + _zoomOffset.magnitude);
-*/
-
         float currZoom = this._virtualCamera.m_Lens.OrthographicSize;
 
-        //currZoom += args.DistanceChange * _zoomSpeeed * Time.deltaTime;
-        currZoom = Mathf.Lerp(currZoom, currZoom + args.DistanceChange, Time.deltaTime * _zoomSpeeed);
+        currZoom = Mathf.Lerp(currZoom, currZoom - args.DistanceChange, Time.deltaTime * _zoomSpeeed);
         
         currZoom = Mathf.Clamp(currZoom, this._minZoom, this._maxZoom);
 

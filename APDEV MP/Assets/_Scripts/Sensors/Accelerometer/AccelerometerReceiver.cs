@@ -9,7 +9,7 @@ public class AccelerometerReceiver : MonoBehaviour
 
     private void CheckAccelerometer()
     {
-        if (DialogueManager.Instance.IsRequestingRoll && Mathf.Abs(Input.acceleration.x) >= this.m_AcceleromterProperty.MinChangeX)
+        if ((DialogueManager.Instance.IsRequestingRoll || CombatManager.Instance.IsRequestingRoll) && Mathf.Abs(Input.acceleration.x) >= this.m_AcceleromterProperty.MinChangeX)
             this.FireAccelerometerEvent();
     }
 
@@ -18,6 +18,7 @@ public class AccelerometerReceiver : MonoBehaviour
         Debug.Log("Accelerometer Event Fired");
         DiceManager.Instance.DoRoll(false, DialogueManager.Instance.MinRollValue);
         DialogueManager.Instance.IsRequestingRoll = false;
+        CombatManager.Instance.IsRequestingRoll = false;
     }
 
     private void FixedUpdate()

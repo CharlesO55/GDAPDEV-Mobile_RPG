@@ -504,6 +504,8 @@ MonoBehaviour:
   m_UnitList: []
   m_IsViewingMoveRange: 0
   m_IsViewingAttackRange: 0
+  m_ActiveUnitMoves: 0
+  m_ActiveUnitAttackRange: 0
 --- !u!1 &31834204
 GameObject:
   m_ObjectHideFlags: 0
@@ -14745,7 +14747,7 @@ MonoBehaviour:
   _spawnAreas:
   - {fileID: 343333334}
   - {fileID: 248028049}
-  isCreateDataFromField: 1
+  isCreateDataFromField: 0
   _newPartyMembers:
   - _playerName: Player1
     _class: 1
@@ -27498,7 +27500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071225586}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25881714, y: 0.000000016620104, z: -0.0000000044533066, w: 0.96592635}
+  m_LocalRotation: {x: 0.25881714, y: -0.000000016620094, z: 0.000000004453304, w: 0.96592635}
   m_LocalPosition: {x: 0, y: 15, z: -25.981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48733,7 +48735,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054088488}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25881714, y: 0.000000016620104, z: -0.0000000044533066, w: 0.96592635}
+  m_LocalRotation: {x: 0.25881714, y: -0.000000016620094, z: 0.000000004453304, w: 0.96592635}
   m_LocalPosition: {x: 0, y: 15, z: -25.981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

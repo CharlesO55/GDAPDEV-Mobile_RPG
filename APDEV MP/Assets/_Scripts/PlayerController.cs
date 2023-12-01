@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
         Vector2 inputs = _movementJoystick.GetJoystickAxis(true);
         if (inputs.magnitude == 0)
         {
+            this._currActivePlayerRef.GetComponent<Animator>().SetBool("isRunning", false);
             if (_walkSoundEffect.isPlaying)
             {
                 this._walkSoundEffect.Stop();
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour
         move *= Time.deltaTime * _movementSpeed;
         if (move != Vector3.zero && !_walkSoundEffect.isPlaying)
         {
+            this._currActivePlayerRef.GetComponent<Animator>().SetBool("isRunning", true);
             this._walkSoundEffect.Play();
         }
         

@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class EndingSceneScript : MonoBehaviour
 {
-    public static bool isDead;
+    public static bool isDead = false;
     private VisualElement _root;
     private Button _returnToMain;
 

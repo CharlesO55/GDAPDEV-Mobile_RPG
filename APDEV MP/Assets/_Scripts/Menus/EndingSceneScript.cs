@@ -26,19 +26,23 @@ public class EndingSceneScript : MonoBehaviour
         this._EndingType = this._root.Q<Label>("EndingType");
         this._returnToMain = this._root.Q<Button>("MenuReturn");
 
-        if(MultipleQuestsManager.Instance.PlayerMorality > -2 && MultipleQuestsManager.Instance.PlayerMorality < 2)
+        if(MultipleQuestsManager.Instance.PlayerMorality > -2 && MultipleQuestsManager.Instance.PlayerMorality < 2 && !isDead)
         {
             this.NeutralEnd();
         }
-        else if(MultipleQuestsManager.Instance.PlayerMorality > 2)
+        else if(MultipleQuestsManager.Instance.PlayerMorality > 2 && !isDead)
         {
             this.GoodEnd();
         }
-        else if(MultipleQuestsManager.Instance.PlayerMorality < -2)
+        else if(MultipleQuestsManager.Instance.PlayerMorality < -2 && !isDead)
         {
              this.BadEnd();
         }
 
+        if(isDead)
+        {
+            this.DeadEnd();
+        }
         this._returnToMain.clicked += ReturnToMain;
         
     }

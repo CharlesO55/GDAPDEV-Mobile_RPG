@@ -1,3 +1,7 @@
+.unity-image
+{
+	--unity-image-size: scale-to-fit;
+}
 #Root
 {
 	flex-grow: 1;

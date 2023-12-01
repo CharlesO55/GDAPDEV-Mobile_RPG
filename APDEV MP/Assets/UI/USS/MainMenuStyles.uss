@@ -1,8 +1,19 @@
+.unity-image
+{
+	--unity-image-size: scale-to-fit;
+}
 #Root {
     flex-grow: 1;
     justify-content: center;
 }
-
+#BackgroundArt
+{
+    flex-grow: 1;
+}
+Label
+{
+    margin-top: 100px;
+}
 #GameTitle {
     -unity-text-align: upper-center;
     font-size: 70px;

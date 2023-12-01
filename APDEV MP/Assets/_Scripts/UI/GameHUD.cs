@@ -28,6 +28,8 @@ public class GameHUD : MonoBehaviour
     private Label[] m_QuestLabels;
     private Label[] m_TaskLabels;
 
+    private VisualElement m_TurnIndicator;
+
     private VisualElement m_ButtonContainer;
     private VisualElement m_CombatButtonContainer;
     private VisualElement m_QuestContainer;
@@ -53,6 +55,8 @@ public class GameHUD : MonoBehaviour
         this.m_CombatEndTurnButton = this.root.Q<Image>("CombatEndButton");
 
         this.m_DiceRollLabel = this.root.Q<Label>("DiceRollLabel");
+
+        this.m_TurnIndicator = this.root.Q<VisualElement>("TurnIndicator");
 
         this.m_ButtonContainer = this.root.Q<VisualElement>("Buttons");
         this.m_CombatButtonContainer = this.root.Q<VisualElement>("CombatButtons");
@@ -208,7 +212,14 @@ public class GameHUD : MonoBehaviour
         {
             this.m_QuestContainer.style.display = DisplayStyle.None;
             this.m_ButtonContainer.style.display = DisplayStyle.None;
-            this.m_CombatButtonContainer.style.display = DisplayStyle.Flex;
+            this.m_TurnIndicator.style.display = DisplayStyle.Flex;
+
+            if (CombatManager.Instance.IsEnemyTurn)
+                this.m_CombatButtonContainer.style.display = DisplayStyle.None;
+
+            else
+                this.m_CombatButtonContainer.style.display = DisplayStyle.Flex;
+
             this.m_Joystick.SetActive(false);
         }
 
@@ -216,6 +227,7 @@ public class GameHUD : MonoBehaviour
         {
             this.m_QuestContainer.style.display = DisplayStyle.Flex;
             this.m_ButtonContainer.style.display = DisplayStyle.Flex;
+            this.m_TurnIndicator.style.display = DisplayStyle.None;
             this.m_CombatButtonContainer.style.display = DisplayStyle.None;
             this.m_Joystick.SetActive(true);
         }

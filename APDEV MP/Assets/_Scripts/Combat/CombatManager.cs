@@ -18,15 +18,16 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private GameObject m_CurrentUnitGrid = null;
     [SerializeField] private bool m_IsInCombat = false;
 
-    [Space]
+    [Header ("Turn Order")]
     [SerializeField] private List<GameObject> m_UnitList = new List<GameObject>();
     private int m_CurrentTurnIndex = -1;
 
+    [Header ("Debug Settings")]
     [SerializeField] private bool m_IsViewingMoveRange = false;
     [SerializeField] private bool m_IsViewingAttackRange = false;
 
-    private int m_ActiveUnitMoves = 0;
-    private int m_ActiveUnitAttackRange = 0;
+    [SerializeField] private int m_ActiveUnitMoves = 0;
+    [SerializeField] private int m_ActiveUnitAttackRange = 0;
 
     private bool m_HasAttacked = false;
     private bool m_HasEndedTurn = false;
@@ -36,6 +37,7 @@ public class CombatManager : MonoBehaviour
 
     private bool m_IsEnemyTurn = false;
 
+    private int m_DiceRollValue = -1;
     private GameObject m_TileToMove = null;
 
     public void Awake()
@@ -65,10 +67,9 @@ public class CombatManager : MonoBehaviour
 
                 this.m_ActiveUnitMoves -= Mathf.Abs(m_CurrentTile.xLoc - m_TargetTile.xLoc) + Mathf.Abs(m_CurrentTile.yLoc - m_TargetTile.yLoc);
 
-                StartCoroutine(this.WaitForMovement(m_TargetTile.xLoc, m_TargetTile.yLoc));
+                //StartCoroutine(this.WaitForMovement(m_TargetTile.xLoc, m_TargetTile.yLoc));
                 this.m_IsMoving = true;
                 this.m_TileToMove = args.ObjHit;
-                //PartyManager.Instance.ActivePlayer.GetComponent<NavMeshAgent>().SetDestination(args.ObjHit.transform.position);
             }
 
             else
@@ -86,7 +87,7 @@ public class CombatManager : MonoBehaviour
             {
                 int m_HitChance = Random.Range(1, 21);
                 int m_DamageDealt = 0;
-
+                
                 CharacterData m_ActiveUnitData = PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData;
                 CharacterData m_DamagedUnitData = m_GridStat.UnitInTile.GetComponent<CharacterScript>().CharacterData;
 
@@ -114,6 +115,7 @@ public class CombatManager : MonoBehaviour
                     m_DamagedUnitData.CurrHealth = 0;
 
                     this.m_UnitList.Remove(m_GridStat.UnitInTile);
+                    m_GridStat.UnitInTile.SetActive(false);
                     this.CheckCombatEnd();
                 }
 
@@ -303,6 +305,7 @@ public class CombatManager : MonoBehaviour
             StartCoroutine(this.EnemyAction());
         }
 
+        UIManager.Instance.ChangeTurn($"{this.m_UnitList[this.m_CurrentTurnIndex].name}'s Turn!");
         this.m_CombatGridScript.ResetGrid();
     }
 
@@ -316,16 +319,16 @@ public class CombatManager : MonoBehaviour
         this.EndTurn();
     }
 
-    private IEnumerator WaitForMovement(int x, int y)
-    {
-        GridStat m_CurrentTile = this.m_CurrentUnitGrid.GetComponent<GridStat>();
+    //private IEnumerator WaitForMovement(int x, int y)
+    //{
+    //    GridStat m_CurrentTile = this.m_CurrentUnitGrid.GetComponent<GridStat>();
 
-        while (m_CurrentTile.xLoc != x && m_CurrentTile.yLoc != y)
-            yield return null;
+    //    while (m_CurrentTile.xLoc != x && m_CurrentTile.yLoc != y)
+    //        yield return null;
 
-        this.m_CombatGridScript.ResetGrid();
-        this.m_CombatGridScript.CheckMovementRange(x, y, this.m_ActiveUnitMoves);
-    }
+    //    this.m_CombatGridScript.ResetGrid();
+    //    this.m_CombatGridScript.CheckMovementRange(x, y, this.m_ActiveUnitMoves);
+    //}
 
     private IEnumerator WaitForTurnEnd()
     {
@@ -346,7 +349,7 @@ public class CombatManager : MonoBehaviour
 
     public void BeginCombat()
     {
-        this.m_IsRequestingRoll = true;
+        this.CheckCombatEnd();
 
         this.m_IsInCombat = true;
         this.RetrieveUnits();
@@ -400,8 +403,17 @@ public class CombatManager : MonoBehaviour
 
     private void MoveCurrentUnit()
     {
-        Vector3 m_Velocity = Vector3.zero;
-        PartyManager.Instance.ActivePlayer.transform.position = Vector3.SmoothDamp(PartyManager.Instance.ActivePlayer.transform.position, this.m_TileToMove.transform.position, ref m_Velocity, 0.05f);
+        //Vector3 m_Velocity = Vector3.zero;
+        //PartyManager.Instance.ActivePlayer.transform.position = Vector3.SmoothDamp(PartyManager.Instance.ActivePlayer.transform.position, this.m_TileToMove.transform.position, ref m_Velocity, 0.05f);
+
+        NavMeshAgent m_Agent = PartyManager.Instance.ActivePlayer.GetComponent<NavMeshAgent>();
+        Vector3 m_CurrPos = m_Agent.transform.position;
+        Vector3 m_TargetPos = this.m_TileToMove.transform.position;
+
+        Vector3 m_Direction = (m_TargetPos - m_CurrPos).normalized;
+        Vector3 m_Move = m_Direction * Time.deltaTime * 6.5f;
+
+        m_Agent.Move(m_Move);
 
         if (PartyManager.Instance.ActivePlayer.transform.position == this.m_TileToMove.transform.position)
             this.m_IsMoving = false;
@@ -447,5 +459,5 @@ public class CombatManager : MonoBehaviour
     public bool IsViewingAttackRange { get { return this.m_IsViewingAttackRange; } set { this.m_IsViewingAttackRange = value; } }
     public bool HasEndedTurn { get { return this.m_HasEndedTurn;} set { this.m_HasEndedTurn = value; } }
     public bool IsRequestingRoll { get { return this.m_IsRequestingRoll; } set { this.m_IsRequestingRoll = value; } }
-    public bool IsEnemyTurn { get { return this.m_IsRequestingRoll; } }
+    public bool IsEnemyTurn { get { return this.m_IsEnemyTurn; } }
 }

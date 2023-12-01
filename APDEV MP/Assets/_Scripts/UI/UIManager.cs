@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance;
     private Label _systemMessagesLabel;
+    private Label m_TurnLabel;
 
     
     private void Awake()
@@ -30,7 +31,8 @@ public class UIManager : MonoBehaviour
         GestureManager.Instance.OnSwipeDelegate += DisplayGestureSwipe;
 
         //FIND LABEL TO MODIFY LATER
-        _systemMessagesLabel = _systemMessagesDocs?.rootVisualElement.Q<Label>("Message");   
+        _systemMessagesLabel = _systemMessagesDocs?.rootVisualElement.Q<Label>("Message");
+        this.m_TurnLabel = this._gameHUDDocument?.rootVisualElement.Q<Label>("TurnLabel");
     }
 
     private void OnDisable()
@@ -43,9 +45,12 @@ public class UIManager : MonoBehaviour
     public void ChangeText(string message)
     {
         this._systemMessagesLabel.text = message;
-
     }
 
+    public void ChangeTurn(string message)
+    {
+        this.m_TurnLabel.text = message;
+    }
 
     private void DisplayDiceResults(object sender, DieArgs args)
     {

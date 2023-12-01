@@ -11,6 +11,9 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="Filler" style="flex-grow: 1; margin-top: 8%; margin-right: 8%; margin-bottom: 8%; margin-left: 8%;" />
             </ui:VisualElement>
+            <ui:VisualElement name="TurnIndicator" style="flex-grow: 1; position: absolute; max-width: 600px; max-height: 150px; display: none; min-width: 600px; min-height: 150px; border-left-color: rgb(51, 21, 0); border-right-color: rgb(51, 21, 0); border-top-color: rgb(51, 21, 0); border-bottom-color: rgb(51, 21, 0); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; background-color: rgb(164, 109, 47); top: 2%; left: 35%;">
+                <ui:Label tabindex="-1" text="Grandma&apos;s Turn!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TurnLabel" style="-unity-text-align: middle-center; font-size: 48px; text-overflow: ellipsis; white-space: normal; top: 30px;" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="CombatButtons" style="flex-grow: 1; position: absolute; left: 85%; top: 20%; max-width: 256px; max-height: 700px; display: none;">
             <ui:Image name="CombatMoveButton" style="flex-grow: 1; margin-bottom: 50px;" />

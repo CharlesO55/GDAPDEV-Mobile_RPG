@@ -7,6 +7,7 @@ using System.Reflection;
 
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 using Unity.VisualScripting;
+using System.Linq;
 
 public class GestureManager : MonoBehaviour
 {
@@ -29,7 +30,8 @@ public class GestureManager : MonoBehaviour
 
 
     //FINGER TRACK COMPUTE
-    private bool bGestureDetermined;    //PREVENTS GESTURES FROM OVERLAPPING (Tap vs Drag)
+    //private bool bGestureDetermined;    //PREVENTS GESTURES FROM OVERLAPPING (Tap vs Drag)
+    private EnumGesture _gestureDetermined;
 
     //EVENT HANDLER
     public EventHandler<TapEventArgs> OnTapDelegate;
@@ -51,7 +53,8 @@ public class GestureManager : MonoBehaviour
 
 
         Instance = this;
-        bGestureDetermined = false;
+        //bGestureDetermined = false;
+        _gestureDetermined = EnumGesture.NONE;
 
         this._fingerMarkers = new GameObject[15];
     }
@@ -110,6 +113,10 @@ public class GestureManager : MonoBehaviour
 
     void FingerMoveDelegate(ETouch.Finger finger)
     {
+        if (finger.index < this._fingerMarkers.Length && this._fingerMarkers[finger.index] != null)
+        {
+            this._fingerMarkers[finger.index].transform.position = finger.screenPosition;
+        }
         //SINGLE FINGER
         switch (ETouch.Touch.activeTouches.Count)
         {
@@ -125,7 +132,8 @@ public class GestureManager : MonoBehaviour
 
     private void Update()
     {
-        this.bGestureDetermined = false;
+        this._gestureDetermined = EnumGesture.NONE;
+        //this.bGestureDetermined = false;
 
         //OVERRIDES THE EVENT TRIGGER VER.
         //DRAG NEEDS REGULAR UPDATES INSTEAD OF JUST ONFINGERMOVE EVENT
@@ -140,7 +148,7 @@ public class GestureManager : MonoBehaviour
     private void CheckTap()
     {
         //IGNORE WHEN DIFFERENT GESTURE WAS DETECTED
-        if (this.bGestureDetermined) {
+        if (/*this.bGestureDetermined*/ this._gestureDetermined != EnumGesture.NONE) {
             return;
         }
 
@@ -152,7 +160,8 @@ public class GestureManager : MonoBehaviour
         if(distanceMoved < this._tapPropertyFields.MaxDistanceMoved * Screen.dpi &&
            timePassed < this._tapPropertyFields.MaxTapTime)
         {
-            this.bGestureDetermined = true;
+            //this.bGestureDetermined = true;
+            this._gestureDetermined |= EnumGesture.TAP;
 
             this.FireTapEvent(tracked.startScreenPosition);
         }
@@ -178,24 +187,27 @@ public class GestureManager : MonoBehaviour
     private void CheckSwipe()
     {
         //IGNORE WHEN DIFFERENT GESTURE WAS DETECTED
-        if (this.bGestureDetermined)
+        /*if (*//*this.bGestureDetermined*//*)
         {
             return;
-        }
-
-        ETouch.Touch tracked = ETouch.Touch.activeTouches[0];
-
-        float distanceMoved = Vector2.Distance(tracked.screenPosition, tracked.startScreenPosition);
-        double timePassed = tracked.time - tracked.startTime;
-
-        if (distanceMoved > this._swipePropertyFields.MinDragDistance * Screen.dpi &&
-           timePassed < this._swipePropertyFields.MaxTapTime)
+        }*/
+        if (this._gestureDetermined == EnumGesture.NONE || _gestureDetermined == EnumGesture.DRAG)
         {
-            this.bGestureDetermined = true;
+            ETouch.Touch tracked = ETouch.Touch.activeTouches[0];
 
-            Vector2 rawDir = tracked.screenPosition - tracked.startScreenPosition;
+            float distanceMoved = Vector2.Distance(tracked.screenPosition, tracked.startScreenPosition);
+            double timePassed = tracked.time - tracked.startTime;
 
-            this.FireSwipeEvent(tracked.startScreenPosition, rawDir, this.CalculateDirection(rawDir));
+            if (distanceMoved > this._swipePropertyFields.MinDragDistance * Screen.dpi &&
+               timePassed < this._swipePropertyFields.MaxTapTime)
+            {
+                //this.bGestureDetermined = true;
+                this._gestureDetermined = EnumGesture.SWIPE;
+
+                Vector2 rawDir = tracked.screenPosition - tracked.startScreenPosition;
+
+                this.FireSwipeEvent(tracked.startScreenPosition, rawDir, this.CalculateDirection(rawDir));
+            }
         }
     }
 
@@ -220,7 +232,7 @@ public class GestureManager : MonoBehaviour
 
     private void CheckDrag()
     {
-        if (this.bGestureDetermined)
+        if (this._gestureDetermined != EnumGesture.NONE)
         {
             return;
         }
@@ -228,7 +240,8 @@ public class GestureManager : MonoBehaviour
         ETouch.Touch tracked = ETouch.Touch.activeTouches[0];
         if(tracked.time - tracked.startTime > this._dragPropertyFields.MinPressTime)
         {
-            this.bGestureDetermined = true;
+            //this.bGestureDetermined = true;
+            this._gestureDetermined = EnumGesture.DRAG;
             this.FireDragEvent(tracked.screenPosition);
         }
     }
@@ -279,7 +292,8 @@ public class GestureManager : MonoBehaviour
         float distanceDelta = currDistanceApart - prevDistanceApart;
         if (Mathf.Abs(distanceDelta) > this._spreadPropertyFields.MinDistanceChange * Screen.dpi)
         {
-            this.bGestureDetermined = true;
+            this._gestureDetermined = EnumGesture.SPREAD;
+            //this.bGestureDetermined = true;
 
             this.FireSpreadEvent(distanceDelta);
         }

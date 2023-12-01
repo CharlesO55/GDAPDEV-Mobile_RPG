@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -18,11 +19,8 @@ public class SceneLoaderManager : MonoBehaviour
     }
 
     [Header("Use in refreshing data")]
-    private bool m_IsNewGame;
-    public bool IsNewGame
-    {
-        get { return m_IsNewGame; }
-    }
+    public bool IsNewPlayerSave;
+    
 
     public void LoadScene(int sceneId, int spawnAreaIndex = 0)
     {
@@ -42,35 +40,15 @@ public class SceneLoaderManager : MonoBehaviour
 
     private void CheckSaveAction(int targetScene, int currScene)
     {
-        //DO NOT SAVE WHEN ACTIVE SCENE IS TITLE / END
-        switch (currScene)
+        //SAVE FROM TEMPLATE WHEN NEW GAME
+        if (currScene == 0 && targetScene > 0)
         {
-            case 0:
-            case 7:
-                break;
-            default:
-                CallSaves();
-                break;
+            IsNewPlayerSave = true;
         }
-
-        //DO NOT SAVE WHEN TARGET SCENE IS TITLE/END
-        switch (targetScene)
+        //DO REGULAR SAVES WHEN SWITCHING BETWEEN SCENES EXCEPT RESULT
+        else if (targetScene != 7)
         {
-            case 0:
-            case 7:
-                this.m_IsNewGame = true;
-                break;
-            default:
-                CallSaves();
-                break;
-        }
-    }
-
-    private void CallSaves()
-    {
-        if (PartyManager.Instance != null)
-        {
-            PartyManager.Instance.SavePartyData();
+            PartyManager.Instance.SavePartyData(false);
         }
     }
 
@@ -82,11 +60,6 @@ public class SceneLoaderManager : MonoBehaviour
         yield return SceneManager.LoadSceneAsync(sceneId);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
         this.m_LoadingScreen.enabled = false;
-    }
-
-    public void ToggleNewGame(bool ToF)
-    {
-        this.m_IsNewGame = ToF;
     }
 
     private void Awake()

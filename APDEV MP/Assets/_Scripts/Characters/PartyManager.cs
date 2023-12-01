@@ -50,23 +50,50 @@ public class PartyManager : MonoBehaviour
         }
 
         //ALTERNATIVE FOR TESTING ONLY
-        if (isCreateDataFromField)
+        if (isCreateDataFromField || SceneLoaderManager.Instance.IsNewPlayerSave)
         {
-            this.SavePartyData();
+            SceneLoaderManager.Instance.IsNewPlayerSave = false;
+            this.SavePartyData(true);
         }
         
         this._partyEntities = new List<GameObject>();
         SpawnCharacters();
+
         SwitchActiveCharacter();
     }
 
   
-    public void SavePartyData()
+    public void SavePartyData(bool bSaveFromTemplate)
     {
         Debug.LogWarning("Overwriting party members save data");
-        SaveSystem.Save<CharacterData>(_newPartyMembers, SaveSystem.SAVE_FILE_ID.PARTY_DATA);
+        //SaveSystem.Save<CharacterData>(_newPartyMembers, SaveSystem.SAVE_FILE_ID.PARTY_DATA);
+
+        List<CharacterData> dataToSave = new();
+        //OVERWRITE WITH TEMPLATE PARAMS
+        if (bSaveFromTemplate)
+        {
+            foreach(CharacterData data in _newPartyMembers)
+            {
+                data.InitializeClass(data.CharacterClass);
+                dataToSave.Add(data);
+            }
+            Debug.LogWarning("NEW SAVE: FROM TEMPLATE");
+        }
+
+        //ELSE CREATE FROM THE CURRENT DATA
+        else if(!bSaveFromTemplate)
+        {
+            foreach (GameObject obj in this._partyEntities)
+            {
+                dataToSave.Add(obj.GetComponent<CharacterScript>().CharacterData);
+            }
+            Debug.LogWarning("NEW SAVE: FROM PLAYERS CURR VALUES");
+        }
+
+        //ELSE USE THE TEMPLATE
+        SaveSystem.Save<CharacterData>(dataToSave, SaveSystem.SAVE_FILE_ID.PARTY_DATA);
     }
-    
+
     private void SpawnCharacters()
     {
         this._partyEntities.Clear();
@@ -182,18 +209,20 @@ public class PartyManager : MonoBehaviour
         else if (spawnAreaIndex >= _spawnAreas.Count)
         {
             spawnAreaIndex = 0;
-            Debug.LogWarning("SpawnAreaIndex is out of range");
+            Debug.LogError("SpawnAreaIndex is out of range");
         }
         //int spawnAreaIndex = UnityEngine.Random.Range(0, _spawnAreas.Count);
 
         //GameObject characterObject = Instantiate(_saveData.CharacterModel, _spawnAreas[spawnAreaIndex].getRandomSpawnPos(), Quaternion.identity, this.transform);
 
+
+
         GameObject prefabModel = UnitclassModelLibrary.Instance.GetUnitModel(_saveData.CharacterClass);
         GameObject characterObject = Instantiate(prefabModel, _spawnAreas[spawnAreaIndex].getRandomSpawnPos(), Quaternion.identity, this.transform);
-
+        //Debug.Log($"SPAWNED {prefabModel} OF TYPE {_saveData.CharacterClass}");
 
         //ADD COMPONENTS TO OUR CHARACTERS or DIRECTLY USE A PREFAB
-        characterObject.AddComponent<CharacterScript>().Init(_saveData, SceneLoaderManager.Instance.IsNewGame);
+        characterObject.AddComponent<CharacterScript>().Init(_saveData, false/*SceneLoaderManager.Instance.IsNewGame || this.isCreateDataFromField*/);
         characterObject.AddComponent<NavMeshAgent>();
 
 

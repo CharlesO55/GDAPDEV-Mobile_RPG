@@ -12,14 +12,14 @@ public class CharacterData
     [SerializeField] private GameObject _characterModel;
 
 
-    [Range(0, 20)][SerializeField] private int _strength;
-    [Range(0, 20)][SerializeField] private int _constitution;
-    [Range(0, 20)][SerializeField] private int _dexterity;
-    [Range(0, 20)][SerializeField] private int _intelligence;
-    [Range(0, 20)][SerializeField] private int _wisdom;
-    [Range(0, 20)][SerializeField] private int _charisma;
+    [Range(1, 24)][SerializeField] private int _strength;
+    [Range(1, 24)][SerializeField] private int _constitution;
+    [Range(1, 24)][SerializeField] private int _dexterity;
+    [Range(1, 24)][SerializeField] private int _intelligence;
+    [Range(1, 24)][SerializeField] private int _wisdom;
+    [Range(1, 24)][SerializeField] private int _charisma;
 
-    [Range(0, 20)][SerializeField] private int _maxHealth;
+    [Range(0, 50)][SerializeField] private int _maxHealth;
     [SerializeField] private int _currHealth;
 
     private int m_STRModifier;

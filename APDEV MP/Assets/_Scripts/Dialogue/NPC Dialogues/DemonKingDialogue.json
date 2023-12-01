@@ -1,0 +1,1 @@
+﻿{"inkVersion":21,"root":[["^Let's fight human ","#","^SPEAKER:Demon King","/#","\n","^I will enslave you to be my personal accountants.","\n","^Mwahahahahahaha","\n","ev",{"x()":"StartBattle"},"pop","/ev","\n",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}

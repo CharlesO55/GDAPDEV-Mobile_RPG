@@ -61,7 +61,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b725b6e8cd5b6744ab726426bfa0c67d,
         type: 3}
       propertyPath: m_Name
-      value: Warrok W Kurniawan@Breathing Idle
+      value: Demon King
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b725b6e8cd5b6744ab726426bfa0c67d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hostile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -71,6 +76,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4943622053049006499}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b725b6e8cd5b6744ab726426bfa0c67d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7929912550306988176}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b725b6e8cd5b6744ab726426bfa0c67d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -879948950130792121}
   m_SourcePrefab: {fileID: 100100000, guid: b725b6e8cd5b6744ab726426bfa0c67d, type: 3}
 --- !u!1 &627249316851567145 stripped
 GameObject:
@@ -99,3 +112,54 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7929912550306988176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627249316851567145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056cd840c0ed51e499b9e54598af6241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterData:
+    _playerName: DemonKing
+    _class: 1
+    _characterModel: {fileID: 0}
+    _strength: 20
+    _constitution: 14
+    _dexterity: 10
+    _intelligence: 10
+    _wisdom: 8
+    _charisma: 8
+    _maxHealth: 30
+    _currHealth: 30
+--- !u!54 &-879948950130792121
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627249316851567145}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

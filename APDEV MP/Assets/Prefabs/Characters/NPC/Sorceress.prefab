@@ -61,7 +61,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f38a93a70539d8c47865abdbdf30885f,
         type: 3}
       propertyPath: m_Name
-      value: Nightshade J Friedrich@Orc Idle
+      value: Sorceress
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f38a93a70539d8c47865abdbdf30885f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hostile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -71,6 +76,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2245094059575739839}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f38a93a70539d8c47865abdbdf30885f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 398045382328529299}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f38a93a70539d8c47865abdbdf30885f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4803962529655293593}
   m_SourcePrefab: {fileID: 100100000, guid: f38a93a70539d8c47865abdbdf30885f, type: 3}
 --- !u!1 &7060800070383413212 stripped
 GameObject:
@@ -99,3 +112,54 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &398045382328529299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7060800070383413212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056cd840c0ed51e499b9e54598af6241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterData:
+    _playerName: Sorceress
+    _class: 4
+    _characterModel: {fileID: 0}
+    _strength: 4
+    _constitution: 12
+    _dexterity: 12
+    _intelligence: 16
+    _wisdom: 10
+    _charisma: 4
+    _maxHealth: 13
+    _currHealth: 13
+--- !u!54 &4803962529655293593
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7060800070383413212}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

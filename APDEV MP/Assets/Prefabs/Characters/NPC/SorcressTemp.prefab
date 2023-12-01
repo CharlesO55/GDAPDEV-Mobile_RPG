@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1434327834563381931}
   - component: {fileID: 4303293193922534523}
   - component: {fileID: 98361389883981819}
+  - component: {fileID: 5371509552713923006}
   m_Layer: 0
   m_Name: SorcressTemp
   m_TagString: Untagged
@@ -122,3 +123,27 @@ MonoBehaviour:
   _npcDialogue: {fileID: 4900000, guid: 46ee6314f71eba147963e093f5c195d8, type: 3}
   _quests:
   - {fileID: 11400000, guid: 587e716d22063cb458bcfaa4eac0ec3a, type: 2}
+--- !u!114 &5371509552713923006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980642138955977648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056cd840c0ed51e499b9e54598af6241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterData:
+    _playerName: Unset
+    _class: 0
+    _characterModel: {fileID: 0}
+    _strength: 0
+    _constitution: 0
+    _dexterity: 0
+    _intelligence: 0
+    _wisdom: 0
+    _charisma: 0
+    _maxHealth: 0
+    _currHealth: 0

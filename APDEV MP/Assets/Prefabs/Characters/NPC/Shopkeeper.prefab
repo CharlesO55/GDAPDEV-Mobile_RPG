@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 4050616980606054001}
   - component: {fileID: 1022447246970367412}
   - component: {fileID: 1220514408635729130}
+  - component: {fileID: 4671322155882213209}
+  - component: {fileID: 481267826149170063}
   m_Layer: 0
   m_Name: Shopkeeper
-  m_TagString: Untagged
+  m_TagString: Hostile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,3 +123,54 @@ MonoBehaviour:
   _objectID: 4
   _npcDialogue: {fileID: 0}
   _quests: []
+--- !u!114 &4671322155882213209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415507372942011988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056cd840c0ed51e499b9e54598af6241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterData:
+    _playerName: ShopKeep
+    _class: 3
+    _characterModel: {fileID: 0}
+    _strength: 8
+    _constitution: 12
+    _dexterity: 14
+    _intelligence: 8
+    _wisdom: 6
+    _charisma: 10
+    _maxHealth: 10
+    _currHealth: 10
+--- !u!54 &481267826149170063
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415507372942011988}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

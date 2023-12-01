@@ -76,7 +76,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 072235cfa0a4133458e990d2ef660e3c,
         type: 3}
       propertyPath: m_Name
-      value: Peasant Girl@Dwarf Idle
+      value: Bar Maid
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 072235cfa0a4133458e990d2ef660e3c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hostile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -86,6 +91,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6979612162820666235}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 072235cfa0a4133458e990d2ef660e3c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2572310632418795832}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 072235cfa0a4133458e990d2ef660e3c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8158826009383167859}
   m_SourcePrefab: {fileID: 100100000, guid: 072235cfa0a4133458e990d2ef660e3c, type: 3}
 --- !u!1 &4722506041081281668 stripped
 GameObject:
@@ -114,3 +127,54 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &-2572310632418795832
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4722506041081281668}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &8158826009383167859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4722506041081281668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056cd840c0ed51e499b9e54598af6241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterData:
+    _playerName: BarMaid
+    _class: 3
+    _characterModel: {fileID: 0}
+    _strength: 8
+    _constitution: 8
+    _dexterity: 12
+    _intelligence: 10
+    _wisdom: 8
+    _charisma: 16
+    _maxHealth: 12
+    _currHealth: 12

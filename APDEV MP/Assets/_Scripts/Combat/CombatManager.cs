@@ -192,11 +192,11 @@ public class CombatManager : MonoBehaviour
                 m_AllyTargetData.CurrHealth -= m_DamageDealt;
             }
 
-            if (m_AllyTargetData.CurrHealth < 0)
+            if (m_AllyTargetData.CurrHealth <= 0)
             {
                 m_AllyTargetData.CurrHealth = 0;
 
-                this.m_UnitList.Remove(this.m_UnitList[this.m_CurrentTurnIndex]);
+                this.m_UnitList.Remove(PartyManager.Instance.PartyEntities[m_Rand]);
                 this.CheckCombatEnd();
             }
         }

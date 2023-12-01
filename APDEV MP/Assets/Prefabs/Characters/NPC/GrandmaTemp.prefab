@@ -11,11 +11,13 @@ GameObject:
   - component: {fileID: 352845356475879896}
   - component: {fileID: 5579723144287931350}
   - component: {fileID: 3527458093603172709}
+  - component: {fileID: 3719615042444632499}
   - component: {fileID: 5896662579302586056}
   - component: {fileID: 3435202886199449178}
+  - component: {fileID: 3544245451846930890}
   m_Layer: 0
   m_Name: GrandmaTemp
-  m_TagString: Untagged
+  m_TagString: Hostile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,6 +87,30 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3719615042444632499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481595132963372758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056cd840c0ed51e499b9e54598af6241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterData:
+    _playerName: Grandma
+    _class: 4
+    _characterModel: {fileID: 0}
+    _strength: 0
+    _constitution: 0
+    _dexterity: 4
+    _intelligence: 10
+    _wisdom: 0
+    _charisma: 0
+    _maxHealth: 12
+    _currHealth: 12
 --- !u!136 &5896662579302586056
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -124,3 +150,30 @@ MonoBehaviour:
   _npcDialogue: {fileID: 4900000, guid: 0f27c6f97f888d540b38a9bcf6428977, type: 3}
   _quests:
   - {fileID: 11400000, guid: f64c2af8d333277419505b2ed7ce6354, type: 2}
+--- !u!54 &3544245451846930890
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481595132963372758}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

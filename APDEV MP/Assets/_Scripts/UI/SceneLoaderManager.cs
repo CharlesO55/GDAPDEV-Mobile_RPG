@@ -31,6 +31,11 @@ public class SceneLoaderManager : MonoBehaviour
         }
 
 
+        if(sceneId == 0)
+        {
+            CleanUpDontDestroys();
+        }
+
         this.CheckSaveAction(sceneId, SceneManager.GetActiveScene().buildIndex);
 
         this.m_SpawnAreaIndex = spawnAreaIndex;
@@ -50,6 +55,12 @@ public class SceneLoaderManager : MonoBehaviour
         {
             PartyManager.Instance.SavePartyData(false);
         }
+    }
+
+    private void CleanUpDontDestroys()
+    {
+        if(PartyManager.Instance != null) { Destroy(PartyManager.Instance.gameObject); }
+        if(MultipleQuestsManager.Instance != null) { Destroy(MultipleQuestsManager.Instance.gameObject); }
     }
 
 

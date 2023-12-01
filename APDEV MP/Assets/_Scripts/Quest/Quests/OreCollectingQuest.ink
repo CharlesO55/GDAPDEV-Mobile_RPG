@@ -1,5 +1,6 @@
 EXTERNAL SetNextStep(nNextStep, strQuestName)
 EXTERNAL DoDialogueRoll(nStatRequired, strStatType)
+EXTERNAL AddMorality(nChange)
 
 CONST _questName = "Ore Mining"
 VAR _questStep = 0
@@ -72,6 +73,7 @@ We yearn for the mines.
 ===Step2===
 That's enough, gold. #SPEAKER:Narrator
 ~ SetNextStep(3,  _questName)
+~ AddMorality(2)
 Back to granny.
 ->END
 
@@ -79,5 +81,6 @@ Back to granny.
 Thank you very much, dear. #SPEAKER:Grandma
 With this granny can last for a year.
 ~ SetNextStep(4,  _questName)
+~ AddMorality(1)
 This old lady won't be another victim to pharmaceutical greed.
 ->END

@@ -2,6 +2,8 @@ EXTERNAL SetNextStep(nNextStep, strQuestName)
 EXTERNAL DoDialogueRoll(nStatRequired, strStatType)
 EXTERNAL RewardItem(strItemName)
 EXTERNAL StartBattle()
+EXTERNAL AddMorality(nChange)
+
 
 CONST _questName = "The Great Demonic Battlefront"
 VAR _questStep = 0
@@ -127,6 +129,7 @@ Bruh... #SPEAKER:Narrator
     ->Convince
 + [Run]
     ~ SetNextStep(2, _questName)
+    ~ AddMorality(-3)
     You dash out the door as Rhein and his brother scream at you.
     Guards saw you dashing out the building and grow suspicious.
     The guards soon investigate and confiscate the proclaimed 6 piped chandelier.
@@ -152,6 +155,7 @@ His face fumes red with anger as he prepares to berate you.
         ->END
         -else:
         [{_rollSuccess}] Each insult tears at your heart.
+        ~ AddMorality(-1)
         Soon you begin to feel the guilt and reconsider.
         ->AngryWeaponsmith
 }
@@ -171,6 +175,7 @@ Yet they remain dubious.
     -else:
     [{_rollSuccess}] Kid, just come out straight. #SPEAKER:Weaponsmith
         I know a liar when I see one.
+        ~AddMorality(-1)
         My brother may be a dick, but at least he's real with me.
         ->AngryWeaponsmith
 }
@@ -190,6 +195,7 @@ It seems difficult to enter but with the right skills, it should budge.
         ->END
         - else:
         [{_rollSuccess}] Your random jabs and thrusts prove no match.
+        ~AddMorality(-1)
         The lock is victorious against your unskillful hands.
         ->Step4
     }
@@ -206,6 +212,7 @@ It seems difficult to enter but with the right skills, it should budge.
         [{_rollSuccess}] You kick the door over and over again yet it still stands.
         The door's vision slit opens revealing the face of a chubby guard.
         Hehe, thanks for the massage! #SPEAKER:Guard
+        ~AddMorality(-1)
         Can you kick just a little more to the left?
         ->Step4
     }

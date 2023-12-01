@@ -2,6 +2,7 @@ EXTERNAL SetNextStep(nNextStep, strQuestName)
 EXTERNAL DoDialogueRoll(nStatRequired, strStatType)
 EXTERNAL RewardItem(strItemName)
 EXTERNAL StartBattle()
+EXTERNAL AddMorality(nChange)
 
 CONST _questName = "A Ritual Gone Wrong"
 VAR _questStep = 0
@@ -158,6 +159,7 @@ Anyways, I'm off to the next party in town.
 +[Have fun]
 -Vergil will probably be waiting.#SPEAKER:Narrator
 ~SetNextStep(3, _questName)
+~AddMorality(3)
 We should return.
 ->END
 

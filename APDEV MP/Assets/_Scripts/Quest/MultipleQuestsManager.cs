@@ -318,8 +318,6 @@ public class MultipleQuestsManager : MonoBehaviour
         this._completedQuestIDs.Add(questCompleted.QuestID);
         //UNREGISTER FROM ACTIVE
         this._activeQuests.Remove(questCompleted);
-
-        this.m_PlayerMorality += 5;
     }
 
 
@@ -354,5 +352,10 @@ public class MultipleQuestsManager : MonoBehaviour
             }
             UIManager.Instance.GetGameHUD().UpdateQuestLabels(questNames.ToArray(), taskInstructions.ToArray());
         }
+    }
+
+    public void AddToMorality(int nChangeBy)
+    {
+        this.m_PlayerMorality += nChangeBy;
     }
 }

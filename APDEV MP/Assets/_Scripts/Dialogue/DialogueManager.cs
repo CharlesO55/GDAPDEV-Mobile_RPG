@@ -131,6 +131,11 @@ public class DialogueManager : MonoBehaviour
             {     
                 CombatManager.Instance.BeginCombat();
             });
+
+            this._currStory.BindExternalFunction("AddMorality", (int nChange) =>
+            {
+                MultipleQuestsManager.Instance.AddToMorality(nChange);
+            });
         }
         else
         {
@@ -140,6 +145,7 @@ public class DialogueManager : MonoBehaviour
             this._currStory.UnbindExternalFunction("DoDialogueRoll");
             this._currStory.UnbindExternalFunction("RewardItem");
             this._currStory.UnbindExternalFunction("StartBattle");
+            this._currStory.UnbindExternalFunction("AddMorality");
         }
     }
 

@@ -9318,6 +9318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de08bfb20d72794429c88e81f593173e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsNewPlayerSave: 0
 --- !u!114 &229718935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14747,7 +14748,7 @@ MonoBehaviour:
   _spawnAreas:
   - {fileID: 343333334}
   - {fileID: 248028049}
-  isCreateDataFromField: 0
+  isCreateDataFromField: 1
   _newPartyMembers:
   - _playerName: Player1
     _class: 1
@@ -14762,7 +14763,7 @@ MonoBehaviour:
     _maxHealth: 20
     _currHealth: 20
   - _playerName: Player2
-    _class: 3
+    _class: 2
     _characterModel: {fileID: 919132149155446097, guid: 2b8288684f221cc4c8236cfcecb0c1d3,
       type: 3}
     _strength: 16
@@ -14774,7 +14775,7 @@ MonoBehaviour:
     _maxHealth: 16
     _currHealth: 15
   - _playerName: Player3
-    _class: 4
+    _class: 3
     _characterModel: {fileID: 919132149155446097, guid: 2b8288684f221cc4c8236cfcecb0c1d3,
       type: 3}
     _strength: 11
@@ -14786,7 +14787,7 @@ MonoBehaviour:
     _maxHealth: 11
     _currHealth: 15
   - _playerName: Player4
-    _class: 5
+    _class: 4
     _characterModel: {fileID: 919132149155446097, guid: 2b8288684f221cc4c8236cfcecb0c1d3,
       type: 3}
     _strength: 4
@@ -17308,6 +17309,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 576963712}
     m_Modifications:
+    - target: {fileID: -4236112344009021999, guid: f5a65be8edd32bc4e8d4f715c8543f11,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 77645207829861529, guid: f5a65be8edd32bc4e8d4f715c8543f11,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -30484,6 +30490,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 576963712}
     m_Modifications:
+    - target: {fileID: -4236112344009021999, guid: f5a65be8edd32bc4e8d4f715c8543f11,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 77645207829861529, guid: f5a65be8edd32bc4e8d4f715c8543f11,
         type: 3}
       propertyPath: m_LocalPosition.x

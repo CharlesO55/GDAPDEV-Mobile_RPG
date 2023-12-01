@@ -1,6 +1,7 @@
 EXTERNAL SetNextStep(nNextStep, strQuestName)
 EXTERNAL DoDialogueRoll(nStatRequired, strStatType)
 EXTERNAL RewardItem(strItemName)
+EXTERNAL AddMorality(nChange)
 
 CONST _questName = "A Hidden Book of Mystery"
 VAR _questStep = 0
@@ -65,6 +66,7 @@ Mana flows with your incantation. //Pass the result in
     ->END
     -else:
     [{_rollSuccess}] Lightning strikes the lock.
+    ~AddMorality(-1)
     Yet nothing happens.
     ->Step1
 }
@@ -84,6 +86,7 @@ You start assaulting the lock.
     -else:
     [{_rollSuccess}] The lock is not happy.
     It may file a complaint to HR if you keep violating it.
+    ~ AddMorality(-1)
     There has to be another way.
     ->Step1
 }
@@ -143,6 +146,7 @@ Her fury will be unrelenting should you commit to battle.
     Oh ho, you're approaching me of instead of running away? #SPEAKER:Sorceress
     I can't beat the shit out of you without getting closer. #SPEAKER:You 
     ~SetNextStep(4, _questName)
+    ~AddMorality(-1)
     The battle begins #SPEAKER:Narrator
     //startFIghtFunc 
     ->END
@@ -163,5 +167,6 @@ Her fury will be unrelenting should you commit to battle.
     Just like me this was a complete
     +[Filler quest]
     +[Waste of time]
+    ~AddMorality(5)
     -At least you feel stronger from the exercise.
     ->END

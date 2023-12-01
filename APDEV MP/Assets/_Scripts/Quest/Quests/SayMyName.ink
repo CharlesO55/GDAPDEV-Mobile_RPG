@@ -1,5 +1,6 @@
 EXTERNAL SetNextStep(nNextStep, strQuestName)
 EXTERNAL DoDialogueRoll(nStatRequired, strStatType)
+EXTERNAL AddMorality(nChange)
 
 CONST _questName = "Say My Name"
 VAR _questStep = 0
@@ -178,6 +179,7 @@ Heavens know if I'll live to that day.
 Oh, sorry dear.
 Here I go babbling again.
 Don't let me keep you any longer.
+~ AddMorality(3)
 ~ SetNextStep(5, _questName)
 You can go now.
 -> END

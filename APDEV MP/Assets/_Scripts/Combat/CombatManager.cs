@@ -406,6 +406,7 @@ public class CombatManager : MonoBehaviour
         //Vector3 m_Velocity = Vector3.zero;
         //PartyManager.Instance.ActivePlayer.transform.position = Vector3.SmoothDamp(PartyManager.Instance.ActivePlayer.transform.position, this.m_TileToMove.transform.position, ref m_Velocity, 0.05f);
 
+        PartyManager.Instance.ActivePlayer.GetComponent<Animator>().SetBool("isRunning", true);
         NavMeshAgent m_Agent = PartyManager.Instance.ActivePlayer.GetComponent<NavMeshAgent>();
         Vector3 m_CurrPos = m_Agent.transform.position;
         Vector3 m_TargetPos = this.m_TileToMove.transform.position;
@@ -416,7 +417,11 @@ public class CombatManager : MonoBehaviour
         m_Agent.Move(m_Move);
 
         if (PartyManager.Instance.ActivePlayer.transform.position == this.m_TileToMove.transform.position)
+        {
             this.m_IsMoving = false;
+            PartyManager.Instance.ActivePlayer.GetComponent<Animator>().SetBool("isRunning", false);
+        }
+            
     }
 
     // Update is called once per frame

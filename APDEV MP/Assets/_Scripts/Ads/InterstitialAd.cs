@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -6,6 +7,7 @@ public class InterstitialAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
     [SerializeField] string _androidAdUnitId = "Interstitial_Android";
     [SerializeField] string _iOsAdUnitId = "Interstitial_iOS";
     string _adUnitId;
+
 
     void Awake()
     {
@@ -51,5 +53,9 @@ public class InterstitialAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
 
     public void OnUnityAdsShowStart(string _adUnitId) { }
     public void OnUnityAdsShowClick(string _adUnitId) { }
-    public void OnUnityAdsShowComplete(string _adUnitId, UnityAdsShowCompletionState showCompletionState) { }
+    public void OnUnityAdsShowComplete(string _adUnitId, UnityAdsShowCompletionState showCompletionState) 
+    {
+        Debug.Log("[SUCCESS] Interstatial AD Completed");
+        AdManager.Instance.MarkAdAsCompleted();
+    }
 }

@@ -9,10 +9,10 @@ public class DieScript : MonoBehaviour
     public int GetDieRollValue()
     {
         //Checks developer options if the status is set to always win/lose
-        if (DiceManager.Instance.IsAlwaysWin)
+        if (GameSettings.IS_DIEROLL_ALWAYS_WIN)
             return 20;
 
-        if (DiceManager.Instance.IsAlwaysLoss)
+        if (GameSettings.IS_DIEROLL_ALWAYS_FAIL)
             return 1;
 
         //PREPARE TO STORE THE FACE WITH THE HIGHEST VALUE

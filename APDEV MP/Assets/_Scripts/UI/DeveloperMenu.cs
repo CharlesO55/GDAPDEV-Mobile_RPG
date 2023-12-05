@@ -17,8 +17,8 @@ public class DeveloperMenu : MonoBehaviour
 
     private Label m_MoralityLevel;
 
-    public static bool isAutoWin = false;
-    public static bool isAutoLose = false;
+    //public static bool isAutoWin = false;
+    //public static bool isAutoLose = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,10 +56,20 @@ public class DeveloperMenu : MonoBehaviour
     {
         Debug.Log("[DEVELOPER OPTIONS] : Auto Win Toggled!");
 
-        if (!isAutoWin)
+        GameSettings.IS_DIEROLL_ALWAYS_WIN = !GameSettings.IS_DIEROLL_ALWAYS_WIN;
+
+        this.autoWinButton.style.backgroundColor = (GameSettings.IS_DIEROLL_ALWAYS_WIN) ? Color.green : Color.red;
+        
+        //DEACTIVATE AUTOLOSE IF BOTH ARE ENABLED
+        if (GameSettings.IS_DIEROLL_ALWAYS_WIN && GameSettings.IS_DIEROLL_ALWAYS_FAIL)
+        {
+            ToggleAutoLose();
+        }
+        
+        /*if (!isAutoWin)
         {
             isAutoWin = true;
-            DiceManager.Instance.IsAlwaysWin = true;
+            GameSettings.IS_DIEROLL_ALWAYS_WIN = true;
             this.autoWinButton.style.backgroundColor = Color.green;
 
             if (isAutoLose)
@@ -73,13 +83,23 @@ public class DeveloperMenu : MonoBehaviour
             isAutoWin = false;
             DiceManager.Instance.IsAlwaysWin = false;
             this.autoWinButton.style.backgroundColor = Color.red;
-        }
+        }*/
     }
     private void ToggleAutoLose()
     {
         Debug.Log("[DEVELOPER OPTIONS] : Auto Lose Toggled!");
 
-        if (!isAutoLose)
+        GameSettings.IS_DIEROLL_ALWAYS_FAIL = !GameSettings.IS_DIEROLL_ALWAYS_FAIL;
+
+        this.autoLoseButton.style.backgroundColor = (GameSettings.IS_DIEROLL_ALWAYS_FAIL) ? Color.green : Color.red;
+
+        //DEACTIVATE AUTOWIN IF BOTH ARE ENABLED
+        if (GameSettings.IS_DIEROLL_ALWAYS_WIN && GameSettings.IS_DIEROLL_ALWAYS_FAIL)
+        {
+            ToggleAutoWin();
+        }
+
+        /*if (!isAutoLose)
         {
             isAutoLose = true;
             DiceManager.Instance.IsAlwaysLoss = true;
@@ -96,7 +116,7 @@ public class DeveloperMenu : MonoBehaviour
             isAutoLose = false;
             DiceManager.Instance.IsAlwaysLoss = false;
             this.autoLoseButton.style.backgroundColor = Color.red;
-        }
+        }*/
     }
     private void ReturnToGame()
     {   
@@ -105,5 +125,4 @@ public class DeveloperMenu : MonoBehaviour
         Time.timeScale = 1;
         this.ToggleVisibility(false);
     }
-
 }

@@ -173,3 +173,34 @@
 	max-width: 600px;
 	font-size: 30px;
 }
+
+.RerollLabels{
+	font-size: 42px;  
+	color: rgb(255, 255, 255); 
+	padding: 5%;
+	margin: 0;
+}
+
+#RerollText{
+	margin-top: 40%; margin-bottom: 30%; 
+	font-size: 62px; 
+	-unity-paragraph-spacing: 30px;
+}
+
+#RerollYesButton{
+	background-color: rgba(26, 209, 49, 0.78);
+}
+
+#RerollNoButton{
+	background-color: rgba(137, 21, 21, 0.78);
+}
+
+#RerollYesButton:hover{
+	background-color: yellow;
+	color: black;
+}
+
+#RerollNoButton:hover{
+	background-color: yellow;
+	color: black;
+}

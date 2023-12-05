@@ -52,4 +52,14 @@
         <ui:Label tabindex="-1" text="3rd Quest Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuestLabel3" class="QuestMini CutoffOverflow" style="-unity-font: url(&apos;project://database/Assets/UI/Fonts/TAHOMA_0.TTF?fileID=12800000&amp;guid=3b6f2b0b030e7a943b518e452621a45b&amp;type=3#TAHOMA_0&apos;); -unity-font-definition: initial;" />
         <ui:Label tabindex="-1" text="3rd Task" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TaskLabel3" class="TaskMini CutoffOverflow" />
     </ui:VisualElement>
+    <ui:VisualElement name="RerollScreen" style="flex-grow: 1; position: absolute; align-items: stretch; align-self: center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; justify-content: flex-start; display: none;">
+        <ui:VisualElement name="Fade" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.59); width: 4000px; height: 2000px; position: absolute; align-self: center;" />
+        <ui:VisualElement name="RerollHolder" style="flex-grow: 1; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto;">
+            <ui:Label tabindex="-1" text="Die Roll Failed.&#10;Watch an ad to reroll?" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RerollText" style="-unity-text-align: upper-center; -unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/UI/Fonts/TAHOMAB0.TTF?fileID=12800000&amp;guid=62acd46861f504a418016985ebc73a94&amp;type=3#TAHOMAB0&apos;);" />
+            <ui:VisualElement name="RerollButtons" style="flex-grow: 1; flex-direction: row; align-self: stretch; justify-content: space-around; align-items: stretch;">
+                <ui:Button text="Close" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RerollNoButton" class="RerollLabels" style="-unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/UI/Fonts/TAHOMAB0.TTF?fileID=12800000&amp;guid=62acd46861f504a418016985ebc73a94&amp;type=3#TAHOMAB0&apos;);" />
+                <ui:Button text="Reroll" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RerollYesButton" class="RerollLabels" style="-unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/UI/Fonts/TAHOMAB0.TTF?fileID=12800000&amp;guid=62acd46861f504a418016985ebc73a94&amp;type=3#TAHOMAB0&apos;);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

@@ -11,16 +11,11 @@ public class DiceManager : MonoBehaviour
     [SerializeField] private GameObject _dieObject = null;
     [SerializeField] private float _diceRollWaitTime = 3f;
     [SerializeField] private readonly Vector3 _defaultDropPos = new Vector3(0, 5, 0);
-    private Vector3 _lastDropPos;
-
-    private bool m_DebugAlwaysWin = false;
-    private bool m_DebugAlwaysLose = false;
-
-    [HideInInspector] public bool IsAlwaysWin { get { return this.m_DebugAlwaysWin; } set { this.m_DebugAlwaysWin = value; } }
-    [HideInInspector] public bool IsAlwaysLoss { get { return this.m_DebugAlwaysLose; } set { this.m_DebugAlwaysLose = value; } }
 
 
-    private int _nMinRollValue;
+    private bool _hasAlreadyRerolled = false;
+    private RollArgs _rollArgs;
+    private DieArgs _rollResult;
     public EventHandler<DieArgs> OnDiceResultObservsers;
 
 
@@ -35,6 +30,7 @@ public class DiceManager : MonoBehaviour
         Instance = this;
     }
 
+    
     public void DoRoll(bool isInstantaneousRoll = false, int nMin = 1, Vector3 rollPos = default, Vector3 throwDirection = default)
     {
         if (_dieObject.activeSelf)
@@ -43,16 +39,19 @@ public class DiceManager : MonoBehaviour
             return;
         }
 
-        this._nMinRollValue = nMin;
+        //Overwrite if rolling from default
+        rollPos = (rollPos == default) ?
+            _defaultDropPos :
+            rollPos;
+        
+        
+        this._rollArgs = new RollArgs(nMin, isInstantaneousRoll, rollPos, throwDirection);
+
 
         //Create the dice
         this._dieObject.SetActive(true);
         
-        _lastDropPos = (rollPos == default) ?
-            _defaultDropPos :
-            rollPos;
-
-        this._dieObject.transform.position = _lastDropPos;
+        this._dieObject.transform.position = _rollArgs.DropPosition;
         this.RandomizeDieRotation();
 
 
@@ -78,7 +77,7 @@ public class DiceManager : MonoBehaviour
     IEnumerator WaitForDiceValue(float _waitTime)
     {
         yield return new WaitForSeconds(_waitTime);
-        this.BroadcastValue();
+        this.CheckResult();
     }
 
     private void RandomizeDieRotation()
@@ -91,16 +90,45 @@ public class DiceManager : MonoBehaviour
         _dieObject.transform.Rotate(randRot);
     }
 
-    private void BroadcastValue()
+
+    private void CheckResult()
     {
         int nResult = _dieObject.GetComponent<DieScript>().GetDieRollValue();
         Debug.Log("[Rolled] : " + nResult);
 
-        this.OnDiceResultObservsers?.Invoke(this, new DieArgs(this._nMinRollValue, nResult, nResult >= _nMinRollValue));
-
+        //Store the result
+        this._rollResult = new DieArgs(_rollArgs.MinRollValue, nResult, nResult >= _rollArgs.MinRollValue);
 
         //Disable the dice once done
         _dieObject.SetActive(false);
+
+
+
+
+        //ALLOW REROLL WHEN 
+        if (GameSettings.IS_REROLL_ENABLED && !_rollResult.RollPass && !_hasAlreadyRerolled)
+        {
+            this._hasAlreadyRerolled = true;
+
+            UIManager.Instance.GetGameHUD().ToggleRerollUI(true);
+        }
+        else
+        {
+            this._hasAlreadyRerolled = false;
+            //AdManager.Instance.OnAdCompleted -= this.TriggerReroll;
+            
+            this.BroadcastResult();
+        }
+    }
+
+    public void TriggerReroll(object sender, EventArgs ignore)
+    {
+        this.DoRoll(_rollArgs.IsInstantaneousRoll, _rollArgs.MinRollValue, _rollArgs.DropPosition, _rollArgs.ThrowDirection);
+    }
+
+    public void BroadcastResult()
+    {
+        this.OnDiceResultObservsers?.Invoke(this, _rollResult);
 
         //Reset the camera
         CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.PLAYER_CAM);

@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class GameHUD : MonoBehaviour
 {
-    private VisualElement root;
+    private VisualElement m_Root;
+
 
     private Image m_Interact;
     private Image m_Attack;
@@ -40,27 +42,27 @@ public class GameHUD : MonoBehaviour
 
     void OnEnable()
     {
-        this.root = GetComponent<UIDocument>().rootVisualElement;
+        this.m_Root = GetComponent<UIDocument>().rootVisualElement;
 
-        this.m_Interact = this.root.Q<Image>("InteractButton");
-        this.m_Attack = this.root.Q<Image>("AttackButton");
+        this.m_Interact = this.m_Root.Q<Image>("InteractButton");
+        this.m_Attack = this.m_Root.Q<Image>("AttackButton");
 
-        this.m_Player1Portrait = this.root.Q<Image>("Player1Image");
-        this.m_Player2Portrait = this.root.Q<Image>("Player2Image");
-        this.m_Player3Portrait = this.root.Q<Image>("Player3Image");
-        this.m_Player4Portrait = this.root.Q<Image>("Player4Image");
+        this.m_Player1Portrait = this.m_Root.Q<Image>("Player1Image");
+        this.m_Player2Portrait = this.m_Root.Q<Image>("Player2Image");
+        this.m_Player3Portrait = this.m_Root.Q<Image>("Player3Image");
+        this.m_Player4Portrait = this.m_Root.Q<Image>("Player4Image");
 
-        this.m_CombatMoveButton = this.root.Q<Image>("CombatMoveButton");
-        this.m_CombatAttackButton = this.root.Q<Image>("CombatAttackButton");
-        this.m_CombatEndTurnButton = this.root.Q<Image>("CombatEndButton");
+        this.m_CombatMoveButton = this.m_Root.Q<Image>("CombatMoveButton");
+        this.m_CombatAttackButton = this.m_Root.Q<Image>("CombatAttackButton");
+        this.m_CombatEndTurnButton = this.m_Root.Q<Image>("CombatEndButton");
 
-        this.m_DiceRollLabel = this.root.Q<Label>("DiceRollLabel");
+        this.m_DiceRollLabel = this.m_Root.Q<Label>("DiceRollLabel");
 
-        this.m_TurnIndicator = this.root.Q<VisualElement>("TurnIndicator");
+        this.m_TurnIndicator = this.m_Root.Q<VisualElement>("TurnIndicator");
 
-        this.m_ButtonContainer = this.root.Q<VisualElement>("Buttons");
-        this.m_CombatButtonContainer = this.root.Q<VisualElement>("CombatButtons");
-        this.m_QuestContainer = this.root.Q<VisualElement>("QuestStuff");
+        this.m_ButtonContainer = this.m_Root.Q<VisualElement>("Buttons");
+        this.m_CombatButtonContainer = this.m_Root.Q<VisualElement>("CombatButtons");
+        this.m_QuestContainer = this.m_Root.Q<VisualElement>("QuestStuff");
 
         this.ClickedImage(this.m_Interact, "Interact");
         this.ClickedImage(this.m_Attack, "Attack");
@@ -73,36 +75,42 @@ public class GameHUD : MonoBehaviour
         this.ClickedImage(this.m_CombatMoveButton, "ShowMove");
         this.ClickedImage(this.m_CombatAttackButton, "ShowAttack");
         this.ClickedImage(this.m_CombatEndTurnButton, "EndTurn");
-        
-        //this.m_QuestLabel = this.root.Q<Label>("QuestLabel");
-        //this.m_TaskLabel = this.root.Q<Label>("TaskLabel");
 
-        m_QuestLabels = new Label[]{
-            this.root.Q<Label>("QuestLabel"),
-            this.root.Q<Label>("QuestLabel2"),
-            this.root.Q<Label>("QuestLabel3")
-        };
+        //this.m_QuestLabel = this.m_Root.Q<Label>("QuestLabel");
+        //this.m_TaskLabel = this.m_Root.Q<Label>("TaskLabel");
 
-        m_TaskLabels = new Label[]{
-            this.root.Q<Label>("TaskLabel"),
-            this.root.Q<Label>("TaskLabel2"),
-            this.root.Q<Label>("TaskLabel3")
-        };
+        this.LinkQuestUI();
 
         this.m_PlayerFrames = new VisualElement[]
         {
-            this.root.Q<VisualElement>("Player1Frame"),
-            this.root.Q<VisualElement>("Player2Frame"),
-            this.root.Q<VisualElement>("Player3Frame"),
-            this.root.Q<VisualElement>("Player4Frame")
+            this.m_Root.Q<VisualElement>("Player1Frame"),
+            this.m_Root.Q<VisualElement>("Player2Frame"),
+            this.m_Root.Q<VisualElement>("Player3Frame"),
+            this.m_Root.Q<VisualElement>("Player4Frame")
         };
 
         this.m_PlayerHealth = new Label[]
         {
-            this.root.Q<Label>("Player1Health"),
-            this.root.Q<Label>("Player2Health"),
-            this.root.Q<Label>("Player3Health"),
-            this.root.Q<Label>("Player4Health")
+            this.m_Root.Q<Label>("Player1Health"),
+            this.m_Root.Q<Label>("Player2Health"),
+            this.m_Root.Q<Label>("Player3Health"),
+            this.m_Root.Q<Label>("Player4Health")
+        };
+    }
+
+
+    private void LinkQuestUI()
+    {
+        m_QuestLabels = new Label[]{
+            this.m_Root.Q<Label>("QuestLabel"),
+            this.m_Root.Q<Label>("QuestLabel2"),
+            this.m_Root.Q<Label>("QuestLabel3")
+        };
+
+        m_TaskLabels = new Label[]{
+            this.m_Root.Q<Label>("TaskLabel"),
+            this.m_Root.Q<Label>("TaskLabel2"),
+            this.m_Root.Q<Label>("TaskLabel3")
         };
     }
 
@@ -285,4 +293,55 @@ public class GameHUD : MonoBehaviour
             labelsUsed++;
         }
     }
+
+
+    public void ToggleRerollUI(bool bEnable)
+    {
+        VisualElement rerollRoot = this.m_Root.Q<VisualElement>("RerollScreen");
+        Button rerollYes = rerollRoot.Q<Button>("RerollYesButton");
+        Button rerollNo = rerollRoot.Q<Button>("RerollNoButton");
+
+
+        if (bEnable)
+        {
+            rerollRoot.style.display = DisplayStyle.Flex;
+            rerollYes.clicked += AdManager.Instance.ShowAd;
+
+            rerollYes.clicked += CloseRerollUI;
+            rerollNo.clicked += CloseRerollUI;
+            rerollNo.clicked += DiceManager.Instance.BroadcastResult;
+
+            this.ToggleControlsUI(false);
+        }
+        else
+        {
+            rerollYes.clicked -= AdManager.Instance.ShowAd;
+            rerollYes.clicked -= CloseRerollUI;
+            rerollNo.clicked -= CloseRerollUI;
+            rerollNo.clicked -= DiceManager.Instance.BroadcastResult;
+
+            rerollRoot.style.display = DisplayStyle.None;
+
+            this.ToggleControlsUI(true);
+        }
+    }
+
+
+    private void CloseRerollUI()
+    {
+        ToggleRerollUI(false);
+    }
+
+    private void ToggleControlsUI(bool bVisible)
+    {
+        DisplayStyle display = (bVisible) ? DisplayStyle.Flex : DisplayStyle.None;
+
+
+        this.m_Interact.style.display = display;
+        this.m_Attack.style.display = display;
+
+        
+        this.m_Joystick.GetComponentInParent<Canvas>().enabled = bVisible;
+    }
+
 }

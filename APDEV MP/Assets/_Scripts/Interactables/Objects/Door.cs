@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class Door : MonoBehaviour, IInteractable
 {
     [SerializeField] EnumObjectID _objectID = EnumObjectID.NONE;
     [SerializeField] int _targetScene;
     [SerializeField] int _spawnAreaIndex = 0;
+    [SerializeField] List<AssetLabelReference> _connectedRoomLabels;
 
     [Header("Door Locking")]
     [SerializeField] string _keyName;

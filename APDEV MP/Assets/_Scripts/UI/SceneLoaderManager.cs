@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -20,7 +21,10 @@ public class SceneLoaderManager : MonoBehaviour
 
     [Header("Use in refreshing data")]
     public bool IsNewPlayerSave;
-    
+
+
+    //WIP
+    //public List<AssetLabelReference> _targetZone;
 
     public void LoadScene(int sceneId, int spawnAreaIndex = 0)
     {
@@ -36,10 +40,16 @@ public class SceneLoaderManager : MonoBehaviour
             CleanUpDontDestroys();
         }
 
-        this.CheckSaveAction(sceneId, SceneManager.GetActiveScene().buildIndex);
+        int currSceneID = SceneManager.GetActiveScene().buildIndex;
+        this.CheckSaveAction(sceneId, currSceneID);
 
         this.m_SpawnAreaIndex = spawnAreaIndex;
-        this.StartCoroutine(this.ShowLoadingScreen(sceneId));
+
+        //IF STILL THE SAME SCENE, DON'T RELOAD
+        if(sceneId != currSceneID)
+        {
+            this.StartCoroutine(this.ShowLoadingScreen(sceneId));
+        }
     }
 
 

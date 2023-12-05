@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 67fbf3396bf5cb541b31510cc7fb5290
+  m_SerializeEntries:
+  - m_GUID: bc2b3ca59ca76434fb4648dbd7306030
+    m_Address: Assets/Prefabs/Interiors/4-0_ FirstFloor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene4 ViriglHouse
+    - 4-0 First Floor
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a81946e501071f46a9e8c26df9968dd
+    m_Address: Assets/Prefabs/Interiors/4-1_ SecondFloor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene4 ViriglHouse
+    - 4-1 Second Floor
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3829884c6a266fb49bd9e1474ace9ccf, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1960a421980fdb04ba0eb42ec7831053, type: 2}
+    - {fileID: 11400000, guid: 5171efe7f688b024cbb94d69496df501, type: 2}

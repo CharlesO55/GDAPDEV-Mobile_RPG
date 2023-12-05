@@ -21825,6 +21825,8 @@ MonoBehaviour:
   m_UnitList: []
   m_IsViewingMoveRange: 0
   m_IsViewingAttackRange: 0
+  m_ActiveUnitMoves: 0
+  m_ActiveUnitAttackRange: 0
 --- !u!4 &1117551587
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CharacterScript : MonoBehaviour
 {
@@ -11,6 +12,26 @@ public class CharacterScript : MonoBehaviour
     [SerializeField] private CharacterData _characterData;
     public CharacterData CharacterData { get { return this._characterData; } }
 
+    private void Update()
+    {
+        NavMeshAgent m_Agent = this.GetComponent<NavMeshAgent>();
+
+
+        if (!CombatManager.Instance.IsInCombat)
+        {
+            //m_Agent.SetDestination(PartyManager.Instance.ActivePlayer.transform.position);
+            m_Agent.stoppingDistance = 4.0f;
+        }
+
+        else
+            m_Agent.stoppingDistance = 0.2f;
+
+        if (this.gameObject != PartyManager.Instance.ActivePlayer && m_Agent.velocity != Vector3.zero)
+            this.GetComponent<Animator>().SetBool("isRunning", true);
+
+        else if (this.gameObject != PartyManager.Instance.ActivePlayer)
+            this.GetComponent<Animator>().SetBool("isRunning", false);
+    }
 
     public void Init(CharacterData characterData)
     {

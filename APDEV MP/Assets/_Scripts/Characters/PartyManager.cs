@@ -235,6 +235,7 @@ public class PartyManager : MonoBehaviour
         }
 
         characterObject.GetComponent<NavMeshAgent>().stoppingDistance = 0.2f;
+        characterObject.GetComponent<NavMeshAgent>().speed = 8.0f;
         characterObject.GetComponent<Rigidbody>().isKinematic = true;
         characterObject.tag = "Ally";
 

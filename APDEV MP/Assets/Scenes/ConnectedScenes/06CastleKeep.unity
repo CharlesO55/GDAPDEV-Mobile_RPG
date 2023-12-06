@@ -394,7 +394,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95968797}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000010589019, y: 0.7882055, z: -0.61541224, w: 0.0000000135621665}
+  m_LocalRotation: {x: -0.0000000105890186, y: 0.7882055, z: -0.61541224, w: -0.000000013562166}
   m_LocalPosition: {x: 0, y: 4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1945,7 +1945,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071225586}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25881714, y: 0.000000016620104, z: -0.0000000044533066, w: 0.96592635}
+  m_LocalRotation: {x: 0.25881714, y: -0.000000016620094, z: 0.000000004453304, w: 0.96592635}
   m_LocalPosition: {x: 0, y: 15, z: -25.981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3956,7 +3956,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054088488}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25881714, y: 0.000000016620104, z: -0.0000000044533066, w: 0.96592635}
+  m_LocalRotation: {x: 0.25881714, y: -0.000000016620094, z: 0.000000004453304, w: 0.96592635}
   m_LocalPosition: {x: 0, y: 15, z: -25.981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4126,6 +4126,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZoneTriggerThroneFight
       objectReference: {fileID: 0}
+    - target: {fileID: 7212887012168295727, guid: 44e8f520fd0617149ac0ff1285c4a364,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4211,6 +4216,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ZoneEnterCastle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480950119394160749, guid: 1819c26e873da8a47836e951dd085a74,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5123255890201694149, guid: 1819c26e873da8a47836e951dd085a74,
         type: 3}

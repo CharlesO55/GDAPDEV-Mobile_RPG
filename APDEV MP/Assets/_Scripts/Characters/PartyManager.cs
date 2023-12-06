@@ -101,7 +101,6 @@ public class PartyManager : MonoBehaviour
 
         foreach (CharacterData _saveData in SaveSystem.LoadList<CharacterData>(SaveSystem.SAVE_FILE_ID.PARTY_DATA))
         {
-            Debug.Log("Check::::::::::::::::::::::::::: " + _saveData.PlayerName);
             this._partyEntities.Add(CreateCharacter(_saveData));
         }
     }
@@ -241,6 +240,28 @@ public class PartyManager : MonoBehaviour
 
         Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());
         return characterObject;
+    }
+
+    public void MoveToSpawnLoc(int spawnAreaIndex)
+    {
+        if(spawnAreaIndex < 0 || spawnAreaIndex >= this._spawnAreas.Count)
+        {
+            Debug.LogError("MoveToSpawnLoc failed. SpawnAreaIndex is out range");
+        }
+
+
+        //MOVE THE PLAYERS
+        foreach(GameObject partyMember in this._partyEntities)
+        {
+            NavMeshAgent agent = partyMember.GetComponent<NavMeshAgent>();
+
+            agent.enabled = false;
+            partyMember.transform.position = this._spawnAreas[spawnAreaIndex].transform.position;
+            agent.velocity = Vector3.zero;
+            agent.enabled = true;
+        }
+        //CLEAR THE PREVIOUS REGISTRY
+        InteractableDetector.Instance.ClearInteratableList();
     }
 
     public List<GameObject> PartyEntities { get { return this._partyEntities; } }

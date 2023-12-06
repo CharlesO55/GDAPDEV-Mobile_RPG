@@ -95,4 +95,9 @@ public class InteractableDetector : MonoBehaviour
     {
         this._interactableObjects.Remove(toRemove);
     }
+
+    public void ClearInteratableList()
+    {
+        this._interactableObjects.Clear();
+    }
 }

@@ -86,9 +86,20 @@ MonoBehaviour:
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
+    - Scene1 Holden
+    - Scene2 TheJuicyPub
+    - Scene3 TheTrustyComet
+    - 3-0 First Floor
+    - 3-1 Second Floor
     - Scene4 ViriglHouse
     - 4-0 First Floor
     - 4-1 Second Floor
+    - Scene5 AbandonedHouse
+    - 5-0 Lobby
+    - 5-1 Basement
+    - Scene6 CreightonKeep
+    - 6-0 Dungeon
+    - 6-1 Throne Room
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: f6a6494641ecebd43ab9bd296e60eef3, type: 2}

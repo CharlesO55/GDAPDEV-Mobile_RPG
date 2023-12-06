@@ -45,11 +45,7 @@ public class SceneLoaderManager : MonoBehaviour
 
         this.m_SpawnAreaIndex = spawnAreaIndex;
 
-        //IF STILL THE SAME SCENE, DON'T RELOAD
-        if(sceneId != currSceneID)
-        {
-            this.StartCoroutine(this.ShowLoadingScreen(sceneId));
-        }
+        this.StartCoroutine(this.ShowLoadingScreen(sceneId));    
     }
 
 

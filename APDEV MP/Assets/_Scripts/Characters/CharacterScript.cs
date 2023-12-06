@@ -12,18 +12,13 @@ public class CharacterScript : MonoBehaviour
     public CharacterData CharacterData { get { return this._characterData; } }
 
 
-    public void Init(CharacterData characterData, bool IsInitializeFromTemplate)
+    public void Init(CharacterData characterData)
     {
         this._characterData = characterData;
         this.name = characterData.PlayerName;
 
-        //NEW SCRIPT. 
-        //OVERWRITES WHEN NEW GAME FROM TEMPLATE
-        if (IsInitializeFromTemplate)
-        {
-            this._characterData.InitializeClass(characterData.CharacterClass);
-        }
-        //this._characterData.InitializeClass(EnumUnitClass.PALADIN); //For testing. REMOVE WHEN UI FOR CLASS SELECTION IS DONE
+
+
 
         //RIGIDBODY INITIALIZATION
         if (this._rb == null)

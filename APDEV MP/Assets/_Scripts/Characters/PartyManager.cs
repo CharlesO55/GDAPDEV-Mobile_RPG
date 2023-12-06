@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.VFX;
@@ -12,7 +13,7 @@ public class PartyManager : MonoBehaviour
     [Header("Spawning")]
     [SerializeField] private List<BoxTool> _spawnAreas;
 
-
+    /* PARTY MEMBERS */
     private List<GameObject> _partyEntities;
     private GameObject _activePlayer;
     public GameObject ActivePlayer
@@ -24,7 +25,9 @@ public class PartyManager : MonoBehaviour
     [Header("FORCE OVERWRITE On Initialize Only")]
     [Tooltip("Enable to create party data from fields, otherwise from save data")]
     [SerializeField] private bool isCreateDataFromField;
-    [SerializeField] private List<CharacterData> _newPartyMembers;
+    [SerializeField] private SO_UnitInfo SO_playerPresetData;
+    
+    //[SerializeField] private List<CharacterData> _newPartyMembers;
 
     public EventHandler<GameObject> OnSwitchPlayerEvent;
 
@@ -66,16 +69,15 @@ public class PartyManager : MonoBehaviour
     public void SavePartyData(bool bSaveFromTemplate)
     {
         Debug.LogWarning("Overwriting party members save data");
-        //SaveSystem.Save<CharacterData>(_newPartyMembers, SaveSystem.SAVE_FILE_ID.PARTY_DATA);
 
         List<CharacterData> dataToSave = new();
         //OVERWRITE WITH TEMPLATE PARAMS
         if (bSaveFromTemplate)
         {
-            foreach(CharacterData data in _newPartyMembers)
+            foreach(CharacterData data in SO_playerPresetData.UnitPresetDataList)
             {
-                data.InitializeClass(data.CharacterClass);
-                dataToSave.Add(data);
+                CharacterData dataCopy = new(data, true);
+                dataToSave.Add(dataCopy);
             }
             Debug.LogWarning("NEW SAVE: FROM TEMPLATE");
         }
@@ -90,7 +92,6 @@ public class PartyManager : MonoBehaviour
             Debug.LogWarning("NEW SAVE: FROM PLAYERS CURR VALUES");
         }
 
-        //ELSE USE THE TEMPLATE
         SaveSystem.Save<CharacterData>(dataToSave, SaveSystem.SAVE_FILE_ID.PARTY_DATA);
     }
 
@@ -100,6 +101,7 @@ public class PartyManager : MonoBehaviour
 
         foreach (CharacterData _saveData in SaveSystem.LoadList<CharacterData>(SaveSystem.SAVE_FILE_ID.PARTY_DATA))
         {
+            Debug.Log("Check::::::::::::::::::::::::::: " + _saveData.PlayerName);
             this._partyEntities.Add(CreateCharacter(_saveData));
         }
     }
@@ -198,7 +200,7 @@ public class PartyManager : MonoBehaviour
         return null;
     }
 
-    private GameObject CreateCharacter(CharacterData _saveData)
+    private GameObject CreateCharacter(CharacterData saveData)
     {
         int spawnAreaIndex = SceneLoaderManager.Instance.SpawnAreaIndex;
 
@@ -211,18 +213,12 @@ public class PartyManager : MonoBehaviour
             spawnAreaIndex = 0;
             Debug.LogError("SpawnAreaIndex is out of range");
         }
-        //int spawnAreaIndex = UnityEngine.Random.Range(0, _spawnAreas.Count);
 
-        //GameObject characterObject = Instantiate(_saveData.CharacterModel, _spawnAreas[spawnAreaIndex].getRandomSpawnPos(), Quaternion.identity, this.transform);
-
-
-
-        GameObject prefabModel = UnitclassModelLibrary.Instance.GetUnitModel(_saveData.CharacterClass);
-        GameObject characterObject = Instantiate(prefabModel, _spawnAreas[spawnAreaIndex].getRandomSpawnPos(), Quaternion.identity, this.transform);
-        //Debug.Log($"SPAWNED {prefabModel} OF TYPE {_saveData.CharacterClass}");
+        
+        GameObject characterObject = Instantiate(saveData.CharacterModel, _spawnAreas[spawnAreaIndex].getRandomSpawnPos(), Quaternion.identity, this.transform);
 
         //ADD COMPONENTS TO OUR CHARACTERS or DIRECTLY USE A PREFAB
-        characterObject.AddComponent<CharacterScript>().Init(_saveData, false/*SceneLoaderManager.Instance.IsNewGame || this.isCreateDataFromField*/);
+        characterObject.AddComponent<CharacterScript>().Init(saveData);
         characterObject.AddComponent<NavMeshAgent>();
 
 

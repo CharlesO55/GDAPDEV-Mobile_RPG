@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 [Serializable]
 public class CharacterData
@@ -20,6 +21,7 @@ public class CharacterData
     [Range(1, 24)][SerializeField] private int _charisma;
 
     [Range(0, 50)][SerializeField] private int _maxHealth;
+    [Range(0, 50)][SerializeField] private int _rawMaxHealth;
     [SerializeField] private int _currHealth;
 
     private int m_STRModifier;
@@ -34,7 +36,7 @@ public class CharacterData
     //METHODS
     public void InitializeClass(EnumUnitClass unitClass)
     {
-        switch(unitClass)
+        /*switch(unitClass)
         {
             case EnumUnitClass.FIGHTER:
                 this._strength      = 14;
@@ -92,7 +94,7 @@ public class CharacterData
 
             default:
                 break;
-        }
+        }*/
 
         this._class = unitClass;
         this.InitializeModifiers();
@@ -109,9 +111,40 @@ public class CharacterData
         this.m_CHAModifier = (this._charisma - 8) / 2;
     }
 
+    public CharacterData(CharacterData toCopy, bool isReinitializeHealth)
+    {
+        this._playerName = toCopy._playerName;
+        this._characterModel = toCopy._characterModel;
+        this._class = toCopy.CharacterClass;
+
+
+        this._strength = toCopy._strength;
+        this._constitution = toCopy._constitution;
+        this._dexterity = toCopy._dexterity;
+        this._intelligence = toCopy._intelligence;
+        this._wisdom = toCopy._wisdom;
+        this._charisma = toCopy._charisma;
+
+
+        this.InitializeModifiers();
+        this.m_Initiative = toCopy.Initiative;
+
+        if (isReinitializeHealth)
+        {
+            this._maxHealth = toCopy._rawMaxHealth;
+            this.InitializeHealthValues();
+        }
+        else
+        {
+            this._maxHealth = toCopy._maxHealth;
+            this._currHealth = toCopy._currHealth;
+        }
+    }
     private void InitializeHealthValues()
     {
-        switch(this._class)
+        Debug.LogWarning($"{this.PlayerName} ::::: {this._maxHealth} + {this.m_CONModifier}");
+        this._maxHealth += this.m_CONModifier;
+        /*switch(this._class)
         {
             case EnumUnitClass.FIGHTER:
             case EnumUnitClass.PALADIN:
@@ -130,7 +163,7 @@ public class CharacterData
 
             default:
                 break;
-        }
+        }*/
 
         this._currHealth = this._maxHealth;
     }
@@ -140,7 +173,7 @@ public class CharacterData
     public EnumUnitClass CharacterClass { get { return _class; } }
     public GameObject CharacterModel { get { return _characterModel; } }
 
-
+    
 
 
     [HideInInspector] public int Strength       { get { return this._strength; } }

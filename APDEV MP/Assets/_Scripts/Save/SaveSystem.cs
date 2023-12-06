@@ -45,7 +45,7 @@ public static class SaveSystem
     public static void Save<T>(List<T> itemToSave, SAVE_FILE_ID jsonFileID)
     {
         string fileLoc = SAVE_FOLDER + fileNamesDictionary[jsonFileID];
-        Debug.Log("Saving " + itemToSave + " to " + fileLoc);
+        Debug.LogWarning("Saving " + itemToSave + " to " + fileLoc);
 
         FileStream fileStream = new FileStream(fileLoc, FileMode.Create);
 

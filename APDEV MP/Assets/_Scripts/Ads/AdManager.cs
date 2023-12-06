@@ -8,7 +8,6 @@ public class AdManager : MonoBehaviour
     public static AdManager Instance;
 
     [SerializeField] private InterstitialAd m_Ad;
-    [SerializeField] private bool m_TestAd = false;
 
 
     //public EventHandler OnAdCompleted;
@@ -23,15 +22,6 @@ public class AdManager : MonoBehaviour
             Destroy(this.gameObject);
     }
 
-    private void Update()
-    {
-        if (this.m_TestAd)
-        {
-            Debug.Log("Start ad");
-            this.ShowAd();
-            this.m_TestAd = false;
-        }
-    }
 
     public void ShowAd()
     {

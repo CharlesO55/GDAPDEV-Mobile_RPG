@@ -85,7 +85,7 @@ public class GridStat : MonoBehaviour
                 CombatManager.Instance.CurrentUnitGrid = this.gameObject;
             }
 
-            else if (obj.CompareTag("Ally"))
+            if (obj.CompareTag("Ally"))
             {
                 this.UnitInTile = obj;
                 this.m_HasAllyUnit = true;

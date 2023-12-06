@@ -61,10 +61,12 @@ public class CombatManager : MonoBehaviour
                 GridStat m_TargetTile = args.ObjHit.GetComponent<GridStat>();
 
                 this.m_ActiveUnitMoves -= Mathf.Abs(m_CurrentTile.xLoc - m_TargetTile.xLoc) + Mathf.Abs(m_CurrentTile.yLoc - m_TargetTile.yLoc);
-                ;
+                
                 NavMeshAgent m_Agent = PartyManager.Instance.ActivePlayer.GetComponent<NavMeshAgent>();
                 m_Agent.SetDestination(args.ObjHit.transform.position);
                 StartCoroutine(this.WaitForMovement(m_TargetTile.xLoc, m_TargetTile.yLoc));
+
+                Debug.Log("MOVEMENT VALID");
             }
 
             else
@@ -169,7 +171,7 @@ public class CombatManager : MonoBehaviour
 
         if (m_AllyTargetData != null)
         {
-            if (m_HitChance < 10 + m_AllyTargetData.DEXMod)
+            if (m_HitChance < 10 + m_AllyTargetData.DEXMod + 3)
                 UIManager.Instance.ChangeText($"{m_EnemyAttackerData.PlayerName}'s attack on {m_AllyTargetData.PlayerName} has missed!");
 
             else if (m_HitChance == 20)
@@ -226,17 +228,15 @@ public class CombatManager : MonoBehaviour
     {
         switch(data.CharacterClass)
         {
-            case EnumUnitClass.FIGHTER:
-                return Random.Range(1, 5) + data.STRMod;
-
             case EnumUnitClass.PALADIN:
-                return Random.Range(1, 5) + data.STRMod;
+            case EnumUnitClass.FIGHTER:
+                return Random.Range(1, 3) + data.STRMod;
 
             case EnumUnitClass.ROGUE:
-                return Random.Range(1, 5) + data.DEXMod;
+                return Random.Range(1, 4) + data.DEXMod;
 
             case EnumUnitClass.MAGE:
-                return Random.Range(1, 7) + data.INTMod;
+                return Random.Range(1, 5) + data.INTMod;
 
             default:
                 return 0;
@@ -319,7 +319,7 @@ public class CombatManager : MonoBehaviour
         GridStat m_CurrentTile = this.m_CurrentUnitGrid.GetComponent<GridStat>();
         NavMeshAgent m_Agent = PartyManager.Instance.ActivePlayer.GetComponent<NavMeshAgent>();
 
-        while (m_Agent.remainingDistance >= m_Agent.stoppingDistance)
+        while (m_CurrentTile.xLoc != x && m_CurrentTile.yLoc != y)
         {
             PartyManager.Instance.ActivePlayer.GetComponent<Animator>().SetBool("isRunning", true);
             yield return null;

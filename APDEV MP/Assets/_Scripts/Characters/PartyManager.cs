@@ -235,6 +235,7 @@ public class PartyManager : MonoBehaviour
         }
 
         characterObject.GetComponent<NavMeshAgent>().stoppingDistance = 0.2f;
+        characterObject.GetComponent<Rigidbody>().isKinematic = true;
         characterObject.tag = "Ally";
 
         Debug.Log("[SPAWNED]" + characterObject.GetComponent<CharacterScript>().GetDetails());

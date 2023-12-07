@@ -8,23 +8,50 @@ public class MainMenuScript : MonoBehaviour
 {
     private VisualElement _root;
     private Button _start;
+    private Button _continue;
     private Button _quit;
     // Start is called before the first frame update
     void Start()
     {
         this._root = this.GetComponent<UIDocument>().rootVisualElement;
         this._start = this._root.Q<Button>("GameBegin");
+        this._continue = this._root.Q<Button>("GameContinue");
         this._quit = this._root.Q<Button>("GameQuit");
 
         this._start.clicked += this.StartGame;
+        this._continue.clicked += this.LoadGame;
         this._quit.clicked += this.QuitGame;
+    }
+
+    private void OnDestroy()
+    {
+        this._start.clicked -= this.StartGame;
+        this._continue.clicked -= this.LoadGame;
+        this._quit.clicked -= this.QuitGame;
     }
 
     private void StartGame()
     {
-        //SceneLoaderManager.Instance.ToggleNewGame(true);
+        SceneLoaderManager.Instance.IsNewPlayerSave = true;
         SceneLoaderManager.Instance.LoadScene(1);
     }
+
+    private void LoadGame()
+    {
+        SceneSaveData lastSceneSaved = SaveSystem.LoadSingle<SceneSaveData>(SaveSystem.SAVE_FILE_ID.SCENE_DATA);
+        
+        if(lastSceneSaved == null)
+        {
+            Debug.LogError("There is no save data for Last Scene Opened");
+            //START AS NEW GAME INSTEAD
+            this.StartGame();
+        }
+        else
+        {
+            SceneLoaderManager.Instance.LoadScene(lastSceneSaved.SceneIndex, lastSceneSaved.SpawnAreaIndex);
+        }
+    }
+
     private void QuitGame()
     {
         Application.Quit();

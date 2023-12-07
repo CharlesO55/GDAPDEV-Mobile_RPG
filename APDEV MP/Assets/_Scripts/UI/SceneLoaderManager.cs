@@ -19,12 +19,15 @@ public class SceneLoaderManager : MonoBehaviour
         get { return m_SpawnAreaIndex; }
     }
 
+
+
+    private SceneSaveData m_SaveData = new();
+
+
     [Header("Use in refreshing data")]
     public bool IsNewPlayerSave;
 
 
-    //WIP
-    //public List<AssetLabelReference> _targetZone;
 
     public void LoadScene(int sceneId, int spawnAreaIndex = 0)
     {
@@ -34,6 +37,10 @@ public class SceneLoaderManager : MonoBehaviour
             return;
         }
 
+        this.m_SaveData.SceneIndex = sceneId;
+        this.m_SaveData.SpawnAreaIndex = spawnAreaIndex;
+        SaveSystem.Save<SceneSaveData>(this.m_SaveData, SaveSystem.SAVE_FILE_ID.SCENE_DATA);
+
 
         if(sceneId == 0)
         {
@@ -41,24 +48,20 @@ public class SceneLoaderManager : MonoBehaviour
         }
 
         int currSceneID = SceneManager.GetActiveScene().buildIndex;
-        this.CheckSaveAction(sceneId, currSceneID);
-
+        this.SaveBeforeSceneChange(currSceneID);
+        
         this.m_SpawnAreaIndex = spawnAreaIndex;
 
         this.StartCoroutine(this.ShowLoadingScreen(sceneId));    
     }
 
-
-    private void CheckSaveAction(int targetScene, int currScene)
+    void SaveBeforeSceneChange(int currSceneID)
     {
-        //SAVE FROM TEMPLATE WHEN NEW GAME
-        if (currScene == 0 && targetScene > 0)
+        //DON'T SAVE AT TITLE AND END SCREEN
+        if(currSceneID != 0 && 
+            currSceneID != GameSettings.PLAYABLE_SCENES_INDEX_RANGE.Item2 + 1)
         {
-            IsNewPlayerSave = true;
-        }
-        //DO REGULAR SAVES WHEN SWITCHING BETWEEN SCENES EXCEPT RESULT
-        else if (targetScene != 7)
-        {
+            Debug.Log("Saving before scene change");
             PartyManager.Instance.SavePartyData(false);
         }
     }

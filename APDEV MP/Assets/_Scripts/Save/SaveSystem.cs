@@ -17,7 +17,8 @@ public static class SaveSystem
     public enum SAVE_FILE_ID
     {
         PARTY_DATA,
-        QUESTS_DATA
+        QUESTS_DATA,
+        SCENE_DATA
     }
 
 
@@ -34,7 +35,8 @@ public static class SaveSystem
         fileNamesDictionary = new Dictionary<SAVE_FILE_ID, string>()
         {
             { SAVE_FILE_ID.PARTY_DATA, "PartyData.json" },
-            { SAVE_FILE_ID.QUESTS_DATA, "QuestData.json" }
+            { SAVE_FILE_ID.QUESTS_DATA, "QuestData.json" },
+            { SAVE_FILE_ID.SCENE_DATA, "SceneData.json" }
         };
 
     }
@@ -45,7 +47,7 @@ public static class SaveSystem
     public static void Save<T>(List<T> itemToSave, SAVE_FILE_ID jsonFileID)
     {
         string fileLoc = SAVE_FOLDER + fileNamesDictionary[jsonFileID];
-        Debug.LogWarning("Saving " + itemToSave + " to " + fileLoc);
+        Debug.Log("Saving " + itemToSave + " to " + fileLoc);
 
         FileStream fileStream = new FileStream(fileLoc, FileMode.Create);
 
@@ -86,7 +88,7 @@ public static class SaveSystem
 
 
         if(jsonContent == null || jsonContent == "{}") {
-            Debug.Log("JSON is empty");
+            Debug.LogError("JSON is empty");
             return new List<T>();
         }
 
@@ -102,7 +104,7 @@ public static class SaveSystem
 
         if (jsonContent == null || jsonContent == "{}")
         {
-            Debug.Log("JSON is empty");
+            Debug.LogError("JSON is empty");
             return default (T);
         }
 

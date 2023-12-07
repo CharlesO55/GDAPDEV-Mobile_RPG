@@ -8,6 +8,7 @@
 }
 #BackgroundArt
 {
+    --unity-image: url("/Assets/Textures/UI/BackgroundImage.png");
     flex-grow: 1;
 }
 Label

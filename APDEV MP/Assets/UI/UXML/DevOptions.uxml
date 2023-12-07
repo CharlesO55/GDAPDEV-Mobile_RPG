@@ -1,13 +1,34 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/USS/DevOptionStyles.uss?fileID=7433441132597879392&amp;guid=62803d66d0b024045b867f4e2803ad60&amp;type=3#DevOptionStyles" />
-    <ui:VisualElement name="DevOptionsContainer">
-        <ui:VisualElement name="DevOptions">
-            <ui:Button name="AutoWinButton" text="Dice Roll Win" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class" />
-            <ui:Button name="AutoLoseButton" text="Dice Roll Fail" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class" />
-        </ui:VisualElement>
-        <ui:Button name="ReturnButton" text="Return" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class" />
-        <ui:VisualElement name="MoralityValue" style="flex-grow: 1;">
-            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MoralityLevel" />
+    <ui:VisualElement name="DevOptionsContainer" style="display: none; justify-content: center; align-self: auto; align-items: center;">
+        <ui:VisualElement name="OptionsContainer" style="flex-grow: 1; background-color: rgb(44, 53, 58); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; max-width: 80000px; max-height: 80%; width: 1500px; background-image: none;">
+            <ui:Label tabindex="-1" text="Developer Options" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DevOptionsName" style="position: absolute; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 84px; -unity-font-style: bold-and-italic; color: rgb(255, 255, 255); top: 6%; left: 3%; -unity-text-outline-width: 1px;" />
+            <ui:Button name="ReturnButton" text="X" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class" style="position: absolute; left: -7%; -unity-font-style: bold; height: 150px; width: 150px; border-top-left-radius: 90px; border-top-right-radius: 90px; border-bottom-right-radius: 90px; border-bottom-left-radius: 90px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; top: -7%; background-color: rgb(212, 51, 51);" />
+            <ui:VisualElement name="MoralityValue" style="flex-grow: 1; top: 45px; right: 30px;">
+                <ui:Label tabindex="-1" text="Morality" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MoralityLevel" />
+            </ui:VisualElement>
+            <ui:VisualElement name="DevOptions" style="left: 4%; top: 25%; flex-direction: row;">
+                <ui:VisualElement name="DiceRollOptions" style="flex-grow: 1;">
+                    <ui:VisualElement name="ForceWinDiv" style="flex-grow: 1; flex-direction: row;">
+                        <ui:Label tabindex="-1" text="Force NAT20" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ForceNAT20" style="-unity-font-style: bold-and-italic; font-size: 45px; color: rgb(255, 255, 255); width: 50%; -unity-text-outline-width: 1px;" />
+                        <ui:Button name="AutoWinButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class" style="width: 75px; height: 75px; border-top-left-radius: 90px; border-top-right-radius: 90px; border-bottom-right-radius: 90px; border-bottom-left-radius: 90px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ForceLoseDiv" style="flex-grow: 1; flex-direction: row; padding-top: 20px;">
+                        <ui:Label tabindex="-1" text="Force NAT1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ForceNAT1" style="-unity-font-style: bold-and-italic; font-size: 45px; color: rgb(255, 255, 255); width: 50%; -unity-text-outline-width: 1px;" />
+                        <ui:Button name="AutoLoseButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class" style="width: 75px; height: 75px; border-top-left-radius: 90px; border-top-right-radius: 90px; border-bottom-right-radius: 90px; border-bottom-left-radius: 90px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="CombatOptions" style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">
+                    <ui:VisualElement name="GodModeDiv" style="flex-grow: 1; flex-direction: row;">
+                        <ui:Label tabindex="-1" text="God Mode" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GodMode" style="-unity-font-style: bold-and-italic; font-size: 45px; color: rgb(255, 255, 255); width: 50%; -unity-text-outline-width: 1px;" />
+                        <ui:Button name="GodModeButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class" style="width: 75px; height: 75px; border-top-left-radius: 90px; border-top-right-radius: 90px; border-bottom-right-radius: 90px; border-bottom-left-radius: 90px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgb(255, 0, 0);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="EndCombatDiv" style="flex-grow: 1; flex-direction: row; padding-top: 20px;">
+                        <ui:Label tabindex="-1" text="End Combat" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EndCombat" style="-unity-font-style: bold-and-italic; font-size: 45px; color: rgb(255, 255, 255); width: 50%; -unity-text-outline-width: 1px;" />
+                        <ui:Button name="EndCombatButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class" style="width: 75px; height: 75px; border-top-left-radius: 90px; border-top-right-radius: 90px; border-bottom-right-radius: 90px; border-bottom-left-radius: 90px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgb(255, 0, 0);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

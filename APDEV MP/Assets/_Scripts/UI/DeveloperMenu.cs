@@ -14,6 +14,8 @@ public class DeveloperMenu : MonoBehaviour
     private Button autoWinButton;
     private Button autoLoseButton;
     private Button returnButton;
+    private Button godModeButton;
+    private Button endCombatButton;
 
     private Label m_MoralityLevel;
 
@@ -30,12 +32,16 @@ public class DeveloperMenu : MonoBehaviour
         this.autoWinButton = this.root.Q<Button>("AutoWinButton");
         this.autoLoseButton = this.root.Q<Button>("AutoLoseButton");
         this.returnButton = this.root.Q<Button>("ReturnButton");
+        this.godModeButton = this.root.Q<Button>("GodModeButton");
+        this.endCombatButton = this.root.Q<Button>("EndCombatButton");
 
         this.m_MoralityLevel = this.root.Q<Label>("MoralityLevel");
 
         this.autoWinButton.clicked += this.ToggleAutoWin;
         this.autoLoseButton.clicked += this.ToggleAutoLose;
         this.returnButton.clicked += this.ReturnToGame;
+        this.godModeButton.clicked += this.ToggleGodMode;
+        this.endCombatButton.clicked += this.EndCombat;
     }
 
     private void Update()
@@ -66,24 +72,6 @@ public class DeveloperMenu : MonoBehaviour
             ToggleAutoLose();
         }
         
-        /*if (!isAutoWin)
-        {
-            isAutoWin = true;
-            GameSettings.IS_DIEROLL_ALWAYS_WIN = true;
-            this.autoWinButton.style.backgroundColor = Color.green;
-
-            if (isAutoLose)
-            {
-                this.ToggleAutoLose();
-            }
-        }
- 
-        else
-        {
-            isAutoWin = false;
-            DiceManager.Instance.IsAlwaysWin = false;
-            this.autoWinButton.style.backgroundColor = Color.red;
-        }*/
     }
     private void ToggleAutoLose()
     {
@@ -98,25 +86,6 @@ public class DeveloperMenu : MonoBehaviour
         {
             ToggleAutoWin();
         }
-
-        /*if (!isAutoLose)
-        {
-            isAutoLose = true;
-            DiceManager.Instance.IsAlwaysLoss = true;
-            this.autoLoseButton.style.backgroundColor = Color.green;
-
-            if (isAutoWin)
-            {
-                this.ToggleAutoWin();
-            }
-        }
-
-        else
-        {
-            isAutoLose = false;
-            DiceManager.Instance.IsAlwaysLoss = false;
-            this.autoLoseButton.style.backgroundColor = Color.red;
-        }*/
     }
     private void ReturnToGame()
     {   
@@ -124,5 +93,19 @@ public class DeveloperMenu : MonoBehaviour
         Debug.Log(DebugginButton.isPaused);
         Time.timeScale = 1;
         this.ToggleVisibility(false);
+    }
+
+    private void ToggleGodMode()
+    {
+        Debug.Log("[DEVELOPER OPTIONS] : God Mode Toggled!");
+
+
+        GameSettings.IS_GODMODE_ON = !GameSettings.IS_GODMODE_ON;
+        this.godModeButton.style.backgroundColor = (GameSettings.IS_GODMODE_ON) ? Color.green : Color.red;
+    }
+
+    private void EndCombat()
+    {
+        CombatManager.Instance.EndCombat();
     }
 }

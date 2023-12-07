@@ -4,6 +4,10 @@
     justify-content: center;
 }
 
+#LoadingImage {
+    --unity-image: url("/Assets/Textures/UI/LoadingImage.png");
+}
+
 #Loading {
     color: rgb(255, 255, 255);
     align-self: center;

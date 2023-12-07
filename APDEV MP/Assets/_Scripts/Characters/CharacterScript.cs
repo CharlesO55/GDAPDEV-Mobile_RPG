@@ -16,7 +16,7 @@ public class CharacterScript : MonoBehaviour
     {
         /****************************
          * TEMPORARIL REMOVED *******/
-        //NavMeshAgent m_Agent = this.GetComponent<NavMeshAgent>();
+        NavMeshAgent m_Agent = this.GetComponent<NavMeshAgent>();
 
 
         if (!CombatManager.Instance.IsInCombat)
@@ -28,7 +28,7 @@ public class CharacterScript : MonoBehaviour
         else
             //m_Agent.stoppingDistance = 0.2f;
 
-        if (this.gameObject != PartyManager.Instance.ActivePlayer /*&& m_Agent.velocity != Vector3.zero*/)
+        if (this.gameObject == PartyManager.Instance.ActivePlayer && m_Agent.velocity != Vector3.zero)
             this.GetComponent<Animator>().SetBool("isRunning", true);
 
         else if (this.gameObject != PartyManager.Instance.ActivePlayer)

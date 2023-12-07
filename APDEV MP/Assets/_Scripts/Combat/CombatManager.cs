@@ -169,7 +169,7 @@ public class CombatManager : MonoBehaviour
         if (this.m_UnitList.Contains(PartyManager.Instance.PartyEntities[m_Rand]))
             m_AllyTargetData = PartyManager.Instance.PartyEntities[m_Rand].GetComponent<CharacterScript>().CharacterData;
 
-        if (m_AllyTargetData != null)
+        if (m_AllyTargetData != null || !GameSettings.IS_GODMODE_ON)
         {
             if (m_HitChance < 10 + m_AllyTargetData.DEXMod + 3)
                 UIManager.Instance.ChangeText($"{m_EnemyAttackerData.PlayerName}'s attack on {m_AllyTargetData.PlayerName} has missed!");
@@ -199,7 +199,7 @@ public class CombatManager : MonoBehaviour
         }
 
         else
-            Debug.LogWarning("Ally Does Not Exist");
+            Debug.LogWarning("Ally Does Not Exist or GodMode is On");
 
     }
 

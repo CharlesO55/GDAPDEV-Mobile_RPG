@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,7 +34,7 @@ public class MultipleQuestsManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            GameObject.DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -187,8 +188,9 @@ public class MultipleQuestsManager : MonoBehaviour
         {
             this.EndQuest(reference);
         }
-        
 
+
+        //SaveSystem.Save<>(this._stepTrackers, SaveSystem.SAVE_FILE_ID.QUESTS_DATA);
         UpdateUIQuestInfo();
     }
 
@@ -356,6 +358,7 @@ public class MultipleQuestsManager : MonoBehaviour
 
     public void AddToMorality(int nChangeBy)
     {
+        UIManager.Instance.ChangeText($"Morality changed by {nChangeBy}");
         this.m_PlayerMorality += nChangeBy;
     }
 }

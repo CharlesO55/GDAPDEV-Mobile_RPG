@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,11 @@ public class AssetSpawner : MonoBehaviour
     public static AssetSpawner Instance;
 
     [SerializeField] private List<AssetLabelReference> _labels;
-    [SerializeField] private List<GameObject> _spawnedObjects = new();
+
+    private readonly string SPAWN_HOLDER_TRANSFORM_NAME = "AddresableSpawnedItems";
+    private Transform _spawnHolder;
+
+    public bool IsSpawning { get; private set; }
 
     private void Awake()
     {
@@ -18,8 +23,6 @@ public class AssetSpawner : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
-            SceneManager.sceneLoaded += TriggerSpawnSceneObjects;
         }
         else
         {
@@ -27,9 +30,15 @@ public class AssetSpawner : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        SceneLoaderManager.Instance.OnLoadingScreenClose += TriggerSpawnSceneObjects;
+
+        this.TriggerSpawnSceneObjects(this, SceneManager.GetActiveScene());
+    }
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= TriggerSpawnSceneObjects;
+        SceneLoaderManager.Instance.OnLoadingScreenClose -= TriggerSpawnSceneObjects;
     }
 
     public void MarkNextSceneAssets(List<AssetLabelReference> nextSceneLabels)
@@ -39,16 +48,22 @@ public class AssetSpawner : MonoBehaviour
 
     public void DespawnObjects()
     {
-        foreach(GameObject obj in _spawnedObjects)
+        foreach(Transform child in _spawnHolder)
         {
-            Destroy(obj);
+            Destroy(child.gameObject);
         }
-
-        _spawnedObjects.Clear();
     }
 
-    private void TriggerSpawnSceneObjects(Scene scene, LoadSceneMode loadSceneMode)
+    private void TriggerSpawnSceneObjects(object sender, Scene scene)
     {
+        this._spawnHolder = new GameObject(SPAWN_HOLDER_TRANSFORM_NAME).transform;
+
+        if (_spawnHolder == null)
+        {
+            Debug.LogError("Asset Spawner requires AddresableSpawnedItems Transform to store spawned items");
+        }
+
+
         if(scene.buildIndex >= GameSettings.PLAYABLE_SCENES_INDEX_RANGE.Item1 && scene.buildIndex <= GameSettings.PLAYABLE_SCENES_INDEX_RANGE.Item2 )
         {
             this.SpawnSceneObjects(this._labels);
@@ -57,6 +72,8 @@ public class AssetSpawner : MonoBehaviour
 
     public void SpawnSceneObjects(List<AssetLabelReference> addressableLabels)
     {
+        this.IsSpawning = true;
+
         Addressables.LoadAssetsAsync<GameObject>(addressableLabels,
             InstantiateAsset,
             Addressables.MergeMode.Intersection,
@@ -64,12 +81,19 @@ public class AssetSpawner : MonoBehaviour
             ).Completed += (result) =>
             {
                 Debug.Log($"[{result.Status}]: Spawn");
+                this.IsSpawning = false;
             };
     }
 
     private void InstantiateAsset(GameObject result)
     {
+        if (result == null || _spawnHolder == null)
+        {
+            Debug.LogError("InstantiateAsset error. Missing holder or gameobjects");
+        }
+        
         Debug.Log($"Asset loaded: {result}");
-        this._spawnedObjects.Add(Instantiate(result));
+
+        Instantiate(result, _spawnHolder);
     }
 }

@@ -142,7 +142,7 @@ public class CharacterData
     }
     private void InitializeHealthValues()
     {
-        Debug.LogWarning($"{this.PlayerName} ::::: {this._maxHealth} + {this.m_CONModifier}");
+        //Debug.LogWarning($"{this.PlayerName} ::::: {this._maxHealth} + {this.m_CONModifier}");
         this._maxHealth += this.m_CONModifier;
         /*switch(this._class)
         {

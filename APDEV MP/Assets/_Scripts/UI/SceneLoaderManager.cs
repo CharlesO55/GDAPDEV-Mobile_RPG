@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -21,12 +22,13 @@ public class SceneLoaderManager : MonoBehaviour
 
 
 
-    private SceneSaveData m_SaveData = new();
+    private SceneSaveData m_SceneSaveData = new();
 
 
     [Header("Use in refreshing data")]
     public bool IsNewPlayerSave;
 
+    public EventHandler<Scene> OnLoadingScreenClose;
 
 
     public void LoadScene(int sceneId, int spawnAreaIndex = 0)
@@ -37,9 +39,9 @@ public class SceneLoaderManager : MonoBehaviour
             return;
         }
 
-        this.m_SaveData.SceneIndex = sceneId;
-        this.m_SaveData.SpawnAreaIndex = spawnAreaIndex;
-        SaveSystem.Save<SceneSaveData>(this.m_SaveData, SaveSystem.SAVE_FILE_ID.SCENE_DATA);
+        this.m_SceneSaveData.SceneIndex = sceneId;
+        this.m_SceneSaveData.SpawnAreaIndex = spawnAreaIndex;
+        SaveSystem.Save<SceneSaveData>(this.m_SceneSaveData, SaveSystem.SAVE_FILE_ID.SCENE_DATA);
 
 
         if(sceneId == 0)
@@ -79,6 +81,15 @@ public class SceneLoaderManager : MonoBehaviour
 
         yield return SceneManager.LoadSceneAsync(sceneId);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
+        
+        this.OnLoadingScreenClose?.Invoke(this, SceneManager.GetActiveScene());
+        
+        
+        while (AssetSpawner.Instance.IsSpawning)
+        {
+            yield return null;
+        }
+
         this.m_LoadingScreen.enabled = false;
     }
 

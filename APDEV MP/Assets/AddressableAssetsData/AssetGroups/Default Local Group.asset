@@ -17,39 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 67fbf3396bf5cb541b31510cc7fb5290
   m_SerializeEntries:
-  - m_GUID: bc2b3ca59ca76434fb4648dbd7306030
-    m_Address: Assets/Prefabs/Interiors/4-0_ FirstFloor.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scene4 ViriglHouse
-    - 4-0 First Floor
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4a81946e501071f46a9e8c26df9968dd
-    m_Address: Assets/Prefabs/Interiors/4-1_ SecondFloor.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scene4 ViriglHouse
-    - 4-1 Second Floor
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0348da6851ce5294f8948a298545ee04
-    m_Address: Assets/Prefabs/TownOfHolden.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scene1 Holden
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 020f230ef75ed55499badf9d128aadca
-    m_Address: Assets/Prefabs/Interiors/Interior_TJP.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scene2 TheJuicyPub
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a42b589f793090a46b2908568783cf81
-    m_Address: Assets/Prefabs/Buildings/TTC 1stFloor.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scene3 TheTrustyComet
-    - 3-0 First Floor
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7255bb5953e981d47bf185640119d14d
     m_Address: Assets/Prefabs/Buildings/TTC 2ndFloor.prefab
     m_ReadOnly: 0
@@ -57,33 +24,73 @@ MonoBehaviour:
     - Scene3 TheTrustyComet
     - 3-1 Second Floor
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5bf0f97fa0dd71c4cb9c8aea2fbf6ea6
-    m_Address: Assets/Prefabs/Buildings/AH_Lobby.prefab
+  - m_GUID: 076d9c2fbcfbdfa46b86e475ad05b99a
+    m_Address: Assets/Prefabs/Buildings/Addresable Prefab/CK ThroneRoom_Walls.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene6 CreightonKeep
+    - 6-1 Throne Room
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c8aafaabecfad843a50d8b7b3a899f6
+    m_Address: Assets/Prefabs/Buildings/Addresable Prefab/CK ThroneRoom_Decor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene6 CreightonKeep
+    - 6-1 Throne Room
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b59caa0573577848ba8aa98a772904a
+    m_Address: Assets/Prefabs/Buildings/Addresable Prefab/Holden_Buildings.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene1 Holden
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8991cff745db2a1418550387c35e90b0
+    m_Address: Assets/Prefabs/Buildings/Addresable Prefab/TJP_Decor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene2 TheJuicyPub
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1328df3c9c0599e4bb8bb733336f5c52
+    m_Address: Assets/Prefabs/Buildings/Addresable Prefab/TTC 1stFloor Decor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene3 TheTrustyComet
+    - 3-0 First Floor
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74f1e7285f9f2184a9bd380fdc107774
+    m_Address: Assets/Prefabs/Buildings/Addresable Prefab/VH 1stFloor_Decor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene4 ViriglHouse
+    - 4-0 First Floor
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8857a05bb5af4eb4f88a4bd030df04f2
+    m_Address: Assets/Prefabs/Buildings/Addresable Prefab/VH 2ndFloor_Decor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene4 ViriglHouse
+    - 4-1 Second Floor
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 84c7f21ba0b3c044abfc4edadccfea35
+    m_Address: Assets/Prefabs/Buildings/Addresable Prefab/AH_Lobby Decor.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scene5 AbandonedHouse
     - 5-0 Lobby
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3519c95a41724434fbe019ee4dd60e81
-    m_Address: Assets/Prefabs/Buildings/AH_WineCellar.prefab
+  - m_GUID: 232f78639d9cee544bea6fae9016c216
+    m_Address: Assets/Prefabs/Buildings/Addresable Prefab/AH_Basement Decor.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scene5 AbandonedHouse
     - 5-1 Basement
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0358ce62f60f122438dcc9d70f5cd9d2
-    m_Address: Assets/Prefabs/Buildings/CK_Entrance.prefab
+  - m_GUID: 11878af387bd6a747a847037f3d37ac8
+    m_Address: Assets/Prefabs/Buildings/Addresable Prefab/CK Entrance_Walls.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scene6 CreightonKeep
     - 6-0 Dungeon
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 68da6d63538e62045a8ed03f9a15b88e
-    m_Address: Assets/Prefabs/Buildings/CK_ThroneRoom.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scene6 CreightonKeep
-    - 6-1 Throne Room
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3829884c6a266fb49bd9e1474ace9ccf, type: 2}

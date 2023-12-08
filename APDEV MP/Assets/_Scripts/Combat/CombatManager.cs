@@ -63,7 +63,10 @@ public class CombatManager : MonoBehaviour
                 this.m_ActiveUnitMoves -= Mathf.Abs(m_CurrentTile.xLoc - m_TargetTile.xLoc) + Mathf.Abs(m_CurrentTile.yLoc - m_TargetTile.yLoc);
                 
                 NavMeshAgent m_Agent = PartyManager.Instance.ActivePlayer.GetComponent<NavMeshAgent>();
+
                 m_Agent.SetDestination(args.ObjHit.transform.position);
+                m_Agent.stoppingDistance = 0.2f;
+                m_Agent.isStopped = false;
                 StartCoroutine(this.WaitForMovement(m_TargetTile.xLoc, m_TargetTile.yLoc));
 
                 Debug.Log("MOVEMENT VALID");
@@ -351,13 +354,13 @@ public class CombatManager : MonoBehaviour
         this.CheckCombatEnd();
 
         this.m_IsInCombat = true;
+
+        foreach (GameObject member in PartyManager.Instance.PartyEntities)
+            member.GetComponent<NavMeshAgent>().isStopped = true;
+
         this.RetrieveUnits();
         this.SwitchNextActiveUnit();
 
-
-        /**********************
-         *    CAMERA TEST     *
-         *********************/
         CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.COMBAT_CAM);
     }
 
@@ -382,6 +385,9 @@ public class CombatManager : MonoBehaviour
 
         foreach (GameObject unit in this.m_UnitList)
             unit.GetComponent<CharacterScript>().CharacterData.Initiative = 0;
+
+        foreach (GameObject member in PartyManager.Instance.PartyEntities)
+            member.GetComponent<NavMeshAgent>().isStopped = true;
 
         this.m_UnitList.Clear();
         MusicManager.instance.RevertBGM();

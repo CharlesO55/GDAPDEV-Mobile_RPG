@@ -14,13 +14,39 @@ public class CharacterScript : MonoBehaviour
 
     private void Update()
     {
-        NavMeshAgent m_Agent = this.GetComponent<NavMeshAgent>();
+        if (this.TryGetComponent<NavMeshAgent>(out NavMeshAgent m_Agent))
+        {
+            if (this.gameObject != PartyManager.Instance.ActivePlayer)
+            {
+                if (!CombatManager.Instance.IsInCombat)
+                {
+                    m_Agent.SetDestination(PartyManager.Instance.ActivePlayer.transform.position);
+                    m_Agent.stoppingDistance = 2.5f;
+                    m_Agent.isStopped = false;
+                }
 
-        if (this.gameObject == PartyManager.Instance.ActivePlayer && m_Agent.velocity != Vector3.zero)
-            this.GetComponent<Animator>().SetBool("isRunning", true);
+                if (m_Agent.velocity != Vector3.zero)
+                    this.GetComponent<Animator>().SetBool("isRunning", true);
 
-        else if (this.gameObject != PartyManager.Instance.ActivePlayer)
-            this.GetComponent<Animator>().SetBool("isRunning", false);
+                else
+                    this.GetComponent<Animator>().SetBool("isRunning", false);
+            }
+
+            else
+            {
+                if (!CombatManager.Instance.IsInCombat)
+                    m_Agent.isStopped = true;
+            }
+
+            if (CombatManager.Instance.IsInCombat)
+            {
+                if (m_Agent.velocity != Vector3.zero)
+                    this.GetComponent<Animator>().SetBool("isRunning", true);
+
+                else
+                    this.GetComponent<Animator>().SetBool("isRunning", false);
+            }
+        }
     }
 
     public void Init(CharacterData characterData)

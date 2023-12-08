@@ -22,7 +22,7 @@ public class CameraTargetter : MonoBehaviour
     [SerializeField] float _maxZoom = 15;
     [SerializeField] float _minZoom = 5;
 
-    private Vector3 _zoomOffset;
+    [SerializeField] private Vector3 _zoomOffset = new Vector3(0, 5, 10);
 
 
     private void OnEnable()
@@ -30,19 +30,7 @@ public class CameraTargetter : MonoBehaviour
         PartyManager.Instance.OnSwitchPlayerEvent += SetTarget;
         GestureManager.Instance.OnSwipeDelegate += SwipeRotate;
         GestureManager.Instance.OnSpreadDelegate += SpreadZoom;
-
-
-
-        /*if(_activeCamera == null)
-        {
-            Debug.LogError("CameraTargetter requires Cinemachine Virtual Camera to be set");
-        }
-        _zoomOffset = _activeCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
-        */
-
-        this._zoomOffset = CustomCameraSwitcher.Instance.ActiveCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
     }
-
     private void OnDisable()
     {
         PartyManager.Instance.OnSwitchPlayerEvent -= SetTarget;
@@ -52,7 +40,6 @@ public class CameraTargetter : MonoBehaviour
 
     private void Update()
     {
-        //Always follow the target's position
         this.transform.position = _targetObject.transform.position;
 
         this.RotateCamera();    

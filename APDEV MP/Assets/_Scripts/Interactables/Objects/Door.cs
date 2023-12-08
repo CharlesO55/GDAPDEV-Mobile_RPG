@@ -20,7 +20,7 @@ public class Door : MonoBehaviour, IInteractable
 
     public void OnInteractInterface(EnumQuestAction questAction = EnumQuestAction.TALK)
     {
-        if (!string.IsNullOrEmpty(_keyName) && !InventoryManager.Instance.HasItem(_keyName))
+        if (!string.IsNullOrEmpty(_keyName) && !InventoryManager.Instance.HasItem(_keyName) && !GameSettings.IS_UNLOCK_ALL_DOORS)
         {
             UIManager.Instance.ChangeText("Door is LOCKED");
             Debug.Log($"{this.name} is LOCKED");

@@ -17,6 +17,7 @@ public class CustomCameraSwitcher : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
+            this.ActiveCamera = _cameras[0].virtualCam;
         }
         else
         {

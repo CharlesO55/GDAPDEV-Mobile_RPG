@@ -16,12 +16,11 @@ public class DeveloperMenu : MonoBehaviour
     private Button returnButton;
     private Button godModeButton;
     private Button endCombatButton;
+    private Button unlockDoorsButton;
 
     private Label m_MoralityLevel;
 
-    //public static bool isAutoWin = false;
-    //public static bool isAutoLose = false;
-    // Start is called before the first frame update
+    
     void Start()
     {
         this.DevMenu = this.gameObject.GetComponent<UIDocument>();
@@ -34,6 +33,7 @@ public class DeveloperMenu : MonoBehaviour
         this.returnButton = this.root.Q<Button>("ReturnButton");
         this.godModeButton = this.root.Q<Button>("GodModeButton");
         this.endCombatButton = this.root.Q<Button>("EndCombatButton");
+        this.unlockDoorsButton = this.root.Q<Button>("UnlockDoorsButton");
 
         this.m_MoralityLevel = this.root.Q<Label>("MoralityLevel");
 
@@ -42,8 +42,18 @@ public class DeveloperMenu : MonoBehaviour
         this.returnButton.clicked += this.ReturnToGame;
         this.godModeButton.clicked += this.ToggleGodMode;
         this.endCombatButton.clicked += this.EndCombat;
+        this.unlockDoorsButton.clicked += this.ToggleDoorUnlock;
     }
 
+    private void OnDestroy()
+    {
+        this.autoWinButton.clicked -= this.ToggleAutoWin;
+        this.autoLoseButton.clicked -= this.ToggleAutoLose;
+        this.returnButton.clicked -= this.ReturnToGame;
+        this.godModeButton.clicked -= this.ToggleGodMode;
+        this.endCombatButton.clicked -= this.EndCombat;
+        this.unlockDoorsButton.clicked -= this.ToggleDoorUnlock;
+    }
     private void Update()
     {
         this.m_MoralityLevel.text = "Morality: " + MultipleQuestsManager.Instance.PlayerMorality;
@@ -107,5 +117,11 @@ public class DeveloperMenu : MonoBehaviour
     private void EndCombat()
     {
         CombatManager.Instance.EndCombat();
+    }
+
+    private void ToggleDoorUnlock()
+    {
+        GameSettings.IS_UNLOCK_ALL_DOORS = !GameSettings.IS_UNLOCK_ALL_DOORS;
+        this.unlockDoorsButton.style.backgroundColor = (GameSettings.IS_UNLOCK_ALL_DOORS) ? Color.green : Color.red;
     }
 }

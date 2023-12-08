@@ -8,22 +8,37 @@
 {
 	display: none;
 	flex-grow: 1;
-
-
 }
+
+.MenuOptionsText{
+	-unity-font-style: bold-and-italic; 
+	font-size: 45px; 
+	color: white; 
+	width: 50%; 
+	-unity-text-outline-width: 1px;
+}
+.ToggleButtons{
+	width: 75px; 
+	height: 75px; 
+	border-radius: 90px;
+	border-color: black;
+	border-width: 5px;	
+	padding: 0px;
+	margin: 0px;
+
+	background-color: red;
+}
+.ToggleButtons:hover{
+	background-color: yellow;
+}
+
 #DevOptions
 {
 	top: 30%;
 	left: 25%;
 }
-#AutoWinButton
-{
-	background-color: rgb(255,0,0);
-}
-#AutoLoseButton
-{
-	background-color: rgb(255,0,0);
-}
+
+
 #ReturnButton
 {
 	height: 5%;

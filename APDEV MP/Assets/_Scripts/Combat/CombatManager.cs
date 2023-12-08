@@ -116,12 +116,14 @@ public class CombatManager : MonoBehaviour
                     m_DamagedUnitData.CurrHealth = 0;
 
                     this.m_UnitList.Remove(m_GridStat.UnitInTile);
+
+
+                    m_GridStat.UnitInTile.GetComponent<CharacterScript>().TriggerPlayerDeath();
+                    
+                    //PERHAPS DEATH ANIMATION FIRST BEFORE DISABLE?
                     m_GridStat.UnitInTile.SetActive(false);
 
 
-                    //TEST
-                    //m_GridStat.UnitInTile.GetComponent<CharacterScript>().TriggerPlayerDeath();
-                    //END
                     this.CheckCombatEnd();
                 }
 

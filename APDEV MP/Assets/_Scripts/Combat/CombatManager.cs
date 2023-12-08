@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Android;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
@@ -208,6 +209,7 @@ public class CombatManager : MonoBehaviour
                 m_AllyTargetData.CurrHealth = 0;
 
                 this.m_UnitList.Remove(PartyManager.Instance.PartyEntities[m_Rand]);
+                PartyManager.Instance.PartyEntities[m_Rand].GetComponent<CharacterScript>().TriggerPlayerDeath();
                 this.CheckCombatEnd();
             }
         }
@@ -362,14 +364,14 @@ public class CombatManager : MonoBehaviour
 
     public void BeginCombat()
     {
-        this.CheckCombatEnd();
-
         this.m_IsInCombat = true;
 
         foreach (GameObject member in PartyManager.Instance.PartyEntities)
             member.GetComponent<NavMeshAgent>().isStopped = true;
 
         this.RetrieveUnits();
+        this.CheckCombatEnd();
+
         this.SwitchNextActiveUnit();
 
         CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.COMBAT_CAM);
@@ -387,6 +389,9 @@ public class CombatManager : MonoBehaviour
                 return;
 
         this.EndCombat();
+
+        if (m_FirstUnitTag == "Hostile")
+            SceneLoaderManager.Instance.LoadScene(GameSettings.END_SCENE_INDEX, 0, true);
     }
 
     public void EndCombat()

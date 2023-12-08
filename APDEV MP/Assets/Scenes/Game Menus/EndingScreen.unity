@@ -440,6 +440,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edafe90ac978cc04a977f5a2325941f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_GoodScreen: {fileID: 21300000, guid: f073e2b662a4b9447810ecf44e2b3b36, type: 3}
+  m_NeutralScreen: {fileID: 21300000, guid: 9721efeb7f5015d4db1466b6e96c69b9, type: 3}
+  m_BadScreen: {fileID: 21300000, guid: ea0b11179a744e94eb9d46252dc47edf, type: 3}
+  m_DeadScreen: {fileID: 21300000, guid: 1cbc669f0f3060049a3d33d9ab018ac5, type: 3}
 --- !u!1 &1922571214
 GameObject:
   m_ObjectHideFlags: 0

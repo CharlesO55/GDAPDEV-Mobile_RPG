@@ -3,7 +3,6 @@ using Cinemachine.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CameraTargetter : MonoBehaviour
@@ -19,7 +18,7 @@ public class CameraTargetter : MonoBehaviour
 
     [Header("Zoom")]
     [SerializeField] float _zoomSpeeed = 150;
-    [SerializeField] Cinemachine.CinemachineVirtualCamera _virtualCamera;
+    //[SerializeField] Cinemachine.CinemachineVirtualCamera _activeCamera;
     [SerializeField] float _maxZoom = 15;
     [SerializeField] float _minZoom = 5;
 
@@ -32,12 +31,16 @@ public class CameraTargetter : MonoBehaviour
         GestureManager.Instance.OnSwipeDelegate += SwipeRotate;
         GestureManager.Instance.OnSpreadDelegate += SpreadZoom;
 
-        if(_virtualCamera == null)
+
+
+        /*if(_activeCamera == null)
         {
             Debug.LogError("CameraTargetter requires Cinemachine Virtual Camera to be set");
         }
-        _zoomOffset = _virtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
-        
+        _zoomOffset = _activeCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
+        */
+
+        this._zoomOffset = CustomCameraSwitcher.Instance.ActiveCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
     }
 
     private void OnDisable()
@@ -52,7 +55,7 @@ public class CameraTargetter : MonoBehaviour
         //Always follow the target's position
         this.transform.position = _targetObject.transform.position;
 
-        this.RotateCamera();
+        this.RotateCamera();    
     }
 
 
@@ -115,14 +118,16 @@ public class CameraTargetter : MonoBehaviour
 
     private void ZoomForOrthoCamera(SpreadEventArgs args)
     {
-        float currZoom = this._virtualCamera.m_Lens.OrthographicSize;
+        //float currZoom = this._activeCamera.m_Lens.OrthographicSize;
+        float currZoom = CustomCameraSwitcher.Instance.ActiveCamera.m_Lens.OrthographicSize;
 
         currZoom = Mathf.Lerp(currZoom, currZoom - args.DistanceChange, Time.deltaTime * _zoomSpeeed);
         
         currZoom = Mathf.Clamp(currZoom, this._minZoom, this._maxZoom);
 
 
-        this._virtualCamera.m_Lens.OrthographicSize = currZoom;
+        CustomCameraSwitcher.Instance.ActiveCamera.m_Lens.OrthographicSize = currZoom;
+        //this._activeCamera.m_Lens.OrthographicSize = currZoom;
     }
 
     private void ZoomForPerspectiveCamera(SpreadEventArgs args)
@@ -157,6 +162,7 @@ public class CameraTargetter : MonoBehaviour
         Debug.Log("Zoom : " + _zoomOffset.magnitude);
 
 
-        this._virtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = _zoomOffset;
+        CustomCameraSwitcher.Instance.ActiveCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = _zoomOffset;
+        //this._activeCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = _zoomOffset;
     }
 }

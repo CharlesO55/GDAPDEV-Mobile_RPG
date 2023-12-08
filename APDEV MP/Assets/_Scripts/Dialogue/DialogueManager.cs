@@ -139,7 +139,7 @@ public class DialogueManager : MonoBehaviour
 
             this._currStory.BindExternalFunction("EndGame", () =>
             {
-                SceneLoaderManager.Instance.LoadScene(7);
+                SceneLoaderManager.Instance.LoadScene(GameSettings.END_SCENE_INDEX);
             });
         }
         else

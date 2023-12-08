@@ -4,5 +4,6 @@ using UnityEngine;
 public enum EnumCameraID
 {
     PLAYER_CAM,
-    DICE_CAM
+    DICE_CAM,
+    COMBAT_CAM
 }

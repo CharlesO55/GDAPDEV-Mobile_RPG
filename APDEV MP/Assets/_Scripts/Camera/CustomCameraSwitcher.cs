@@ -9,6 +9,7 @@ public class CustomCameraSwitcher : MonoBehaviour
     public static CustomCameraSwitcher Instance;
 
     [SerializeField] CameraDict[] _cameras;
+    public CinemachineVirtualCamera ActiveCamera { get; private set; }
 
 
     private void Awake()
@@ -29,6 +30,8 @@ public class CustomCameraSwitcher : MonoBehaviour
         {
             if(cam.camID == camID)
             {
+                ActiveCamera = cam.virtualCam;
+
                 cam.virtualCam.Priority = 10;
                 if(overrideTargetObject != null)
                 {

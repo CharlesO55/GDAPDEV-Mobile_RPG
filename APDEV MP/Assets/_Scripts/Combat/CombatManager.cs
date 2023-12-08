@@ -353,6 +353,12 @@ public class CombatManager : MonoBehaviour
         this.m_IsInCombat = true;
         this.RetrieveUnits();
         this.SwitchNextActiveUnit();
+
+
+        /**********************
+         *    CAMERA TEST     *
+         *********************/
+        CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.COMBAT_CAM);
     }
 
     private void CheckCombatEnd()
@@ -379,6 +385,13 @@ public class CombatManager : MonoBehaviour
 
         this.m_UnitList.Clear();
         MusicManager.instance.RevertBGM();
+
+
+
+        /**********************
+         *    CAMERA TEST     *
+         *********************/
+        CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.PLAYER_CAM);
     }
 
     //Adjust accordingly if enemies will not have CharacterScriptComponent

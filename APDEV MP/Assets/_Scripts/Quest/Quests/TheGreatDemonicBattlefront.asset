@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf02474f3624e14b9c81eb6f11a9ea9, type: 3}
   m_Name: TheGreatDemonicBattlefront
   m_EditorClassIdentifier: 
-  _questID: 2
+  _questID: 3
   _questName: The Great Demonic Battlefront
   _questStory: {fileID: 4900000, guid: 0258e1d442a2f4142ba2a049caf11ae7, type: 3}
   _prerequesiteQuests: 

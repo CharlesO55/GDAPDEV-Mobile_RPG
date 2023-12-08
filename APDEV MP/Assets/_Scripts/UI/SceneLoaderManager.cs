@@ -41,12 +41,15 @@ public class SceneLoaderManager : MonoBehaviour
         }
 
         //SAVE NEXT SCENE DETAILS
-        this.m_SceneSaveData.SceneIndex = sceneId;
-        this.m_SceneSaveData.SpawnAreaIndex = spawnAreaIndex;
-        SaveSystem.Save<SceneSaveData>(this.m_SceneSaveData, SaveSystem.SAVE_FILE_ID.SCENE_DATA);
+        if (sceneId != 0 && sceneId != GameSettings.END_SCENE_INDEX)
+        {
+            this.m_SceneSaveData.SceneIndex = sceneId;
+            this.m_SceneSaveData.SpawnAreaIndex = spawnAreaIndex;
+            SaveSystem.Save<SceneSaveData>(this.m_SceneSaveData, SaveSystem.SAVE_FILE_ID.SCENE_DATA);
+        }
 
         //PREPARE FOR NEW GAME
-        if(sceneId == 0)
+        if (sceneId == 0)
         {
             CleanUpDontDestroys();
         }

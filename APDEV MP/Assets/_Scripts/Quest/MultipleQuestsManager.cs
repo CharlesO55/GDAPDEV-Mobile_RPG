@@ -45,7 +45,7 @@ public class MultipleQuestsManager : MonoBehaviour
     private void Start()
     {
         SceneManager.sceneLoaded += CallUIUpdate;
-        this.UpdateUIQuestInfo();
+        //this.UpdateUIQuestInfo();
     }
 
     private void CallUIUpdate(Scene scene, LoadSceneMode mode)
@@ -190,7 +190,6 @@ public class MultipleQuestsManager : MonoBehaviour
         }
 
 
-        //SaveSystem.Save<>(this._stepTrackers, SaveSystem.SAVE_FILE_ID.QUESTS_DATA);
         UpdateUIQuestInfo();
     }
 
@@ -335,6 +334,8 @@ public class MultipleQuestsManager : MonoBehaviour
 
     private void UpdateUIQuestInfo()
     {
+        this.SaveQuestProgress(); //Hehehe
+
         if (!this.IsQuestActive())
         {
             UIManager.Instance.GetGameHUD().UpdateQuestLabels();
@@ -360,5 +361,50 @@ public class MultipleQuestsManager : MonoBehaviour
     {
         UIManager.Instance.ChangeText($"Morality changed by {nChangeBy}");
         this.m_PlayerMorality += nChangeBy;
+    }
+
+    public void EraseQuestProgress()
+    {
+        this._activeQuests.Clear();
+        this._completedQuestIDs.Clear();
+        this._stepTrackers.Clear();
+        this.m_PlayerMorality = 0;
+
+
+        this.SaveQuestProgress();
+    }
+    public void LoadQuestProgress()
+    {
+        QuestProgressSave loadedData = SaveSystem.LoadSingle<QuestProgressSave>(SaveSystem.SAVE_FILE_ID.QUESTS_DATA);
+
+        if (loadedData != null)
+        {
+            this.m_PlayerMorality = loadedData.PlayerMorality;
+            
+            this._activeQuests = loadedData.ActiveQuests;
+            this._completedQuestIDs = loadedData.CompletedQuestIDs;
+
+            for (int i = 0 ; i < loadedData.StepTrackerKeys.Count; i++)
+            {
+                this._stepTrackers[loadedData.StepTrackerKeys[i]] =
+                    loadedData.StepTrackerValues[i];
+            }
+        }
+    }
+    private void SaveQuestProgress()
+    {
+        List<EnumQuestID> stepKeys = new();
+        List<QuestStep> stepValues = new();
+
+        foreach(var step in _stepTrackers)
+        {
+            stepKeys.Add(step.Key);
+            stepValues.Add(step.Value);
+        }
+
+        QuestProgressSave wrapper = new(this.m_PlayerMorality, this._activeQuests, this._completedQuestIDs, stepKeys, stepValues);
+
+        Debug.LogWarning("Quest Save Progress overwritten");
+        SaveSystem.Save<QuestProgressSave>(wrapper, SaveSystem.SAVE_FILE_ID.QUESTS_DATA);
     }
 }

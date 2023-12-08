@@ -36,7 +36,9 @@ public class MainMenuScript : MonoBehaviour
 
     private void StartGame()
     {
+        MultipleQuestsManager.Instance.EraseQuestProgress();
         AssetSpawner.Instance.MarkNextSceneAssets(_startingSceneLabels);
+        InventoryManager.Instance.EraseInvetory();
         SceneLoaderManager.Instance.IsNewPlayerSave = true;
         SceneLoaderManager.Instance.LoadScene(1);
     }
@@ -53,9 +55,11 @@ public class MainMenuScript : MonoBehaviour
         }
         else
         {
+            MultipleQuestsManager.Instance.LoadQuestProgress();
             AssetSpawner.Instance.MarkNextSceneAssets(
                 SaveSystem.LoadSingle<SceneSaveData>(SaveSystem.SAVE_FILE_ID.SCENE_DATA).SceneAssetLabels
             );
+
             SceneLoaderManager.Instance.LoadScene(lastSceneSaved.SceneIndex, lastSceneSaved.SpawnAreaIndex);
         }
     }

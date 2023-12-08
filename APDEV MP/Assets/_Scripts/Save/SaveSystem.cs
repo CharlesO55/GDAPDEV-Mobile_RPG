@@ -18,7 +18,8 @@ public static class SaveSystem
     {
         PARTY_DATA,
         QUESTS_DATA,
-        SCENE_DATA
+        SCENE_DATA,
+        INVENTORY_DATA
     }
 
 
@@ -36,7 +37,8 @@ public static class SaveSystem
         {
             { SAVE_FILE_ID.PARTY_DATA, "PartyData.json" },
             { SAVE_FILE_ID.QUESTS_DATA, "QuestData.json" },
-            { SAVE_FILE_ID.SCENE_DATA, "SceneData.json" }
+            { SAVE_FILE_ID.SCENE_DATA, "SceneData.json" },
+            { SAVE_FILE_ID.INVENTORY_DATA, "InventoryData.json"}
         };
 
     }

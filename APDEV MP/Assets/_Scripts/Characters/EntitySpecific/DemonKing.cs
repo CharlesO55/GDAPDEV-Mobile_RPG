@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class DemonKing : CharacterScript
 {
-    protected override void AdditionalUpdateFunctions()
-    { 
+    /*protected override void AdditionalUpdateFunctions()
+    {
+        EndGameOnDeath();
+    }*/
+
+    public override void TriggerPlayerDeath()
+    {
+        base.TriggerPlayerDeath();
+        this.EndGameOnDeath();
+    }
+
+    private void EndGameOnDeath()
+    {
         if(this._characterData.CurrHealth <= 0)
         {
             Debug.Log("Demon King was slain");

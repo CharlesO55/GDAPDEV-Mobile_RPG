@@ -104,7 +104,7 @@ public class CharacterScript : MonoBehaviour
         return details;
     }
 
-    public void TriggerPlayerDeath()
+    public virtual void TriggerPlayerDeath()
     {
         if(!this.TryGetComponent<Renderer>(out Renderer _renderer))
         {

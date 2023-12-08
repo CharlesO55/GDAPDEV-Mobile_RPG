@@ -16,6 +16,8 @@ public class DeveloperMenu : MonoBehaviour
     private Button returnButton;
     private Button godModeButton;
     private Button endCombatButton;
+    private Button killParty;
+    private Button killEnemies;
     private Button unlockDoorsButton;
 
     private Label m_MoralityLevel;
@@ -34,6 +36,8 @@ public class DeveloperMenu : MonoBehaviour
         this.godModeButton = this.root.Q<Button>("GodModeButton");
         this.endCombatButton = this.root.Q<Button>("EndCombatButton");
         this.unlockDoorsButton = this.root.Q<Button>("UnlockDoorsButton");
+        this.killParty = this.root.Q<Button>("KillPartyButton");
+        this.killEnemies = this.root.Q<Button>("KillEnemiesButton");
 
         this.m_MoralityLevel = this.root.Q<Label>("MoralityLevel");
 
@@ -43,6 +47,8 @@ public class DeveloperMenu : MonoBehaviour
         this.godModeButton.clicked += this.ToggleGodMode;
         this.endCombatButton.clicked += this.EndCombat;
         this.unlockDoorsButton.clicked += this.ToggleDoorUnlock;
+        this.killParty.clicked += this.TriggerKillParty;
+        this.killEnemies.clicked += this.TriggerKillEnemies;
     }
 
     private void OnDestroy()
@@ -53,6 +59,8 @@ public class DeveloperMenu : MonoBehaviour
         this.godModeButton.clicked -= this.ToggleGodMode;
         this.endCombatButton.clicked -= this.EndCombat;
         this.unlockDoorsButton.clicked -= this.ToggleDoorUnlock;
+        this.killParty.clicked -= this.TriggerKillParty;
+        this.killEnemies.clicked -= this.TriggerKillEnemies;
     }
     private void Update()
     {
@@ -123,5 +131,15 @@ public class DeveloperMenu : MonoBehaviour
     {
         GameSettings.IS_UNLOCK_ALL_DOORS = !GameSettings.IS_UNLOCK_ALL_DOORS;
         this.unlockDoorsButton.style.backgroundColor = (GameSettings.IS_UNLOCK_ALL_DOORS) ? Color.green : Color.red;
+    }
+
+    private void TriggerKillParty()
+    {
+        //PartyManager.Instance.Get
+    }
+
+    private void TriggerKillEnemies()
+    {
+
     }
 }

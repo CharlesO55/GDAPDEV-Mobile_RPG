@@ -31,6 +31,14 @@
                         <ui:Label tabindex="-1" text="End Combat" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EndCombat" class="MenuOptionsText" />
                         <ui:Button name="EndCombatButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class, ToggleButtons" />
                     </ui:VisualElement>
+                    <ui:VisualElement name="KillPartyDiv" style="flex-grow: 1; flex-direction: row; padding-top: 20px;">
+                        <ui:Label tabindex="-1" text="Kill Party" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KillPartyLabel" class="MenuOptionsText" />
+                        <ui:Button name="KillPartyButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class, ToggleButtons" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="KillEnemiesDiv" style="flex-grow: 1; flex-direction: row; padding-top: 20px;">
+                        <ui:Label tabindex="-1" text="Kill Enemies" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KillEnemiesLabel" class="MenuOptionsText" />
+                        <ui:Button name="KillEnemiesButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class, ToggleButtons" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

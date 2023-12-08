@@ -14,19 +14,7 @@ public class CharacterScript : MonoBehaviour
 
     private void Update()
     {
-        /****************************
-         * TEMPORARIL REMOVED *******/
         NavMeshAgent m_Agent = this.GetComponent<NavMeshAgent>();
-
-
-        if (!CombatManager.Instance.IsInCombat)
-        {
-            //m_Agent.SetDestination(PartyManager.Instance.ActivePlayer.transform.position);
-            //m_Agent.stoppingDistance = 4.0f;
-        }
-
-        else
-            //m_Agent.stoppingDistance = 0.2f;
 
         if (this.gameObject == PartyManager.Instance.ActivePlayer && m_Agent.velocity != Vector3.zero)
             this.GetComponent<Animator>().SetBool("isRunning", true);

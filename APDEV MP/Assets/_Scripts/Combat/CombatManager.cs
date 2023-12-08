@@ -166,12 +166,18 @@ public class CombatManager : MonoBehaviour
         CharacterData m_AllyTargetData = null;
         CharacterData m_EnemyAttackerData = this.m_UnitList[this.m_CurrentTurnIndex].GetComponent<CharacterScript>().CharacterData;
 
-        if (this.m_UnitList.Contains(PartyManager.Instance.PartyEntities[m_Rand]))
-            m_AllyTargetData = PartyManager.Instance.PartyEntities[m_Rand].GetComponent<CharacterScript>().CharacterData;
-
-        if (m_AllyTargetData != null || !GameSettings.IS_GODMODE_ON)
+        while (m_AllyTargetData == null)
         {
-            if (m_HitChance < 10 + m_AllyTargetData.DEXMod + 3)
+            m_Rand = Random.Range(0,4);
+
+            if (this.m_UnitList.Contains(PartyManager.Instance.PartyEntities[m_Rand]))
+                m_AllyTargetData = PartyManager.Instance.PartyEntities[m_Rand].GetComponent<CharacterScript>().CharacterData;
+        }
+
+
+        if (!GameSettings.IS_GODMODE_ON)
+        {
+            if (m_HitChance < 10 + m_AllyTargetData.DEXMod + 2)
                 UIManager.Instance.ChangeText($"{m_EnemyAttackerData.PlayerName}'s attack on {m_AllyTargetData.PlayerName} has missed!");
 
             else if (m_HitChance == 20)
@@ -199,7 +205,7 @@ public class CombatManager : MonoBehaviour
         }
 
         else
-            Debug.LogWarning("Ally Does Not Exist or GodMode is On");
+            UIManager.Instance.ChangeText($"{m_AllyTargetData.PlayerName} blocked the hit!");
 
     }
 
@@ -320,15 +326,10 @@ public class CombatManager : MonoBehaviour
         NavMeshAgent m_Agent = PartyManager.Instance.ActivePlayer.GetComponent<NavMeshAgent>();
 
         while (m_CurrentTile.xLoc != x && m_CurrentTile.yLoc != y)
-        {
-            PartyManager.Instance.ActivePlayer.GetComponent<Animator>().SetBool("isRunning", true);
             yield return null;
-        }
 
         this.m_CombatGridScript.ResetGrid();
         this.m_CombatGridScript.CheckMovementRange(x, y, this.m_ActiveUnitMoves);
-
-        PartyManager.Instance.ActivePlayer.GetComponent<Animator>().SetBool("isRunning", false);
     }
 
     private IEnumerator WaitForTurnEnd()

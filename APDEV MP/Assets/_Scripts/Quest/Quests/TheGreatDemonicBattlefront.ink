@@ -128,7 +128,7 @@ Bruh... #SPEAKER:Narrator
 * [Convince CHA(8)]
     ->Convince
 + [Run]
-    ~ SetNextStep(2, _questName)
+    ~ SetNextStep(4, _questName)
     ~ AddMorality(-3)
     You dash out the door as Rhein and his brother scream at you.
     Guards saw you dashing out the building and grow suspicious.

@@ -365,4 +365,11 @@ public class DialogueManager : MonoBehaviour
         this._choiceButtons.Add(_dialogueUI.rootVisualElement.Q<Button>("Choice2"));
         this._choiceButtons.Add(_dialogueUI.rootVisualElement.Q<Button>("Choice3"));
     }
+
+    public void ToggleDialogueUI(bool bEnable)
+    {
+        DisplayStyle display = bEnable ? DisplayStyle.Flex : DisplayStyle.None;
+
+        this._dialogueUI.rootVisualElement.style.display = display;
+    }
 }

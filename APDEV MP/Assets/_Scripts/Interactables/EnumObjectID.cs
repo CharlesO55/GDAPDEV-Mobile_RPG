@@ -24,5 +24,7 @@ public enum EnumObjectID
     ZONE_KEEP_THRONE_BATTLE,
     ZONE_LOST_KEY,
     ZONE_KEEP_GATES,
-    SIGN
+    SIGN,
+    NPC_DOG,
+    NPC_CAT
 }

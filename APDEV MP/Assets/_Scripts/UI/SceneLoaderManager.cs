@@ -13,23 +13,21 @@ public class SceneLoaderManager : MonoBehaviour
 
     private UIDocument m_LoadingScreen;
 
-    [Header("Spawn Area in the new scene")]
-    private int m_SpawnAreaIndex;
-    public int SpawnAreaIndex
-    {
-        get { return m_SpawnAreaIndex; }
-    }
+    
 
 
-
-    private SceneSaveData m_SceneSaveData = new();
+    [Header("Saved Scene Data")]
+    [SerializeField] private SceneSaveData m_SceneSaveData = new();
 
 
     [Header("Use in refreshing data")]
     public bool IsNewPlayerSave;
 
     public EventHandler<Scene> OnLoadingScreenClose;
-
+    [HideInInspector] public int SpawnAreaIndex
+    {
+        get { return m_SceneSaveData.SpawnAreaIndex; }
+    }
 
     public void LoadScene(int sceneId, int spawnAreaIndex = 0)
     {
@@ -52,7 +50,6 @@ public class SceneLoaderManager : MonoBehaviour
         int currSceneID = SceneManager.GetActiveScene().buildIndex;
         this.SaveBeforeSceneChange(currSceneID);
         
-        this.m_SpawnAreaIndex = spawnAreaIndex;
 
         this.StartCoroutine(this.ShowLoadingScreen(sceneId));    
     }
@@ -83,7 +80,6 @@ public class SceneLoaderManager : MonoBehaviour
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
         
         this.OnLoadingScreenClose?.Invoke(this, SceneManager.GetActiveScene());
-        
         
         while (AssetSpawner.Instance.IsSpawning)
         {

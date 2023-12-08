@@ -297,6 +297,9 @@ public class GameHUD : MonoBehaviour
 
     public void ToggleRerollUI(bool bEnable)
     {
+        DialogueManager.Instance.ToggleDialogueUI(false);
+
+
         VisualElement rerollRoot = this.m_Root.Q<VisualElement>("RerollScreen");
         Button rerollYes = rerollRoot.Q<Button>("RerollYesButton");
         Button rerollNo = rerollRoot.Q<Button>("RerollNoButton");
@@ -330,6 +333,7 @@ public class GameHUD : MonoBehaviour
     private void CloseRerollUI()
     {
         ToggleRerollUI(false);
+        DialogueManager.Instance.ToggleDialogueUI(true);
     }
 
     private void ToggleControlsUI(bool bVisible)

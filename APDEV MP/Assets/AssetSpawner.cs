@@ -17,6 +17,7 @@ public class AssetSpawner : MonoBehaviour
 
     public bool IsSpawning { get; private set; }
 
+
     private void Awake()
     {
         if(Instance == null)
@@ -34,7 +35,8 @@ public class AssetSpawner : MonoBehaviour
     {
         SceneLoaderManager.Instance.OnLoadingScreenClose += TriggerSpawnSceneObjects;
 
-        this.TriggerSpawnSceneObjects(this, SceneManager.GetActiveScene());
+        //TESTING
+        //this.TriggerSpawnSceneObjects(this, SceneManager.GetActiveScene());
     }
     private void OnDestroy()
     {
@@ -56,12 +58,9 @@ public class AssetSpawner : MonoBehaviour
 
     private void TriggerSpawnSceneObjects(object sender, Scene scene)
     {
-        this._spawnHolder = new GameObject(SPAWN_HOLDER_TRANSFORM_NAME).transform;
+        this.IsSpawning = true;
 
-        if (_spawnHolder == null)
-        {
-            Debug.LogError("Asset Spawner requires AddresableSpawnedItems Transform to store spawned items");
-        }
+        this._spawnHolder = new GameObject(SPAWN_HOLDER_TRANSFORM_NAME).transform;
 
 
         if(scene.buildIndex >= GameSettings.PLAYABLE_SCENES_INDEX_RANGE.Item1 && scene.buildIndex <= GameSettings.PLAYABLE_SCENES_INDEX_RANGE.Item2 )
@@ -72,7 +71,7 @@ public class AssetSpawner : MonoBehaviour
 
     public void SpawnSceneObjects(List<AssetLabelReference> addressableLabels)
     {
-        this.IsSpawning = true;
+        OverwriteSceneDataSave(addressableLabels);
 
         Addressables.LoadAssetsAsync<GameObject>(addressableLabels,
             InstantiateAsset,
@@ -95,5 +94,15 @@ public class AssetSpawner : MonoBehaviour
         Debug.Log($"Asset loaded: {result}");
 
         Instantiate(result, _spawnHolder);
+    }
+
+
+    private void OverwriteSceneDataSave(List<AssetLabelReference> addressableLabels)
+    {
+        Debug.LogWarning("Overwriting asset save");
+        SceneSaveData currSceneData = SaveSystem.LoadSingle<SceneSaveData>(SaveSystem.SAVE_FILE_ID.SCENE_DATA);
+
+        currSceneData.SceneAssetLabels = addressableLabels;
+        SaveSystem.Save<SceneSaveData>(currSceneData, SaveSystem.SAVE_FILE_ID.SCENE_DATA);
     }
 }

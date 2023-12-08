@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
 using UnityEngine.VFX;
 
@@ -247,8 +248,10 @@ public class PartyManager : MonoBehaviour
         if(spawnAreaIndex < 0 || spawnAreaIndex >= this._spawnAreas.Count)
         {
             Debug.LogError("MoveToSpawnLoc failed. SpawnAreaIndex is out range");
+            return;
         }
 
+        OverwriteSceneDataSave(spawnAreaIndex);
 
         //MOVE THE PLAYERS
         foreach(GameObject partyMember in this._partyEntities)
@@ -262,6 +265,15 @@ public class PartyManager : MonoBehaviour
         }
         //CLEAR THE PREVIOUS REGISTRY
         InteractableDetector.Instance.ClearInteratableList();
+    }
+
+    private void OverwriteSceneDataSave(int spawnAreaIndex)
+    {
+        Debug.LogWarning("Overwriting scene spawn area save");
+        SceneSaveData currSceneData = SaveSystem.LoadSingle<SceneSaveData>(SaveSystem.SAVE_FILE_ID.SCENE_DATA);
+
+        currSceneData.SpawnAreaIndex = spawnAreaIndex;
+        SaveSystem.Save<SceneSaveData>(currSceneData, SaveSystem.SAVE_FILE_ID.SCENE_DATA);
     }
 
     public List<GameObject> PartyEntities { get { return this._partyEntities; } }

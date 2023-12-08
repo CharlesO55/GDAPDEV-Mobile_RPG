@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class MainMenuScript : MonoBehaviour
 {
+    [SerializeField] private List<AssetLabelReference> _startingSceneLabels;
+
     private VisualElement _root;
     private Button _start;
     private Button _continue;
@@ -32,6 +36,7 @@ public class MainMenuScript : MonoBehaviour
 
     private void StartGame()
     {
+        AssetSpawner.Instance.MarkNextSceneAssets(_startingSceneLabels);
         SceneLoaderManager.Instance.IsNewPlayerSave = true;
         SceneLoaderManager.Instance.LoadScene(1);
     }
@@ -48,6 +53,9 @@ public class MainMenuScript : MonoBehaviour
         }
         else
         {
+            AssetSpawner.Instance.MarkNextSceneAssets(
+                SaveSystem.LoadSingle<SceneSaveData>(SaveSystem.SAVE_FILE_ID.SCENE_DATA).SceneAssetLabels
+            );
             SceneLoaderManager.Instance.LoadScene(lastSceneSaved.SceneIndex, lastSceneSaved.SpawnAreaIndex);
         }
     }

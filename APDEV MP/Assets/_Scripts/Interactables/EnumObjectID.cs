@@ -26,5 +26,6 @@ public enum EnumObjectID
     ZONE_KEEP_GATES,
     SIGN,
     NPC_DOG,
-    NPC_CAT
+    NPC_CAT,
+    NPC_SNAKE
 }

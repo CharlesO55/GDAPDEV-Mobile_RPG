@@ -74,19 +74,29 @@ public class SceneLoaderManager : MonoBehaviour
 
     private IEnumerator ShowLoadingScreen(int sceneId)
     {
-        this.m_LoadingScreen.enabled = true;
+        this.ToggleLoadingScreen(true);
 
         yield return SceneManager.LoadSceneAsync(sceneId);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
         
         this.OnLoadingScreenClose?.Invoke(this, SceneManager.GetActiveScene());
         
-        while (AssetSpawner.Instance.IsSpawning)
+        if(sceneId < GameSettings.PLAYABLE_SCENES_INDEX_RANGE.Item1 || 
+            sceneId > GameSettings.PLAYABLE_SCENES_INDEX_RANGE.Item2)
         {
-            yield return null;
+            //TURN OFF WHEN THERE'S NO ASSETSPAWNER
+            this.ToggleLoadingScreen(false);
         }
+        else
+        {
+            //LOADING SCREEN IS DISABLED BY ASSETSPAWNER
+            //WHEN ALL ASEETS ARE ALREADY SPAWNED
+        }
+    }
 
-        this.m_LoadingScreen.enabled = false;
+    public void ToggleLoadingScreen(bool bEnable)
+    {
+        this.m_LoadingScreen.enabled = bEnable;
     }
 
     private void Awake()

@@ -15,7 +15,7 @@ public class AssetSpawner : MonoBehaviour
     private readonly string SPAWN_HOLDER_TRANSFORM_NAME = "AddresableSpawnedItems";
     private Transform _spawnHolder;
 
-    public bool IsSpawning { get; private set; }
+    //public bool IsSpawning { get; private set; }
 
 
     private void Awake()
@@ -58,7 +58,7 @@ public class AssetSpawner : MonoBehaviour
 
     private void TriggerSpawnSceneObjects(object sender, Scene scene)
     {
-        this.IsSpawning = true;
+        //this.IsSpawning = true;
 
         this._spawnHolder = new GameObject(SPAWN_HOLDER_TRANSFORM_NAME).transform;
 
@@ -80,7 +80,8 @@ public class AssetSpawner : MonoBehaviour
             ).Completed += (result) =>
             {
                 Debug.Log($"[{result.Status}]: Spawn");
-                this.IsSpawning = false;
+
+                SceneLoaderManager.Instance.ToggleLoadingScreen(false);
             };
     }
 

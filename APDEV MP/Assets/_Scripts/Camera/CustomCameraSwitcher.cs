@@ -45,21 +45,5 @@ public class CustomCameraSwitcher : MonoBehaviour
                 cam.virtualCam.Priority = 0;
             }
         }
-
-        
     }
-    /*
-        private bool TryGetCamera(EcamID camID, out CinemachineVirtualCamera vCam)
-        {
-            vCam = null;
-            foreach (CamDict cam  in _cameras)
-            {
-                if(cam.camID == camID)
-                {
-                    vCam = cam.vCam;
-                    return true;
-                }
-            }
-            return false;
-        }*/
 }

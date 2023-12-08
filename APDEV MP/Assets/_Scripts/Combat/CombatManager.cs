@@ -116,6 +116,11 @@ public class CombatManager : MonoBehaviour
 
                     this.m_UnitList.Remove(m_GridStat.UnitInTile);
                     m_GridStat.UnitInTile.SetActive(false);
+
+
+                    //TEST
+                    //m_GridStat.UnitInTile.GetComponent<CharacterScript>().TriggerPlayerDeath();
+                    //END
                     this.CheckCombatEnd();
                 }
 
@@ -308,6 +313,12 @@ public class CombatManager : MonoBehaviour
         }
 
         UIManager.Instance.ChangeTurn($"{this.m_UnitList[this.m_CurrentTurnIndex].name}'s Turn!");
+
+        /****************
+         * CAMERA TRACK *
+         * *************/
+        CustomCameraSwitcher.Instance.SwitchCamera(EnumCameraID.COMBAT_CAM, this.m_UnitList[this.m_CurrentTurnIndex]); 
+
         this.m_ActiveUnitMoves = this.CheckUnitMovementSpeed(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
         this.m_ActiveUnitAttackRange = this.CheckUnitAttackRange(PartyManager.Instance.ActivePlayer.GetComponent<CharacterScript>().CharacterData.CharacterClass);
         this.m_CombatGridScript.ResetGrid();

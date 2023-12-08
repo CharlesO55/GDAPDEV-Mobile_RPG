@@ -50,7 +50,7 @@ public class MultipleQuestsManager : MonoBehaviour
 
     private void CallUIUpdate(Scene scene, LoadSceneMode mode)
     {
-        if (scene.buildIndex != 0)
+        if (scene.buildIndex != 0 && scene.buildIndex != GameSettings.END_SCENE_INDEX)
         {
             this.UpdateUIQuestInfo();
         }

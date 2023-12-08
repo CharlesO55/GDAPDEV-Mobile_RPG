@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class CharacterScript : MonoBehaviour
 {
     private Rigidbody _rb;
-    private CapsuleCollider _collider;
+    protected CapsuleCollider _collider;
 
 
-    [SerializeField] private CharacterData _characterData;
+    [SerializeField] protected CharacterData _characterData;
     public CharacterData CharacterData { get { return this._characterData; } }
 
-    private void Update()
+    protected void Update()
     {
         if (this.TryGetComponent<NavMeshAgent>(out NavMeshAgent m_Agent))
         {
@@ -47,7 +48,12 @@ public class CharacterScript : MonoBehaviour
                     this.GetComponent<Animator>().SetBool("isRunning", false);
             }
         }
+
+
+        this.AdditionalUpdateFunctions();
     }
+
+    protected virtual void AdditionalUpdateFunctions() { }
 
     public void Init(CharacterData characterData)
     {
@@ -96,5 +102,14 @@ public class CharacterScript : MonoBehaviour
         details += "\nWis: " + this._characterData.Wisdom + " Int: " + this._characterData.Intelligence;
 
         return details;
+    }
+
+    public void TriggerPlayerDeath()
+    {
+        if(!this.TryGetComponent<Renderer>(out Renderer _renderer))
+        {
+            _renderer = this.GetComponentInChildren<Renderer>();
+        }
+        _renderer.enabled = false;
     }
 }

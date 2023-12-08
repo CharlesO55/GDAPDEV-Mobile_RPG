@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class EndingSceneScript : MonoBehaviour
 {
-    public static bool isDead = false;
     private VisualElement _root;
     private Image m_Background;
     private Button _returnToMain;
@@ -23,22 +23,17 @@ public class EndingSceneScript : MonoBehaviour
         this.m_Background = this._root.Q<Image>("BackgroundArt");
         this._returnToMain = this._root.Q<Button>("MenuReturn");
 
-        if (MultipleQuestsManager.Instance.PlayerMorality > -2 && MultipleQuestsManager.Instance.PlayerMorality < 2 && !isDead)
-        {
-            this.NeutralEnd();
-        }
-        else if (MultipleQuestsManager.Instance.PlayerMorality > 2 && !isDead)
-        {
-            this.GoodEnd();
-        }
-        else if (MultipleQuestsManager.Instance.PlayerMorality < -2 && !isDead)
-        {
-            this.BadEnd();
-        }
 
-        if (isDead)
+
+        if(SceneLoaderManager.Instance.IsPlayerDefeated)
         {
             this.DeadEnd();
+        }
+        else
+        {
+            if (MultipleQuestsManager.Instance.PlayerMorality > 2) this.GoodEnd();
+            else if (MultipleQuestsManager.Instance.PlayerMorality < -2) this.BadEnd();
+            else this.NeutralEnd();
         }
         this._returnToMain.clicked += ReturnToMain;
 

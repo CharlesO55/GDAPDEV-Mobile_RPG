@@ -13,42 +13,46 @@ public class SceneLoaderManager : MonoBehaviour
 
     private UIDocument m_LoadingScreen;
 
-    
+
 
 
     [Header("Saved Scene Data")]
     [SerializeField] private SceneSaveData m_SceneSaveData = new();
-
-
-    [Header("Use in refreshing data")]
-    public bool IsNewPlayerSave;
-
-    public EventHandler<Scene> OnLoadingScreenClose;
     [HideInInspector] public int SpawnAreaIndex
     {
         get { return m_SceneSaveData.SpawnAreaIndex; }
     }
 
-    public void LoadScene(int sceneId, int spawnAreaIndex = 0)
+
+    [Header("Use in refreshing data")]
+    public bool IsNewPlayerSave;
+    public bool IsPlayerDefeated { get; private set; }
+
+    public EventHandler<Scene> OnLoadingScreenClose;
+    
+
+    public void LoadScene(int sceneId, int spawnAreaIndex = 0, bool isPlayerDefeated = false)
     {
+        IsPlayerDefeated = isPlayerDefeated;
         if (sceneId >= SceneManager.sceneCountInBuildSettings)
         {
             Debug.LogError("ERROR: SceneId not within range of scene count in build settings.");
             return;
         }
 
+        //SAVE NEXT SCENE DETAILS
         this.m_SceneSaveData.SceneIndex = sceneId;
         this.m_SceneSaveData.SpawnAreaIndex = spawnAreaIndex;
         SaveSystem.Save<SceneSaveData>(this.m_SceneSaveData, SaveSystem.SAVE_FILE_ID.SCENE_DATA);
 
-
+        //PREPARE FOR NEW GAME
         if(sceneId == 0)
         {
             CleanUpDontDestroys();
         }
 
-        int currSceneID = SceneManager.GetActiveScene().buildIndex;
-        this.SaveBeforeSceneChange(currSceneID);
+        
+        this.SaveBeforeSceneChange(SceneManager.GetActiveScene().buildIndex);
         
 
         this.StartCoroutine(this.ShowLoadingScreen(sceneId));    

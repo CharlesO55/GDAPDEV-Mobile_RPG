@@ -276,5 +276,7 @@ public class PartyManager : MonoBehaviour
         SaveSystem.Save<SceneSaveData>(currSceneData, SaveSystem.SAVE_FILE_ID.SCENE_DATA);
     }
 
+
+
     public List<GameObject> PartyEntities { get { return this._partyEntities; } }
 }

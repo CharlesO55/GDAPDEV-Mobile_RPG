@@ -2209,7 +2209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071225586}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25881714, y: -0.000000016620094, z: 0.000000004453304, w: 0.96592635}
+  m_LocalRotation: {x: 0.25881714, y: 0.000000016620104, z: -0.0000000044533066, w: 0.96592635}
   m_LocalPosition: {x: 0, y: 15, z: -25.981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3261,7 +3261,7 @@ PrefabInstance:
     - target: {fileID: 288159194421072019, guid: 283915afc13c4934b813785a9747b1b4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -68.12
+      value: -60.57
       objectReference: {fileID: 0}
     - target: {fileID: 288159194421072019, guid: 283915afc13c4934b813785a9747b1b4,
         type: 3}
@@ -3271,7 +3271,7 @@ PrefabInstance:
     - target: {fileID: 288159194421072019, guid: 283915afc13c4934b813785a9747b1b4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.77
+      value: 3.22
       objectReference: {fileID: 0}
     - target: {fileID: 288159194421072019, guid: 283915afc13c4934b813785a9747b1b4,
         type: 3}
@@ -3318,7 +3318,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Demon King
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7929912550306988176, guid: 283915afc13c4934b813785a9747b1b4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -3330,6 +3331,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1488747513}
+    - targetCorrespondingSourceObject: {fileID: 627249316851567145, guid: 283915afc13c4934b813785a9747b1b4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1488747514}
   m_SourcePrefab: {fileID: 100100000, guid: 283915afc13c4934b813785a9747b1b4, type: 3}
 --- !u!1 &1488747509 stripped
 GameObject:
@@ -3373,6 +3378,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1488747514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488747509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d4d0077192fc548bdaec3dd9731b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterData:
+    _playerName: Demon King
+    _class: 1
+    _characterModel: {fileID: 0}
+    _strength: 20
+    _constitution: 14
+    _dexterity: 10
+    _intelligence: 10
+    _wisdom: 8
+    _charisma: 8
+    _maxHealth: 30
+    _rawMaxHealth: 30
+    _currHealth: 30
 --- !u!114 &1500930050 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7147675029724920410, guid: 284c9e3a022ad9b45b093240a76835f4,
@@ -3808,6 +3838,7 @@ MonoBehaviour:
   _zoomSpeeed: 0.5
   _maxZoom: 15
   _minZoom: 3
+  _zoomOffset: {x: 0, y: 5, z: 10}
 --- !u!1 &2054088488
 GameObject:
   m_ObjectHideFlags: 0
@@ -3872,7 +3903,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054088488}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25881714, y: -0.000000016620094, z: 0.000000004453304, w: 0.96592635}
+  m_LocalRotation: {x: 0.25881714, y: 0.000000016620104, z: -0.0000000044533066, w: 0.96592635}
   m_LocalPosition: {x: 0, y: 15, z: -25.981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

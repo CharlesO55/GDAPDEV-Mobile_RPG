@@ -15,8 +15,8 @@ public class DialogueStarter : MonoBehaviour , IInteractable
     public void OnInteractInterface(EnumQuestAction questAction = EnumQuestAction.TALK)
     {
         //Prioritize continuining active quest dialogue
-        
-        if(MultipleQuestsManager.Instance.IsQuestTarget(out EnumQuestID questNeedingThis, this.gameObject, questAction))
+
+        if (MultipleQuestsManager.Instance.IsQuestTarget(out EnumQuestID questNeedingThis, this.gameObject, questAction))
         {
             MultipleQuestsManager.Instance.ProceedToNextStep(questNeedingThis);
         }
@@ -37,6 +37,7 @@ public class DialogueStarter : MonoBehaviour , IInteractable
             //Else do normal dialogue
             if (_npcDialogue != null)
             {
+
                 DialogueManager.Instance.StartDialogue(_npcDialogue);
             }
             else

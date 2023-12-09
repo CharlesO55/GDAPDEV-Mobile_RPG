@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: SoundFiles
+  m_EditorClassIdentifier: 
+  m_GroupName: SoundFiles
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 0c9c0efb0301ca142a1863b6641762b6
+  m_SerializeEntries:
+  - m_GUID: c1fe5356dcb477a429f8a0f4bf1311ba
+    m_Address: Assets/Audio/SFX Files/Button Press.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d206cb1be9d44b646962b24af1cd6d86
+    m_Address: Assets/Audio/SFX Files/Door Lock.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 09e54809de3d8014f829116ea060a555
+    m_Address: Assets/Audio/SFX Files/Talk Default.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 211b8309ac055644fbb7f533be121a76
+    m_Address: Assets/Audio/SFX Files/Quest Step Complete.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 665021796d5fbee42b41376d063a4896
+    m_Address: Assets/Audio/SFX Files/Quest Complete.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3a07b9072f9657c448d9de4a52af5b46
+    m_Address: Assets/Audio/SFX Files/Attack.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f31e241332a0d345bc2af1c9f54bb2b
+    m_Address: Assets/Audio/SFX Files/Attack Miss.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef26f7f991d588a418497fee9488cc60
+    m_Address: Assets/Audio/SFX Files/Death.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e83ad73ff570864ba8efdc32f25c0f9
+    m_Address: Assets/Audio/SFX Files/Ending Dead.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b27706554a0d3c4980d9b6d3529c5c5
+    m_Address: Assets/Audio/SFX Files/Ending Default.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3829884c6a266fb49bd9e1474ace9ccf, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5654a97ab52a5c147abc8254f0168ac2, type: 2}
+    - {fileID: 11400000, guid: 7f86b6770e726ab4490fe56925b14781, type: 2}

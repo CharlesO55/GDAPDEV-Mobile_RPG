@@ -106,10 +106,12 @@ public class CharacterScript : MonoBehaviour
 
     public virtual void TriggerPlayerDeath()
     {
-        if(!this.TryGetComponent<Renderer>(out Renderer _renderer))
+        SFXManager.Instance.PlaySFX(EnumSFX.SFX_DEATH);
+/*
+        if (!this.TryGetComponent<Renderer>(out Renderer _renderer))
         {
             _renderer = this.GetComponentInChildren<Renderer>();
         }
-        _renderer.enabled = false;
+        _renderer.enabled = false;*/
     }
 }

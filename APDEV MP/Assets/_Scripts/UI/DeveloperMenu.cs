@@ -67,6 +67,11 @@ public class DeveloperMenu : MonoBehaviour
         this.m_MoralityLevel.text = "Morality: " + MultipleQuestsManager.Instance.PlayerMorality;
     }
 
+    void PlayButtonSound()
+    {
+        SFXManager.Instance.PlaySFX(EnumSFX.SFX_BUTTON);
+    }
+
     public void ToggleVisibility(bool isVisible)
     {
         if (isVisible)
@@ -79,6 +84,7 @@ public class DeveloperMenu : MonoBehaviour
     private void ToggleAutoWin()
     {
         Debug.Log("[DEVELOPER OPTIONS] : Auto Win Toggled!");
+        PlayButtonSound();
 
         GameSettings.IS_DIEROLL_ALWAYS_WIN = !GameSettings.IS_DIEROLL_ALWAYS_WIN;
 
@@ -94,6 +100,8 @@ public class DeveloperMenu : MonoBehaviour
     private void ToggleAutoLose()
     {
         Debug.Log("[DEVELOPER OPTIONS] : Auto Lose Toggled!");
+        PlayButtonSound();
+
 
         GameSettings.IS_DIEROLL_ALWAYS_FAIL = !GameSettings.IS_DIEROLL_ALWAYS_FAIL;
 
@@ -106,7 +114,9 @@ public class DeveloperMenu : MonoBehaviour
         }
     }
     private void ReturnToGame()
-    {   
+    {
+        PlayButtonSound();
+
         DebugginButton.isPaused = false;
         Debug.Log(DebugginButton.isPaused);
         Time.timeScale = 1;
@@ -116,6 +126,7 @@ public class DeveloperMenu : MonoBehaviour
     private void ToggleGodMode()
     {
         Debug.Log("[DEVELOPER OPTIONS] : God Mode Toggled!");
+        PlayButtonSound();
 
 
         GameSettings.IS_GODMODE_ON = !GameSettings.IS_GODMODE_ON;
@@ -124,22 +135,29 @@ public class DeveloperMenu : MonoBehaviour
 
     private void EndCombat()
     {
+        PlayButtonSound();
+
         CombatManager.Instance.EndCombat();
     }
 
     private void ToggleDoorUnlock()
     {
+        PlayButtonSound();
+
         GameSettings.IS_UNLOCK_ALL_DOORS = !GameSettings.IS_UNLOCK_ALL_DOORS;
         this.unlockDoorsButton.style.backgroundColor = (GameSettings.IS_UNLOCK_ALL_DOORS) ? Color.green : Color.red;
     }
 
     private void TriggerKillParty()
     {
+        PlayButtonSound();
+
         PartyManager.Instance.UpdateStats("HP", -100, true);
     }
 
     private void TriggerKillEnemies()
     {
+        PlayButtonSound();
 
     }
 }

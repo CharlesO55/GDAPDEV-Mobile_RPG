@@ -93,11 +93,17 @@ public class CombatManager : MonoBehaviour
                 CharacterData m_DamagedUnitData = m_GridStat.UnitInTile.GetComponent<CharacterScript>().CharacterData;
 
                 if (m_HitChance < 10 + m_DamagedUnitData.DEXMod)
+                {
+                    SFXManager.Instance.PlaySFX(EnumSFX.SFX_ATTACK_MISS);
                     UIManager.Instance.ChangeText($"Attack on {m_DamagedUnitData.PlayerName} has missed!");
+
+                }
 
                 else if (m_HitChance == 20)
                 {
                     m_DamageDealt = this.CheckDamage(m_ActiveUnitData) * 2;
+
+                    SFXManager.Instance.PlaySFX(EnumSFX.SFX_ATTACK);
 
                     UIManager.Instance.ChangeText($"Critical strike on {m_DamagedUnitData.PlayerName} for {m_DamageDealt}!");
                     m_DamagedUnitData.CurrHealth -= m_DamageDealt;
@@ -106,6 +112,8 @@ public class CombatManager : MonoBehaviour
                 else
                 {
                     m_DamageDealt = this.CheckDamage(m_ActiveUnitData);
+                    
+                    SFXManager.Instance.PlaySFX(EnumSFX.SFX_ATTACK);
 
                     UIManager.Instance.ChangeText($"Successful hit on {m_DamagedUnitData.PlayerName} for {m_DamageDealt}!");
                     m_DamagedUnitData.CurrHealth -= m_DamageDealt;
@@ -207,13 +215,18 @@ public class CombatManager : MonoBehaviour
         if (!GameSettings.IS_GODMODE_ON)
         {
             if (m_HitChance < 10 + m_AllyTargetData.DEXMod + 2)
+            {
                 UIManager.Instance.ChangeText($"{m_EnemyAttackerData.PlayerName}'s attack on {m_AllyTargetData.PlayerName} has missed!");
+                SFXManager.Instance.PlaySFX(EnumSFX.SFX_ATTACK_MISS);
+            }
 
             else if (m_HitChance == 20)
             {
                 m_DamageDealt = this.CheckEnemyDamage(m_EnemyAttackerData) * 2;
 
                 UIManager.Instance.ChangeText($"{m_EnemyAttackerData.PlayerName} critically strikes {m_AllyTargetData.PlayerName} for {m_DamageDealt}!");
+
+                SFXManager.Instance.PlaySFX(EnumSFX.SFX_ATTACK);
                 m_AllyTargetData.CurrHealth -= m_DamageDealt;
             }
 
@@ -221,6 +234,8 @@ public class CombatManager : MonoBehaviour
             {
                 m_DamageDealt = this.CheckEnemyDamage(m_EnemyAttackerData);
                 UIManager.Instance.ChangeText($"{m_EnemyAttackerData.PlayerName} strikes {m_AllyTargetData.PlayerName} for {m_DamageDealt}!");
+                
+                SFXManager.Instance.PlaySFX(EnumSFX.SFX_ATTACK);
                 m_AllyTargetData.CurrHealth -= m_DamageDealt;
             }
 

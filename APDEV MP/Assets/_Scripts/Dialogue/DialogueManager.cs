@@ -78,7 +78,7 @@ public class DialogueManager : MonoBehaviour
         }
 
 
-
+        SFXManager.Instance.PlaySFX(EnumSFX.SFX_TALK_DEFAULT);
         this._isStoryPlaying = true;
 
         //Helps setup the story to select the correct segment
@@ -170,6 +170,8 @@ public class DialogueManager : MonoBehaviour
     //QUICK ROLL VER
     private void DoQuickRoll(int nPassingValue)
     {
+        GestureManager.Instance.OnTapDelegate -= ContinueDialogue;
+
         DiceManager.Instance.OnDiceResultObservsers += WaitForDieResult;
         DiceManager.Instance.DoRoll(true, nPassingValue);
     }
@@ -394,6 +396,9 @@ public class DialogueManager : MonoBehaviour
     {
         DisplayStyle display = bEnable ? DisplayStyle.Flex : DisplayStyle.None;
 
-        this._dialogueUI.rootVisualElement.style.display = display;
+        if(this._dialogueUI != null)
+        {
+            this._dialogueUI.rootVisualElement.style.display = display;
+        }
     }
 }

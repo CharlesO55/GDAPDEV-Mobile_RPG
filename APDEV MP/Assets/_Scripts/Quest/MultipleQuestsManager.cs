@@ -136,6 +136,7 @@ public class MultipleQuestsManager : MonoBehaviour
             Debug.LogError("Error ProceedToNextStep received null QuestData");
         }
 
+
         //Verify
         Debug.Log($"{questReference.QuestName} Proceeding to next step");
         this._stepTrackers[questReference.QuestID].Summarize();
@@ -178,6 +179,9 @@ public class MultipleQuestsManager : MonoBehaviour
             UpdateUIQuestInfo();
             return;
         }
+
+        SFXManager.Instance.PlaySFX(EnumSFX.SFX_QUEST_STEP_COMPLETE);
+
 
         //SET THE NEXT STEP
         this._stepTrackers[reference.QuestID] = new QuestStep(reference.QuestSteps[nNextStep]);
@@ -312,6 +316,9 @@ public class MultipleQuestsManager : MonoBehaviour
     }
     private void EndQuest(QuestData questCompleted)
     {
+        SFXManager.Instance.PlaySFX(EnumSFX.SFX_QUEST_COMPLETE);
+
+
         NotificationManager.SendNotification("Quest Completed", questCompleted.QuestName);
         Debug.Log($"Completed {questCompleted.QuestName}");
      

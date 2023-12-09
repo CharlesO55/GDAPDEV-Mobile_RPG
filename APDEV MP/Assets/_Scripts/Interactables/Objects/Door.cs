@@ -22,6 +22,8 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (!string.IsNullOrEmpty(_keyName) && !InventoryManager.Instance.HasItem(_keyName) && !GameSettings.IS_UNLOCK_ALL_DOORS)
         {
+            SFXManager.Instance.PlaySFX(EnumSFX.SFX_DOOR_LOCKED);
+
             UIManager.Instance.ChangeText("Door is LOCKED");
             Debug.Log($"{this.name} is LOCKED");
             return;

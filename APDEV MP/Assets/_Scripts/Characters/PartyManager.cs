@@ -69,6 +69,12 @@ public class PartyManager : MonoBehaviour
   
     public void SavePartyData(bool bSaveFromTemplate)
     {
+        if (SceneLoaderManager.Instance.IsPlayerDefeated)
+        {
+            Debug.Log("Cancelled save for dead");
+            return;
+        }
+
         Debug.LogWarning("Overwriting party members save data");
 
         List<CharacterData> dataToSave = new();
@@ -295,6 +301,8 @@ public class PartyManager : MonoBehaviour
                 Debug.LogError($"UpdateStats failed to match string {strStat}");
                 break;
         }
+
+        CheckPartyIsDead();
     }
 
     private void OverwriteSceneDataSave(int spawnAreaIndex)
@@ -306,7 +314,19 @@ public class PartyManager : MonoBehaviour
         SaveSystem.Save<SceneSaveData>(currSceneData, SaveSystem.SAVE_FILE_ID.SCENE_DATA);
     }
 
-
+    public void CheckPartyIsDead()
+    {
+        int nTotalHealth = 0;
+        foreach(var  partyMember in this._partyEntities)
+        {
+            nTotalHealth += partyMember.GetComponent<CharacterScript>().CharacterData.CurrHealth;
+        }
+        
+        if(nTotalHealth == 0)
+        {
+            SceneLoaderManager.Instance.LoadScene(GameSettings.END_SCENE_INDEX, 0, true);
+        }
+    }
 
     public List<GameObject> PartyEntities { get { return this._partyEntities; } }
 }

@@ -38,7 +38,7 @@ Button {
     background-color: rgba(50, 50, 50, 0.8);
 }
 Button:hover{
-    background-color: yellow;
+    background-color: beige;
     -unity-font-style: bold;
 }
 

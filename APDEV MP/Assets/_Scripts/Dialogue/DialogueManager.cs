@@ -122,6 +122,11 @@ public class DialogueManager : MonoBehaviour
                 this.DoDialogueRoll(nStatRequired, strStatType);
             });
 
+            this._currStory.BindExternalFunction("DoQuickRoll", (int nPassingVal) =>
+            {
+                this.DoQuickRoll(nPassingVal);
+            });
+
             this._currStory.BindExternalFunction("RewardItem", (string strItemName) =>
             {
                 InventoryManager.Instance.AddItem(strItemName);
@@ -152,6 +157,7 @@ public class DialogueManager : MonoBehaviour
             GestureManager.Instance.OnTapDelegate -= ContinueDialogue;
 
             this._currStory.UnbindExternalFunction("SetNextStep");
+            this._currStory.UnbindExternalFunction("DoQuickRoll");
             this._currStory.UnbindExternalFunction("DoDialogueRoll");
             this._currStory.UnbindExternalFunction("RewardItem");
             this._currStory.UnbindExternalFunction("StartBattle");
@@ -161,7 +167,13 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-
+    //QUICK ROLL VER
+    private void DoQuickRoll(int nPassingValue)
+    {
+        DiceManager.Instance.OnDiceResultObservsers += WaitForDieResult;
+        DiceManager.Instance.DoRoll(true, nPassingValue);
+    }
+    //NON INSTANTANEOUS VER. REQUIRES ACCELEROMETER SHAKE
     private void DoDialogueRoll(int nStatRequired, string strStatType)
     {
         int nPlayerStat = 0;

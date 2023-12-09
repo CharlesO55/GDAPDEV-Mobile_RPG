@@ -135,7 +135,7 @@ public class DeveloperMenu : MonoBehaviour
 
     private void TriggerKillParty()
     {
-        //PartyManager.Instance.Get
+        PartyManager.Instance.UpdateStats("HP", -100, true);
     }
 
     private void TriggerKillEnemies()

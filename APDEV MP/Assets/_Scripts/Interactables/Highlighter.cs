@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class Highlighter
 {
+    private static float EMISSIVE_INTENSITY = 0.5f;
     public static void HighlightObject(GameObject objToHighlight, Color highlightColor)
     {
         //EXTRACT THE MATERIALS
@@ -31,13 +32,13 @@ public static class Highlighter
 
         if (highlightColor != Color.black)
         {
-            float emissiveIntensity = 2;
-
             foreach (Material mat in mats)
             {
                 mat.EnableKeyword("_EMISSION");
                 mat.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
-                mat.SetColor("_EmissionColor", highlightColor * emissiveIntensity);
+                mat.SetColor("_EmissionColor", highlightColor * EMISSIVE_INTENSITY);
+
+                
             }
         }
         else

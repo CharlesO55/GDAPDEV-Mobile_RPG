@@ -58,8 +58,13 @@ public class DialogueManager : MonoBehaviour
         _currStory = null;
         _isStoryPlaying = false;
 
-        _dialogueUI.enabled = false;
         this._choiceButtons = new List<Button>();
+
+
+        this._dialogueUI.enabled = true;
+        this.ToggleDialogueUI(false);
+        this.RelinkUIDocumment();
+
     }
 
     private void Update()
@@ -96,10 +101,8 @@ public class DialogueManager : MonoBehaviour
 
 
         UIManager.Instance.ToggleGameHUDControls(false);
-        this._dialogueUI.enabled = true;
+        this.ToggleDialogueUI(true);
         
-        
-        this.RelinkUIDocumment();   //Necessary whenver a UIDoc is enabled/disabled
         
         this.ContinueDialogue(null, null);
     }
@@ -266,7 +269,8 @@ public class DialogueManager : MonoBehaviour
         this._isStoryPlaying = false;
 
         UIManager.Instance.ToggleGameHUDControls(true);
-        this._dialogueUI.enabled = false;
+        
+        this.ToggleDialogueUI(false);
 
         this.ToggleFuncBinds(false);
     }
@@ -303,11 +307,6 @@ public class DialogueManager : MonoBehaviour
         this._isTextPrinting = true;
         this._dialogueTextLabel.text = "";
 
-        /*for (int i = 0; i < TextToPrint.Length; i++)
-        {
-            this._dialogueTextLabel.text += TextToPrint[i];
-            yield return null;
-        }*/
 
         int i = 0;
         while (i < TextToPrint.Length)
@@ -331,7 +330,6 @@ public class DialogueManager : MonoBehaviour
             for(int i = 0; i < choices.Count; i++)
             {
                 this._choiceButtons[i].text = choices[i].text;
-                //this._choiceButtons[i].visible = true;
                 this._choiceButtons[i].style.display = DisplayStyle.Flex;
                 this._choiceButtons[i].RegisterCallback<ClickEvent>(MakeChoice);
             }
@@ -394,11 +392,25 @@ public class DialogueManager : MonoBehaviour
 
     public void ToggleDialogueUI(bool bEnable)
     {
-        DisplayStyle display = bEnable ? DisplayStyle.Flex : DisplayStyle.None;
+        DisplayStyle display;
+
+        if (bEnable && _currStory.canContinue)
+        {
+            display = DisplayStyle.Flex;
+        }
+        else
+        {
+            display = DisplayStyle.None;
+        }
+
 
         if(this._dialogueUI != null)
         {
             this._dialogueUI.rootVisualElement.style.display = display;
+        }
+        else
+        {
+            Debug.LogError("_dialogueUI is null");
         }
     }
 }

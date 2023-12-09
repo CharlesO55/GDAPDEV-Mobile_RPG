@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/USS/DevOptionStyles.uss?fileID=7433441132597879392&amp;guid=62803d66d0b024045b867f4e2803ad60&amp;type=3#DevOptionStyles" />
+    <Style src="project://database/Assets/GUI/USS/DevOptionStyles.uss?fileID=7433441132597879392&amp;guid=62803d66d0b024045b867f4e2803ad60&amp;type=3#DevOptionStyles" />
     <ui:VisualElement name="DevOptionsContainer" style="display: none; justify-content: center; align-self: auto; align-items: center;">
         <ui:VisualElement name="OptionsContainer" style="flex-grow: 1; background-color: rgb(44, 53, 58); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; max-width: 80000px; max-height: 80%; width: 1500px; background-image: none;">
             <ui:Label tabindex="-1" text="Developer Options" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DevOptionsName" style="position: absolute; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 84px; -unity-font-style: bold-and-italic; color: rgb(255, 255, 255); top: 6%; left: 3%; -unity-text-outline-width: 1px;" />
@@ -20,6 +20,10 @@
                     <ui:VisualElement name="UnlockDoorsDiv" style="flex-grow: 1; flex-direction: row; padding-top: 20px;">
                         <ui:Label tabindex="-1" text="Unlock Doors" parse-escape-sequences="true" display-tooltip-when-elided="true" name="UnlockDoorsLabel" class="MenuOptionsText" />
                         <ui:Button name="UnlockDoorsButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class, ToggleButtons" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="RerollOnDiv" style="flex-grow: 1; flex-direction: row; padding-top: 20px;">
+                        <ui:Label tabindex="-1" text="Ad Reroll On" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RerollOnLabel" class="MenuOptionsText" />
+                        <ui:Button name="RerollOnButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="button-class, ToggleButtons" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="CombatOptions" style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">

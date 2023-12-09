@@ -19,6 +19,7 @@ public class DeveloperMenu : MonoBehaviour
     private Button killParty;
     private Button killEnemies;
     private Button unlockDoorsButton;
+    private Button rerollOnButton;
 
     private Label m_MoralityLevel;
 
@@ -38,6 +39,7 @@ public class DeveloperMenu : MonoBehaviour
         this.unlockDoorsButton = this.root.Q<Button>("UnlockDoorsButton");
         this.killParty = this.root.Q<Button>("KillPartyButton");
         this.killEnemies = this.root.Q<Button>("KillEnemiesButton");
+        this.rerollOnButton = this.root.Q<Button>("RerollOnButton");
 
         this.m_MoralityLevel = this.root.Q<Label>("MoralityLevel");
 
@@ -49,6 +51,13 @@ public class DeveloperMenu : MonoBehaviour
         this.unlockDoorsButton.clicked += this.ToggleDoorUnlock;
         this.killParty.clicked += this.TriggerKillParty;
         this.killEnemies.clicked += this.TriggerKillEnemies;
+        this.rerollOnButton.clicked += this.ToggleReroll;
+
+        UpdateButtonDisplay(this.autoWinButton, GameSettings.IS_DIEROLL_ALWAYS_WIN);
+        UpdateButtonDisplay(this.autoLoseButton, GameSettings.IS_DIEROLL_ALWAYS_FAIL);
+        UpdateButtonDisplay(this.unlockDoorsButton, GameSettings.IS_UNLOCK_ALL_DOORS);
+        UpdateButtonDisplay(this.rerollOnButton, GameSettings.IS_REROLL_ENABLED);
+        UpdateButtonDisplay(this.godModeButton, GameSettings.IS_GODMODE_ON);
     }
 
     private void OnDestroy()
@@ -61,6 +70,7 @@ public class DeveloperMenu : MonoBehaviour
         this.unlockDoorsButton.clicked -= this.ToggleDoorUnlock;
         this.killParty.clicked -= this.TriggerKillParty;
         this.killEnemies.clicked -= this.TriggerKillEnemies;
+        this.rerollOnButton.clicked -= this.ToggleReroll;
     }
     private void Update()
     {
@@ -87,8 +97,8 @@ public class DeveloperMenu : MonoBehaviour
         PlayButtonSound();
 
         GameSettings.IS_DIEROLL_ALWAYS_WIN = !GameSettings.IS_DIEROLL_ALWAYS_WIN;
+        UpdateButtonDisplay(this.autoWinButton, GameSettings.IS_DIEROLL_ALWAYS_WIN);
 
-        this.autoWinButton.style.backgroundColor = (GameSettings.IS_DIEROLL_ALWAYS_WIN) ? Color.green : Color.red;
         
         //DEACTIVATE AUTOLOSE IF BOTH ARE ENABLED
         if (GameSettings.IS_DIEROLL_ALWAYS_WIN && GameSettings.IS_DIEROLL_ALWAYS_FAIL)
@@ -105,7 +115,8 @@ public class DeveloperMenu : MonoBehaviour
 
         GameSettings.IS_DIEROLL_ALWAYS_FAIL = !GameSettings.IS_DIEROLL_ALWAYS_FAIL;
 
-        this.autoLoseButton.style.backgroundColor = (GameSettings.IS_DIEROLL_ALWAYS_FAIL) ? Color.green : Color.red;
+        UpdateButtonDisplay(this.autoLoseButton, GameSettings.IS_DIEROLL_ALWAYS_FAIL);
+
 
         //DEACTIVATE AUTOWIN IF BOTH ARE ENABLED
         if (GameSettings.IS_DIEROLL_ALWAYS_WIN && GameSettings.IS_DIEROLL_ALWAYS_FAIL)
@@ -130,7 +141,7 @@ public class DeveloperMenu : MonoBehaviour
 
 
         GameSettings.IS_GODMODE_ON = !GameSettings.IS_GODMODE_ON;
-        this.godModeButton.style.backgroundColor = (GameSettings.IS_GODMODE_ON) ? Color.green : Color.red;
+        UpdateButtonDisplay(this.godModeButton, GameSettings.IS_GODMODE_ON);
     }
 
     private void EndCombat()
@@ -145,7 +156,7 @@ public class DeveloperMenu : MonoBehaviour
         PlayButtonSound();
 
         GameSettings.IS_UNLOCK_ALL_DOORS = !GameSettings.IS_UNLOCK_ALL_DOORS;
-        this.unlockDoorsButton.style.backgroundColor = (GameSettings.IS_UNLOCK_ALL_DOORS) ? Color.green : Color.red;
+        UpdateButtonDisplay(this.unlockDoorsButton, GameSettings.IS_UNLOCK_ALL_DOORS);
     }
 
     private void TriggerKillParty()
@@ -158,6 +169,17 @@ public class DeveloperMenu : MonoBehaviour
     private void TriggerKillEnemies()
     {
         PlayButtonSound();
+    }
+    private void ToggleReroll()
+    {
+        PlayButtonSound();
 
+        GameSettings.IS_REROLL_ENABLED = !GameSettings.IS_REROLL_ENABLED;
+        UpdateButtonDisplay(rerollOnButton, GameSettings.IS_REROLL_ENABLED);
+    }
+
+    private void UpdateButtonDisplay(Button btn, bool ToF)
+    {
+        btn.style.backgroundColor = ToF ? Color.green : Color.red;
     }
 }

@@ -110,7 +110,25 @@ public class CombatManager : MonoBehaviour
                     UIManager.Instance.ChangeText($"Successful hit on {m_DamagedUnitData.PlayerName} for {m_DamageDealt}!");
                     m_DamagedUnitData.CurrHealth -= m_DamageDealt;
                 }
-                 
+
+                switch (m_ActiveUnitData.CharacterClass)
+                {
+                    case EnumUnitClass.PALADIN:
+                    case EnumUnitClass.ROGUE:
+                        PartyManager.Instance.ActivePlayer.GetComponent<Animator>().SetBool("isRanged", true);
+                        break;
+
+                    case EnumUnitClass.MAGE:
+                    case EnumUnitClass.FIGHTER:
+                        PartyManager.Instance.ActivePlayer.GetComponent<Animator>().SetBool("isRange", true);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                StartCoroutine(this.WaitForAttack(PartyManager.Instance.ActivePlayer));
+
                 if (m_DamagedUnitData.CurrHealth <= 0)
                 {
                     m_DamagedUnitData.CurrHealth = 0;
@@ -336,6 +354,13 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         this.AttackRandomAlly();
         this.EndTurn();
+    }
+
+    private IEnumerator WaitForAttack(GameObject unit)
+    {
+        yield return new WaitForSeconds(1);
+        unit.GetComponent<Animator>().SetBool("isRange", false);
+        unit.GetComponent<Animator>().SetBool("isRanged", false);
     }
 
     private IEnumerator WaitForMovement(int x, int y)

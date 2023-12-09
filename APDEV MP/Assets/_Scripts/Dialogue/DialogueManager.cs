@@ -141,6 +141,11 @@ public class DialogueManager : MonoBehaviour
             {
                 SceneLoaderManager.Instance.LoadScene(GameSettings.END_SCENE_INDEX);
             });
+
+            this._currStory.BindExternalFunction("ChangeStat", (string strStat, int nAmount, bool bEntireParty) =>
+            {
+                PartyManager.Instance.UpdateStats(strStat, nAmount, bEntireParty);
+            });
         }
         else
         {
@@ -152,6 +157,7 @@ public class DialogueManager : MonoBehaviour
             this._currStory.UnbindExternalFunction("StartBattle");
             this._currStory.UnbindExternalFunction("AddMorality");
             this._currStory.UnbindExternalFunction("EndGame");
+            this._currStory.UnbindExternalFunction("ChangeStat");
         }
     }
 

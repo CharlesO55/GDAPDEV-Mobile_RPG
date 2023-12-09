@@ -27,5 +27,6 @@ public enum EnumObjectID
     SIGN,
     NPC_DOG,
     NPC_CAT,
-    NPC_SNAKE
+    NPC_SNAKE,
+    NPC_BARMAID
 }

@@ -267,6 +267,36 @@ public class PartyManager : MonoBehaviour
         InteractableDetector.Instance.ClearInteratableList();
     }
 
+    public void UpdateStats(string strStat, int nAmount, bool bEntireParty)
+    {
+        if(bEntireParty)
+        {
+            foreach(GameObject partyMember in this._partyEntities)
+            {
+                UpdateStatsHelper(strStat, nAmount, partyMember.GetComponent<CharacterScript>().CharacterData);
+            }
+        }
+        else
+        {
+            UpdateStatsHelper(strStat, nAmount, _activePlayer.GetComponent<CharacterScript>().CharacterData);
+        }
+    }
+
+    private void UpdateStatsHelper(string strStat, int nAmount, CharacterData data)
+    {
+        Debug.Log($"{data.PlayerName}: {strStat} changing by {nAmount}");
+
+        switch (strStat)
+        {
+            case "HP":
+                data.CurrHealth += nAmount;
+                break;
+            default:
+                Debug.LogError($"UpdateStats failed to match string {strStat}");
+                break;
+        }
+    }
+
     private void OverwriteSceneDataSave(int spawnAreaIndex)
     {
         Debug.LogWarning("Overwriting scene spawn area save");

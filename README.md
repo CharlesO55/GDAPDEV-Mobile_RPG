@@ -2,10 +2,23 @@
 Introduction to Unity 3D for Mobile with RPG Mechanics.
 
 # Product
-[Watch Demo](https://yotuube.com)
+[Watch Demo](https://youtu.be/0yrj8IlmjoE)
 <table>
   <tr>
-     
+     <td align="center"><img alt="Dice Roll" src="Images/Dice0.jpg"></td>
+     <td align="center"><img alt="Movement" src="Images/Move0.jpg"></td>
+  </tr>
+  <tr>
+     <td align="center"><b>Dice Roll and Ad Based Reroll</b></td>
+     <td align="center"><b>Mobile Joystick + NavMesh Movement</b></td>
+  </tr>
+  <tr>
+     <td align="center"><img alt="Dialogue" src="Images/Dialogue0.jpg"></td>
+     <td align="center"><img alt="Grid Combat" src="Images/Combat0.jpg"></td>
+  </tr>
+  <tr>
+     <td align="center"><b>Branching Dialogue and Quests</b></td>
+     <td align="center"><b>Grid Turn Based Combat</b></td>
   </tr>
 </table>
 
@@ -29,6 +42,9 @@ Introduction to Unity 3D for Mobile with RPG Mechanics.
     - Swap between 
 16. SaveSystem
     - Read writes of Serializaable data to and from JSON.
+17. Dialogue and Quest System
+    - Branching dialogue with Inky.
+    - Allows separate quest routes.
 
 # Learnings
 1. Script Execution Order
